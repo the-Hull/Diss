@@ -1,0 +1,64 @@
+%%%% 
+%% Main body of the dissertation. Sets the documentclass and includes all packages, defintions and sets the document structure
+%%%%
+%
+%
+%% Set Documentclass 
+\documentclass%
+[%
+paper=a4
+,fontsize=12pt 
+,headings=big
+,parskip
+,numbers=noendperiod % 2.3.1 vs 2.3.1. (no dot after the last chapter number)
+,twoside=false
+,toc=bibliography % Bibliography appears in Table of Contents (without a number)
+,toc=listof % List of Figures and List of Tables appear in Table of Contents
+,version=last % Use latest version of the KOMA-Script
+%,open=any
+]%
+{scrbook}	
+
+\usepackage{packages}
+
+\input{define/settings.tex}
+
+\begin{document}
+\input{title/titlepage.tex}
+\clearpage
+% Empty Page after Title
+
+
+\frontmatter %set roman page numbering
+
+
+\input{frontmatter/declaration.tex}
+\clearpage
+
+\input{frontmatter/acknowledgements.tex}
+\clearpage
+
+\input{frontmatter/abstract.tex}
+
+\tableofcontents
+\clearpage
+
+\listoffigures
+\clearpage
+
+\listoftables
+\clearpage
+
+
+%% ----------------------------------------------------
+\mainmatter %set arabic page numbering
+\pagestyle{scrheadings}
+\input{define/headfoot.tex}
+
+\onehalfspacing % Set line space to 1.5
+
+\input{intro/intro.tex}
+\clearpage
+textest
+
+\end{document}
