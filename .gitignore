@@ -1,5 +1,7 @@
 /latex-thesis-template
-/Literature
+/Literature/unclass
+/Literature/extraction
+*.bak
 /Writeup/Proposal
 /Model
 *.jnlp
@@ -29,3 +31,4 @@
 *.mtc1
 *.out
 *.synctex.gz
+*.out.ps

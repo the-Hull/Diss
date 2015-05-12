@@ -16,9 +16,11 @@ paper=a4
 ,toc=listof % List of Figures and List of Tables appear in Table of Contents
 ,version=last % Use latest version of the KOMA-Script
 %,open=any
+,darft
 ]%
 {scrbook}	
 
+\usepackage{lineno}
 \usepackage{packages}
 
 \input{define/settings.tex}
@@ -57,8 +59,15 @@ paper=a4
 
 \onehalfspacing % Set line space to 1.5
 
+% for line numbers
+\linenumbers
+
 \input{intro/intro.tex}
 \clearpage
 textest
+
+\bibliographystyle{apalike}
+%\footnotesize
+\bibliography{../../Literature/biodiv}
 
 \end{document}
