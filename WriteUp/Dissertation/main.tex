@@ -16,7 +16,7 @@ paper=a4
 ,toc=listof % List of Figures and List of Tables appear in Table of Contents
 ,version=last % Use latest version of the KOMA-Script
 %,open=any
-,darft
+%,draft
 ]%
 {scrbook}	
 
@@ -25,31 +25,33 @@ paper=a4
 
 \input{define/settings.tex}
 
+
 \begin{document}
-\input{title/titlepage.tex}
+\input{define/commands.tex}
+%\input{title/titlepage.tex}
 \clearpage
 % Empty Page after Title
 
 
-\frontmatter %set roman page numbering
+%\frontmatter %set roman page numbering
 
 
-\input{frontmatter/declaration.tex}
-\clearpage
-
-\input{frontmatter/acknowledgements.tex}
-\clearpage
-
-\input{frontmatter/abstract.tex}
-
-\tableofcontents
-\clearpage
-
-\listoffigures
-\clearpage
-
-\listoftables
-\clearpage
+%\input{frontmatter/declaration.tex}
+%\clearpage
+%
+%\input{frontmatter/acknowledgements.tex}
+%\clearpage
+%
+%\input{frontmatter/abstract.tex}
+%
+%\tableofcontents
+%\clearpage
+%
+%\listoffigures
+%\clearpage
+%
+%\listoftables
+%\clearpage
 
 
 %% ----------------------------------------------------
