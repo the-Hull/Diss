@@ -69,10 +69,13 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T){
       # Set up graphics device --------------------------------------------------
 
       if (plot == T){
+      
+            plot.layout <- if (is.null(expno) & is.null(fgroup)){c(1,2)}
+
+            plot.layout <- if (!is.null(expno) & is.null(fgroup)){c(length(expno), 2)}
 
             x11()
-            par(mfrow=)
-
+            par(mfrow=plot.layout)
 
       } else {tmp.data}
 
