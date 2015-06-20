@@ -1,7 +1,7 @@
 
 # Plot Time Series of BioMass Density, for a set of functional gro --------
 
-data_plot <- function(data, expno=NULL, fgroup=NULL){
+data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T){
 
 
       ## Check if any subsetting is required
@@ -65,4 +65,16 @@ data_plot <- function(data, expno=NULL, fgroup=NULL){
 
 
       }
+
+      # Set up graphics device --------------------------------------------------
+
+      if (plot == T){
+
+            x11()
+            par(mfrow=)
+
+
+      } else {tmp.data}
+
 }
+
