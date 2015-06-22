@@ -94,12 +94,17 @@ get.data <- function(simlist, expno=NULL){
                                 )
 
 
-        if(is.null(expno)){
+        if(is.null(expno) | length(expno)==1){
                 sub <- simlist[simlist$CellCode!="Global", ]
                 print("No experiments specified. Pulling all available data.")
         }else{
-                sub <- simlist[simlist$CellCode!="Global" & simlist$ExpNo==expno, ]
-                print(paste("Pulling data for experiments:",
+
+                  condition <- parse(text = condition_builder("ExpNo", "==", expno, "|"))
+                  sub.tmp <- subset(simlist, CellCode!="Global")
+                  sub <- subset(sub.tmp, eval(condition))
+
+#                   sub <- simlist[simlist$CellCode!="Global" & simlist$ExpNo==expno, ]
+                  print(paste("Pulling data for experiments:",
                             expno[1], "to", expno[length(expno)], sep=" "))
         }
 
