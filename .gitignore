@@ -4,6 +4,7 @@
 *.bak
 /Writeup/Proposal
 /Model
+/Analysis/error_data
 *.jnlp
 *.pdf
 *.doc

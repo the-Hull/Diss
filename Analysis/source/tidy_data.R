@@ -83,7 +83,7 @@ list.simulations <- function(){
 
 get.data <- function(simlist, expno=NULL){
 
-        values <- data.frame(ExpNo=integer(),
+      values <- data.frame(ExpNo=integer(),
                              Folder=character(),
                              CellCode=character(),
                              SimNo=numeric(),
@@ -94,23 +94,32 @@ get.data <- function(simlist, expno=NULL){
                                 )
 
 
-        if(is.null(expno) | length(expno)==1){
-                sub <- simlist[simlist$CellCode!="Global", ]
-                print("No experiments specified. Pulling all available data.")
-        }else{
+      if(is.null(expno)){
 
-                  condition <- parse(text = condition_builder("ExpNo", "==", expno, "|"))
-                  sub.tmp <- subset(simlist, CellCode!="Global")
-                  sub <- subset(sub.tmp, eval(condition))
+            sub <- simlist[simlist$CellCode!="Global", ]
+            print("No experiments specified. Pulling all available data.")
+
+      } else if (length(expno)==1){
+
+            condition <- parse(text = condition_builder("ExpNo", "==", expno))
+            sub.tmp <- subset(simlist, CellCode!="Global")
+            sub <- subset(sub.tmp, eval(condition))
+
+
+      }else{
+
+            condition <- parse(text = condition_builder("ExpNo", "==", expno, "|"))
+            sub.tmp <- subset(simlist, CellCode!="Global")
+            sub <- subset(sub.tmp, eval(condition))
 
 #                   sub <- simlist[simlist$CellCode!="Global" & simlist$ExpNo==expno, ]
-                  print(paste("Pulling data for experiments:",
-                            expno[1], "to", expno[length(expno)], sep=" "))
+            print(paste("Pulling data for experiments:",
+                      expno[1], "to", expno[length(expno)], sep=" "))
         }
 
 
-        for(i in 1:nrow(sub)){
-                tmp_values <- data.frame(ExpNo=integer(),
+      for(i in 1:nrow(sub)){
+            tmp_values <- data.frame(ExpNo=integer(),
                                          Folder=character(),
                                          CellCode=character(),
                                          SimNo=numeric(),
@@ -120,38 +129,42 @@ get.data <- function(simlist, expno=NULL){
                                          stringsAsFactors=F
                 )
 
-                nc <- nc_open(sub$Fullpath[i])
+            nc <- nc_open(sub$Fullpath[i])
 
-                if(length(nc$var)>12){
-                        groups <- c(4,5,7,13)
-                }else{
-                        groups <- c(4,5,7)
-                }
 
-                for(group in groups){
-                        val <- ncvar_get(nc, nc$var[[group]])
+            if(length(nc$var)>12){
+                  groups <- c(4,5,7,13)
+            }else{
+                  groups <- c(4,5,7)
+            }
 
-                        for(tstep in 1:length(val)){
 
-                                tmp_values[tstep, ] <-
-                                        c(sub$ExpNo[i],
-                                          sub$Folder[i],
-                                          sub$CellCode[i],
-                                          sub$SimNo[i],
-                                          sub(" [[:alpha:]]*", "",
-                                              gsub(" [[:alpha:]]*", "",
-                                                   nc$var[[group]]$name)),
-                                          val[tstep],
-                                          tstep
-                                        )
 
-                        }
-                        values <- rbind(values, tmp_values)
-                }
-                nc_close(nc)
-        }
-        values$SimNo <- as.numeric(values$SimNo)
-        values$TimeStep <- as.numeric(values$TimeStep)
-        values$MassDens <- as.numeric(values$MassDens)
-        return(values)
+            for(group in groups){
+                  val <- ncvar_get(nc, nc$var[[group]])
+
+                  for(tstep in 1:length(val)){
+
+                        tmp_values[tstep, ] <-
+                              c(sub$ExpNo[i],
+                                sub$Folder[i],
+                                sub$CellCode[i],
+                                sub$SimNo[i],
+                                sub(" [[:alpha:]]*", "",
+                                    gsub(" [[:alpha:]]*", "",
+                                         nc$var[[group]]$name)),
+                                val[tstep],
+                                tstep
+                              )
+
+                  }
+                  values <- rbind(values, tmp_values)
+            }
+            nc_close(nc)
+      }
+
+      values$SimNo <- as.numeric(values$SimNo)
+      values$TimeStep <- as.numeric(values$TimeStep)
+      values$MassDens <- as.numeric(values$MassDens)
+      return(values)
 }
