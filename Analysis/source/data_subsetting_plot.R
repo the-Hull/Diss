@@ -69,13 +69,48 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T){
       # Set up graphics device --------------------------------------------------
 
       if (plot == T){
-      
-            plot.layout <- if (is.null(expno) & is.null(fgroup)){c(1,2)}
 
-            plot.layout <- if (!is.null(expno) & is.null(fgroup)){c(length(expno), 2)}
+            plot.layout <- if (is.null(expno) & is.null(fgroup)){c(1,1)}
+
+            plot.layout <- if (!is.null(expno) & is.null(fgroup)){c(length(expno), 1)}
+
+
+
+            numexp <- length(expno)
 
             x11()
+
             par(mfrow=plot.layout)
+            par(mar=c(4,4,1,1))
+            cols <- c("red", "blue", "brown")
+
+            for(i in 1:numexp){
+
+                  tmp.data4plot <- subset(tmp.data, ExpNo==expno[i])
+                  groups <- unique(tmp.data4plot$FGroup)
+                  ngroups <- length(unique(tmp.data4plot$FGroup))
+
+                  for(j in 1:ngroups){
+
+                        if(j==1){
+                              plot(tmp.data4plot$Median[tmp.data4plot$FGroup==groups[j]],
+                                   xlab="Time Step (months)",
+                                   ylab="Biomass Density [kg/sqkm]",
+                                   col="darkgreen",
+                                   xlim=c(100, 2402),
+                                   ylim=c(0, 3000000),
+                                   type="l",
+                                   lty=1)
+
+                              abline(v=1201, lty=2, col="darkgrey")
+                        } else {
+                              lines(tmp.data4plot$Median[tmp.data4plot$FGroup==groups[j]],
+                                    col=cols[j])
+                        }
+                  }
+            }
+
+
 
       } else {tmp.data}
 

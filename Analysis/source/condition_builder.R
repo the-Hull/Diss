@@ -4,7 +4,7 @@
 
 condition_builder <- function(group, operator, match, modif=NULL){
 
-      condi <- paste0(paste0(group,operator), paste0('"',match,'"'))
+      condi <- paste0(paste0(group,operator), paste0("'",match,"'"))
 
       if(length(match)>1 & !is.null(modif)){
 

@@ -1,0 +1,133 @@
+---
+title: "Ecosystem Functioning and Functional Diversity"
+author: "Alexander Hurley"
+date: "Wednesday, June 24, 2015"
+output: html_document
+---
+
+```{r load, echo=FALSE, include=FALSE}
+require(knitr)
+#opts_knit$set(root.dir = normalizePath('../.'))
+
+# Load Packages -----------------------------------------------------------
+
+source("./packages/packages.R")
+# read.csv("./report_data/SimOverview.csv", header=T)
+      # Functions Require packages (e.g. dplyr)
+
+# Source Functions --------------------------------------------------------
+
+source("./source/loader.R")
+
+
+```
+
+# Foreword
+
+This document briefly outlines the rational behind the experimental design
+and traces the first tentative steps in the data analysis. The entire analysis
+(i.e. all scripts, functions, required packages) are available in my 
+[Dissertation](https://github.com/the-Hull/Diss) github repository. 
+
+## Background
+
+Biodiversity-Ecosystem Functioning relationships have been studied in a variety
+of settings, ranging from small mesocosm to large-scale multi-year (or even multi-decadal) experiments. In spite of generating mechanistic understanding of how a community shapes
+its (eco-)system, these studies are limited to few interacting species (or entities),
+and often only capture processes in adjacent trophic levels.
+The [Madingley Model](www.madingleymodel.org) offers a modelling environment in which
+high degrees of complexity - more akin to "real-world" ecosystems - can be simulated spatially explicit over any given time span (i.e. within computational feasibility).  
+
+
+## Study Aim and Design
+This study aims to elucidate the role of functional diversity and community composition
+on ecosystem functioning. This will be achieved by contrasting the effects of decreased
+functional diversity (i.e. number of functional groups) under different community composition
+(i.e. which functional groups are present) for a complex food web of 4 trophic levels
+(i.e. primary producers, herbivores, omnnivores, carnivores).  
+
+In the model, (heterotrophic) functional groups are encoded via simple life history traits, their metabolic strategy, as well as their trophic identity (amongst others; primary producers are comprised of a deciduous and an evergreen plant stock).
+
+```{r fgroups, echo=F}
+library(xtable)
+fg <- read.csv("./report_data/CohortFunctionalGroupDefinitions.csv", 
+               stringsAsFactors = F,
+               header=T)[11:19,1:13]
+colnames(fg)
+
+```
+
+
+Above all, heterotrophic groups comprise of 3
+functional groups fundamentally defined their reproductive (iteroparity, semelparity) and metabolic strategy. For this study, carnivorous organisms are the focal group. They are encoded as: 
+
+
+```{r carnivores, echo=F, results='asis'}
+print(xtable(fg[fg$DEFINITION_Nutrition.source=="Carnivore",c(1,2,6,7)]), 
+      include.rownames=FALSE,
+      type="html")
+```
+  
+  
+Ecosystem functioning - expressed via a proxy measure of **biomass density** [$kg/km^{2}$] - was simulated for 7 scenarios of different functional diversity and community composition. Herefore, functional diversity was decreased stepwise by removing carnivorous functional groups (in different combinations for the removal of 2 groups) - essentially a factorial design. Note, that this does not alter the trophic structure of the system (carnivores remain). For each scenario, 100 simulations were done to capture variability (as the model is not deterministic) over 100 years at a monthly resolution. Results of a final scenario (ExpNo == 8) were recorded in order to identify whether the reduction of functional diversity (or a given combination of groups) would result in a dynamic comparable to a less trophically less complex system. 
+ 
+ 
+```{r simover,  echo=F, results='asis'}
+simoverview <- read.csv("./report_data/SimOverview.csv",
+                        header=T,
+                        stringsAsFactors = F)
+simoverview <- simoverview[,c(1,7,3,8,4,5)]
+
+
+print(xtable(simoverview, align=c("c", rep(c("c","l"),2),"c", "c")), 
+      type="html",
+      include.rownames=F)
+```
+
+The data for each scenario was collated, i.e. each time step is represented by 100 data points resulting from their respective simulations. The following table shows an excerpt of the data set. Mean, CI, standard deviation, as well as range and the median were calculated:
+
+```{r loaddat, echo=FALSE, results='asis', cache=TRUE}
+load("./output/expdataFull.Rda")
+# set1_sum <- summary_stats(set1)
+# head(set1_sum)
+
+```
+
+
+
+```{r summary, echo=FALSE, results='asis', cache=FALSE}
+stats <- summary_stats(expdataFull)
+exp1_stats <- subset(stats, 
+               eval(parse(text=condition_builder("ExpNo","==", c(1)))))
+
+print(xtable(head(exp1_stats), 
+      align=rep("c", 13)),
+      include.rownames=F,
+      type="html")
+# set1_sum <- summary_stats(set1)
+# head(set1_sum)
+
+```
+
+The following two plots show the biomass density [$kg/km^{2}$] for the aseasonal environment in Cell0 (*A*) and the seasonal environment in Cell1 (*B*).
+
+```{r TimeSeries, echo=F, fig.height=8, fig.width=12}
+par(mfrow=c(1,2))
+
+
+
+
+```
+
+
+```{r dist, echo=FALSE, fig.height=8, fig.width=12, cache=FALSE}
+
+boxplot(MassDens~FGroup+CellCode, data=exp1)
+# t10 <- subset(exp1, TimeStep=="10")
+
+# head(t10)
+
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

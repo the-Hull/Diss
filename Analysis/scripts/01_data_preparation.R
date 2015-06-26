@@ -3,16 +3,23 @@
 
 # Apply Functions to get & clean data ---------------------------------------
 
-simlist <- list.simulations()
-exp.initial <- get.data(simlist, expno=1)
-exp.rm1_end <- get.data(simlist,expno=2)
+# simlist <- list.simulations()
+
+# expdata <- get.data(simlist)
+
 
 
 
 # Save individual experiments
-
-name <- gsub("2015.*", "", gsub(".*W/", "", unique(exp.initial$Folder)))
-save(file=paste0("./output/", name, ".R"), exp.initial)
-
+#
+# name <- gsub("2015.*", "", gsub(".*W/", "", unique(exp.initial$Folder)))
+# save(file=paste0("./output/", name, ".R"), exp.initial)
+#
 
 load("./output//simulation_list.R")
+
+
+# Load Experiment Data ----------------------------------------------------
+
+expdata.list <- list.files("./output/", pattern = ".Rda", full.names = T)
+sapply(expdata.list, load)
