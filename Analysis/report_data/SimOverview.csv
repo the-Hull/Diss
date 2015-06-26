@@ -1,9 +1,9 @@
 ExpNo,Removed_Fgroups,RM_No,Sims,Duration,Pass,Label_Verbose,Label_Abb
-01,Initial,0,100,100,TRUE,Removed: None,00
-02,RM-END_CAR,1,100,100,TRUE,Removed: end. Carnivores,C(end)
-03,RM_ECT-s_CAR,1,100,100,TRUE,Removed: ecto. Carnivores (semelp.),C(ect)s
-04,RM_ECT-i_CAR,1,100,100,TRUE,Removed: ecto. Carnivores (itero.),C(ect)i
-05,RM_END_CAR_ECT-s_CAR,2,100,100,TRUE,Removed: end. Carnivores + ecto. Carnivores (semelp.) ,C(end) + C(ect)s
-06,RM-END_CAR-ECT-i_CAR,2,100,100,TRUE,Removed: end. Carnivores + ecto. Carnivores (itero.) ,C(end) + C(ect)i
-07,RM_ECT-i_CAR_ECT-s_CAR,2,100,100,FALSE,Removed: ecto. Carnivores (semelp.) + ecto. Carnivores (iterop.),C(ect)s + C(ect)i
-08,RM-END_CAR-ECT-i_CAR-ECT-s_CAR,3,100,100,TRUE,Removed: all Carnivores,C(-)
+1,Initial,0,100,100,TRUE,Removed: None,C(end) + C(ect)s + C(ect)i
+2,RM-END_CAR,1,100,100,TRUE,Removed: end. Carnivores,C(ect)i + C(ect)s
+3,RM_ECT-s_CAR,1,100,100,TRUE,Removed: ecto. Carnivores (semelp.),C(end) + C(ect)i
+4,RM_ECT-i_CAR,1,100,100,TRUE,Removed: ecto. Carnivores (itero.),C(end) + C(ect)s
+5,RM_END_CAR_ECT-s_CAR,2,100,100,TRUE,Removed: end. Carnivores + ecto. Carnivores (semelp.) ,C(ect)i
+6,RM-END_CAR-ECT-i_CAR,2,100,100,TRUE,Removed: end. Carnivores + ecto. Carnivores (itero.) ,C(ect)s
+7,RM_ECT-i_CAR_ECT-s_CAR,2,100,100,FALSE,Removed: ecto. Carnivores (semelp.) + ecto. Carnivores (iterop.),C(end)
+8,RM-END_CAR-ECT-i_CAR-ECT-s_CAR,3,100,100,TRUE,Removed: all Carnivores,C(-)

@@ -95,7 +95,7 @@ load("./output/expdataFull.Rda")
 
 
 
-```{r summary, echo=FALSE, results='asis', cache=FALSE}
+```{r summary, echo=FALSE, results='asis', cache=TRUE}
 stats <- summary_stats(expdataFull)
 exp1_stats <- subset(stats, 
                eval(parse(text=condition_builder("ExpNo","==", c(1)))))
@@ -109,20 +109,44 @@ print(xtable(head(exp1_stats),
 
 ```
 
-The following two plots show the biomass density [$kg/km^{2}$] for the aseasonal environment in Cell0 (*A*) and the seasonal environment in Cell1 (*B*).
+The following two plots show the logged biomass density [$kg/km^{2}$] for the aseasonal environment in Cell0 (**left**) and the seasonal environment in Cell1 (**right**). The y-axes are scaled identically for easy comparison.
 
-```{r TimeSeries, echo=F, fig.height=8, fig.width=12}
-par(mfrow=c(1,2))
+```{r legend, echo=F, fig.height=1.5, fig.width=12}
+            cols <- data.frame(FGroup=c("autotroph",
+                                        "carnivore",
+                                        "herbivore",
+                                        "omnivore"),
+                               Color=c("olivedrab",
+                                       "orangered4",
+                                       "seagreen4",
+                                       "darkgoldenrod3"),
+                               stringsAsFactors = F)
+
+par(mar=rep(0,4))
+plot(1:1, type="n", axes=F, xlab="", ylab="")
 
 
+legend("center", legend = cols$FGroup, col = cols$Color, lwd = 2 , bty="n", horiz=T)
 
 
 ```
 
 
-```{r dist, echo=FALSE, fig.height=8, fig.width=12, cache=FALSE}
+```{r TimeSeries, echo=F, fig.height=16, fig.width=12}
 
-boxplot(MassDens~FGroup+CellCode, data=exp1)
+
+
+data_plot(stats, expno = 1:4, logscale = T)
+
+
+
+```
+
+This set of plots compares the logged biomass density of by trophic group for each experiment in the aseasonal (**top**) and seasonal (**bottom**) environment.
+
+```{r compare, echo=FALSE, fig.height=12, fig.width=12, cache=FALSE}
+
+data_boxplot(stats, expno=c(1:4), logscale = T, cutoff=500)
 # t10 <- subset(exp1, TimeStep=="10")
 
 # head(t10)

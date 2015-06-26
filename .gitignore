@@ -1,10 +1,18 @@
+/Analysis/output/individual
+
+/Analysis/error_data
+/Analysis/report_cache
+/Analysis/report_files
+/Analysis_report_data
 /latex-thesis-template
 /Literature/unclass
 /Literature/extraction
 *.bak
 /Writeup/Proposal
 /Model
-/Analysis/error_data
+
+*.xlsx
+*.html
 *.jnlp
 *.pdf
 *.doc
@@ -52,3 +60,4 @@ vignettes/*.pdf
 
 /Analysis/RAW
 
+Analysis/report.html
