@@ -7,15 +7,15 @@ massbins <- read.csv("~/GitHub/madingley-ecosystem-model-biodiversity-function/m
 
 # Creating sequence for chosen Massbins
 
-above10 <- rev((2^(4:10)))
-above1 <- 10:1
-above001 <- sort((rep(1:9, 2) / c(rep(10,9), rep(100,9))), decreasing = T)
-below001 <- rep(1, 4)/(10^(3:6))
-
+above1000 <- rev((2^(0:10)))*1000
+above100 <- rev(1:10)*100
+above10 <- rev(1:10)*10
+above001 <- rev((2^(0:9)))/100
+below001 <- 0.01/(10^(1:4))
 
 # create vector, add 0 as last lower bound, multiply with 1000 for g
 
-newbins <- c(above10, above1, above001, below001, 0)*1000
+newbins <- c(above1000, above100, above10, above001, below001, 0)
 
 # Diagnostics
 # plot(log10(newbins))
@@ -25,12 +25,12 @@ newbins <- c(above10, above1, above001, below001, 0)*1000
 # Replace massbins and write results to table
 
 massbins$Mass.bin.lower.bound <- NULL
-massbins <- massbins[-c(41:78),]
+massbins <- massbins[-c(47:78),]
 massbins$Mass.bin.lower.bound <- newbins
 names(massbins) <- gsub("\\.", " ", names(massbins))
 
 
-write.csv(massbins,
-          file="./output/MassBinDefinitions.csv",
-          row.names=F)
-
+# write.csv(massbins,
+#           file="./output/MassBinDefinitions.csv",
+#           row.names=F)
+#

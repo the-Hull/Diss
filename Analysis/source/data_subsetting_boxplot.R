@@ -1,6 +1,9 @@
 
 # Plot Time Series of BioMass Density, for a set of functional groups and experiments -----
 
+
+### DEBUG: Axis labels / ticks for expno = 1:8 produces error (only 3 fgroups for E8)
+
 data_boxplot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F,
                          cutoff=NULL){
 
@@ -105,8 +108,12 @@ data_boxplot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F,
                                        "darkgoldenrod3"),
                                stringsAsFactors = F)
 
+            if (ngroups > 1){
+                  cols.con <- parse(text = condition_builder("FGroup", "==", groups, "|"))
+            } else {
+                  cols.con <- parse(text = condition_builder("FGroup", "==", groups))
+            }
 
-            cols.con <- parse(text = condition_builder("FGroup", "==", groups, "|"))
             cols.sub <- subset(cols, eval(cols.con))
 
 
@@ -142,7 +149,7 @@ data_boxplot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F,
                                             numexp,
                                             labels = groups)))
 
-            print(labels)
+            # print(labels)
 
             # open graphics device
             x11()
@@ -165,15 +172,19 @@ data_boxplot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F,
                           axes=F,
                           frame.plot=TRUE
                           )
+
+                  if (ngroups > 1){
                   abline(v = ((1:(ngroups-1))*numexp)+0.5,
                          lty=2,
                          col='darkgrey')
+                  } else {}
+
                   axis(side = 1, at = 1:(ngroups*numexp), labels = labels, las=2)
                   axis(side = 2)
 
             }
 
-
+            return(tmp.data)
 
       } else {tmp.data}
 

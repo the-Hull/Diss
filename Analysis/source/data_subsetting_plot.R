@@ -194,6 +194,8 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F){
                   }
             }
 
+            return(tmp.data)
+
       } else {tmp.data}
 
 }
