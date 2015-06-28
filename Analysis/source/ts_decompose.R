@@ -110,12 +110,12 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1){
                                                 plot(log10(x+1),
                                                      xlab = "Time (years)",
                                                      ylab = "log Biomass Density [kg/sqkm]",
-                                                     ylim = c(y.min, y.max)#,
-#                                                      main = paste(names(tmp.list)[k],
-#                                                                   "Values for",
-#                                                                   ifelse(numexp>1, "Experiments", "Experiment"),
+                                                     ylim = c(y.min, y.max),
+                                                     main = paste(names(tmp.list)[k],
+                                                                  "Values"
+#                                                                   ,ifelse(numexp>1, "Experiments", "Experiment"),
 #                                                                   paste(expno, collapse=", ")
-#                                                                   )
+                                                                  )
 
                                                 )
 
@@ -144,7 +144,7 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1){
 
       par(mar=rep(0,4))
       plot(1:1, type="n", xlab="", ylab="", axes=F)
-      text(1,1, fgroup, cex=1.5, pos=3)
+      text(1,1, paste(fgroup, "in", cellcode), cex=1.5, pos=3)
 
       legend("bottom",
              legend = paste("Exp.:", expno),
@@ -156,6 +156,6 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1){
              cex = 1.3)
 
 
-      invisible(list(sub=tmp1, dec=list.dec))
+      # return(list(sub=tmp1, dec=list.dec))
 
 }

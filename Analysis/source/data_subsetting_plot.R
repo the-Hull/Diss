@@ -179,7 +179,7 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F){
                                          paste0("E: ",
                                                expno[i],
                                                "   ",
-                                               exp.labels[i],
+                                               exp.labels[expno[i]],
                                                "        (",
                                                cells[k],
                                                ifelse(cells[k]=="Cell0", ": aseasonal)", ": seasonal)")

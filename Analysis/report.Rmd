@@ -24,31 +24,34 @@ source("./source/loader.R")
 
 
 
-*Note:  'experiments' should be termed 'scenarios'; will be changed.*
+*Note:  'experiments' should be termed 'scenarios'; will be changed. Formatting of axis labels, etc. will be done for the final report / dissertation*
 
 # Foreword
 
-This document briefly outlines the rational behind the experimental design
+This document briefly outlines the rationale behind the experimental design
 and traces the first tentative steps in the data analysis. The entire analysis
 (i.e. all scripts, functions, required packages and code for this document) are available in my 
 [Dissertation](https://github.com/the-Hull/Diss) github repository. 
+
+***
 
 ## Background
 
 Biodiversity-Ecosystem Functioning relationships have been studied in a variety
 of settings, ranging from small mesocosm to large-scale multi-year (or even multi-decadal) experiments. In spite of generating mechanistic understanding of how a community shapes
 its (eco-)system, these studies are limited to few interacting species (or entities),
-and often only capture processes in adjacent trophic levels.
+and often only comprise of two adjacent trophic levels.
 The [Madingley Model](www.madingleymodel.org) offers a modelling environment in which
 high degrees of complexity - more akin to "real-world" ecosystems - can be simulated spatially explicit over any given time span (i.e. within computational feasibility).  
 
+***
 
 ## Study Aim and Design
 This study aims to elucidate the role of functional diversity and community composition
 on ecosystem functioning. This will be achieved by contrasting the effects of decreased
 functional diversity (i.e. number of functional groups) under different community composition
 (i.e. which functional groups are present) for a complex food web of 4 trophic levels
-(i.e. primary producers, herbivores, omnnivores, carnivores).  
+(i.e. primary producers, herbivores, omnivores, carnivores).  
 
 In the model, (heterotrophic) functional groups are encoded via simple life history traits, their metabolic strategy, as well as their trophic identity (amongst others; primary producers are comprised of a deciduous and an evergreen plant stock).
 
@@ -73,7 +76,7 @@ print(xtable(fg[fg$DEFINITION_Nutrition.source=="Carnivore",c(1,2,6,7)]),
 ```
   
   
-Ecosystem functioning - expressed via a proxy measure of **biomass density** [$kg/km^{2}$] - was simulated for 7 experiments of different functional diversity and community composition. Herefore, functional diversity was decreased stepwise by removing carnivorous functional groups (in different combinations for the removal of 2 groups) - essentially a factorial design. Note, that this does not alter the trophic structure of the system (carnivores remain). For each experiment, 100 simulations were done to capture variability (as the model is not deterministic) over 100 years at a monthly resolution. Results of a final experiment (ExpNo == 8) were recorded in order to identify whether the reduction of functional diversity (or a given combination of groups) would result in a dynamic comparable to a less trophically less complex system. 
+Ecosystem functioning - expressed via a proxy measure of **biomass density** [$kg/km^{2}$] - was simulated for 7 experiments of different functional diversity and community composition. Here-fore, functional diversity was decreased step-wise by removing carnivorous functional groups (in different combinations for the removal of 2 groups) - essentially a factorial design. Note, that this does not alter the trophic structure of the system (carnivores remain). For each experiment, 100 simulations were done to capture variability (as the model is not deterministic) over 100 years at a monthly resolution. Results of a final experiment (ExpNo == 8) were recorded in order to identify whether the reduction of functional diversity (or a given combination of groups) would result in a dynamic comparable to a trophically less complex system. 
  
  
 ```{r simover,  echo=F, results='asis'}
@@ -90,7 +93,7 @@ print(xtable(simoverview, align=c("c", rep(c("c","l"),2),"c", "c")),
 
 The data for each experiment was collated, i.e. each time step is represented by 100 data points resulting from their respective simulations. The following table shows an excerpt of the data set. Mean, CI, standard deviation, as well as range and the median were calculated:
 
-```{r loaddat, echo=FALSE, results='asis', cache=TRUE}
+```{r loaddat, echo=FALSE, results='asis', cache=T}
 load("./output/expdataFull.Rda")
 # set1_sum <- summary_stats(set1)
 # head(set1_sum)
@@ -99,7 +102,7 @@ load("./output/expdataFull.Rda")
 
 
 
-```{r summary, echo=FALSE, results='asis', cache=TRUE}
+```{r summary, echo=FALSE, results='asis', cache=T}
 stats <- summary_stats(expdataFull)
 exp1_stats <- subset(stats, 
                eval(parse(text=condition_builder("ExpNo","==", c(1)))))
@@ -113,11 +116,18 @@ print(xtable(head(exp1_stats),
 
 ```
 
-The following set of plots show the logged median biomass density [$kg/km^{2}$] for the aseasonal environment in Cell0 (**left**) and the seasonal environment in Cell1 (**right**) for experiment 1 through 4 (i.e. unaltered system, and one carnivorours group removed for the remainder). The y-axes are scaled identically for easy comparison.   
+***
 
-After an initial 'burn-in' phase of approx. 200 to 400 time steps (15 to 30 years), the respective systems tend to develop towards a dynamic equilibrium. However, especially for **autotrophs and herbivores in the aseasonal**, and for **herbivores and carnivores in the seasonal** system a **slight increase over time** can be seen, calling for additional measures / analysis (e.g time series analysis). The **aseasonal** environment seems to be **robust to alterations** of both functional diversity and composition, as both biomass density and ratios appear constant, **except for the case of removing iteroparous ectotherms (C-ect-i)**, where variability increases and absolute maximum values are lowered. 
+## Results
 
-For the **aseasonal** environment, the **over-all patterns remain surprisingly constant** (neglegting a slightly increased carnivore : herbivore ratio when endotherm. carnivores are removed) for both **experiment  1 through 3**. The removal of iteroparous ectotherm. **carnivores (C-ect-i; experiment 4)** again has a dramatic **impact on both ratios and absolute values for all trophic groups**, with a pronounced increase of herbivores and omnivores, and a stark decrease for carnivores.
+The following set of plots show the logged\* median biomass density [$kg/km^{2}$] for the aseasonal environment in Cell0 (**left**) and the seasonal environment in Cell1 (**right**) for experiment 1 through 4 (i.e. unaltered system, and one carnivorous group removed for the remainder). The y-axes are scaled identically for easy comparison.   
+
+After an initial 'burn-in' phase of approx. 200 to 400 time steps (15 to 30 years), the systems tend to develop towards a dynamic equilibrium. However, especially for **autotrophs and herbivores in the aseasonal**, and for **herbivores and carnivores in the seasonal** system a **slight increase over time** can be seen, calling for additional measures / analysis (e.g time series analysis).  
+The **seasonal** environment seems to be **robust to alterations** of both functional diversity and composition, as both biomass density and ratios appear constant, **except for the case of removing iteroparous ectotherms (C-ect-i; experiment 4)**, where variability is increased and maximum values lowered. 
+
+For the **aseasonal** environment, the **over-all patterns remain surprisingly constant** (neglecting a slightly increased carnivore : herbivore ratio when endotherm. carnivores are removed) for both **experiment  1 through 3**. The removal of iteroparous ectotherm. carnivores (**C-ect-i; experiment 4**) again has a dramatic **impact on both ratios and absolute values for all trophic groups**, with a pronounced increase of herbivores and omnivores, a decrease for autotrophs and a marked decline for carnivores. Further, omnivore biomass density increases approx. by an order of magnitude as compared to the initial system and is greater than carnivore biomass density (i.e. carnivore : omnivore ratio changes from C:O > 1 to C:O < 1 in experiment 4.)  
+
+\**NOTE: log Biomass Density is calculated as: $log(x+1)$, due to zero values in experiment 7; this is true for all plots on log scale. Zero values on the log scale are therefore true zero values.*
 
 ```{r legend, echo=F, fig.height=1.5, fig.width=12}
             cols <- data.frame(FGroup=c("autotrophs",
@@ -144,25 +154,63 @@ legend("center", legend = cols$FGroup, col = cols$Color, lwd = 4 , bty="n", hori
 
 
 
-data_plot(stats, expno = 1:4, logscale = T)
+invisible(data_plot(stats, expno = 1:4, logscale = T))
 
 
 
 ```
 
-The following two plots compare the logged biomass density of by trophic group for each experiment in the aseasonal (**top**) and seasonal (**bottom**) environment, for years *50 to 100*. Year 50 was chosen as a preliminary cut-off to insepct the dynamics of the system further. This approach revealse clear differences between for individual trophic groups for the depicted scenarios (1 to 4). The removal of endotherm (**E2**) and ectotherm. iteroparous carnivores (**E4**) show the greatest deviation from the unaltered system.
+The following two plots compare the logged biomass density of by trophic group for each experiment in the aseasonal (**top**) and seasonal (**bottom**) environment, for years *50 to 100*. Year 50 was chosen as a preliminary cut-off to inspect the dynamics of the system further. This approach reveals clear differences between individual trophic groups for the depicted experiments (1 to 4). The removal of endotherm. (**E2**) and ectotherm. iteroparous carnivores (**E4**) show the greatest deviation from the unaltered system. Narrowing the time frame down to a window of e.g.. 25 or 10 years would make the results even more clear cut, and make an analysis of variance (ANOVA / Kruskal-Wallis, depending on distribution of data) more justifiable.   
+*NOTE: first results for different trophic groups look promising - data seems conform with assumptions. Will include statistics after finishing writing a function appyling tests / checking diagnostics for all experiments, groups and cells* 
 
 ```{r compare, echo=FALSE, fig.height=12, fig.width=12, cache=FALSE}
 
-data_boxplot(stats, expno=c(1:4), logscale = T, cutoff=500)
+invisible(data_boxplot(stats, expno=c(1:4), logscale = T, cutoff=500))
 # t10 <- subset(exp1, TimeStep=="10")
 
 # head(t10)
 
 ```
 
-As mentioned above, the differences between experiments are easily discerned for certain trophic groups. However, the approach is based on the assumption that the variablity of the observed biomass density can be fully attributed to seasonality or cyclical dynamics, when the data is cut off after 50 years. However, a decomposition of the time series - here tentatively performed for autotrophs in the aseasonal environment, shows trends for -x- experiment.
-```{r timeseries decomp, echo=F}
+As mentioned above, the differences between experiments are easily discerned for certain trophic groups. However, the approach is based on the assumption that the variability of the observed biomass density can be fully attributed to seasonality or cyclical dynamics, when the data is cut off after 50 years. However, a decomposition of the time series - here tentatively performed for autotrophs in the aseasonal environment, shows trends for experiments 1 to 4 experiment (i.e. one carnivorous group removed). The **top** plot shows the observed values (cf. above) for autotrophs in the **aseasonal** environment. Removing the cyclical / periodic patterns reveals slightly increasing trends for experiment 1 to 2. Additional diagnostic based on time series analysis or fitting linear models (i.e. testing for non-zero slopes) could be performed for all experiments and trophic groups.
+
+```{r tsdecomp, echo=F, fig.height=12, fig.width=12}
+
+p <- ts_decomp(stats, fgroup = "autotroph", cellcode="Cell0", expno=1:4, cutoff=50*12)
+# Other code
 
 ```
 
+
+### Experiment 7
+
+Experiment 7 (i.e. Removed: ecto. Carnivores (semelp.) + ecto. Carnivores (iterop.)) shows a **rapid decline of the remaining endothermic carnivores in the seasonal system**, leading to their complete extinction after approx. 10 years into the simulation. This is a highly unexpected result, and any explanations elude me as to this point; also found no literature on the subject so far.
+
+```{r exp7, echo=F, fig.height=6, fig.width=12}
+
+invisible(data_plot(stats,  expno=7, logscale=T))
+# Other code
+
+```
+
+
+***
+
+## Conclusions & Next steps
+
+Preliminary results seem promising as clear patterns distinct from those in the initial system emerge. I visually examined all experiments and trends (from time series), distributions and ran some anovas / and simple linear regressions to test for differences and non-zero slopes manually.
+*NOTE: I also used plots of Biomass (t+1) ~ Biomass (t) and plots of delta(Biomass) ~ Biomass(t) to check for equilibria, but interpretation is very subjective; haven't found any literature on statistically evaluating these*  
+
+Next steps are:  
+
+* determine appropriate tests for identifying differences between experiments (i.e. parametric vs. non-parametric) 
+* determine best approach for identifying dynamic equilibrium (i.e. linear regression or another approach from time series analysis)  
+* implement the above programmatically  
+* include statistics output in next report  
+* Identify reasons for rapid extinction of carnivores in experiment 7 (i.e. Removed: ecto. Carnivores (semelp.) + ecto. Carnivores (iterop.)); no ideas so far. 
+* Include results for experiments 5 to 7 (excluded here for easier reading)
+
+
+***
+
+*End of Document*
