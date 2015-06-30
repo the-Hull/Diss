@@ -26,9 +26,7 @@ simOverview$FD <- as.ordered(9 - simOverview$RM_No)
 simConcise <- simOverview[ ,c(1,8,9)]
 statsAov <- inner_join(statsFull, simConcise)
 
-Cell0 <- subset(statsAov, CellCode=="Cell0" & ExpNo!=8)
-Cell1 <- subset(statsAov, CellCode=="Cell1" & ExpNo!=8)
 
-# aov1 <- aov(Median ~ FD * FGroup * Label_Abb , Cell0)
+
 
 
