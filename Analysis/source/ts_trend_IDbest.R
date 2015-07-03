@@ -13,7 +13,7 @@ res <- numeric()
             trends <- ts_test(statsFull,cutoff=i*12, expno=1:7)
 
             res[i-(lower-1)] <- sum(trends$Trend, na.rm=T)
-            print(i)
+            # print(i)
       }
       x11()
       plot(lower:upper,

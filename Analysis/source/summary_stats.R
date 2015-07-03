@@ -6,6 +6,8 @@ summary_stats <- function(data){
 
       # Group data by Variables of interest
 
+      nsample <- 10
+
       tmp <- group_by(data,
                       ExpNo,
                       CellCode,
@@ -21,7 +23,21 @@ summary_stats <- function(data){
                                  meanUCI=Mean+1.96*(sd(MassDens)/sqrt(Count)),
                                  Min=min(MassDens),
                                  Max=max(MassDens),
-                                 Median=median(MassDens)
+                                 Median=median(MassDens),
+                                 medianLCI=quantile(apply(matrix(sample(MassDens,
+                                                             rep=TRUE,
+                                                             nsample*length(MassDens)),
+                                                      nrow=nsample),
+                                               1,
+                                               median),
+                                               0.025),
+                                 medianUCI=quantile(apply(matrix(sample(MassDens,
+                                                                      rep=TRUE,
+                                                                      nsample*length(MassDens)),
+                                                               nrow=nsample),
+                                                        1,
+                                                        median),
+                                                  0.975)
 
                        ))
       return(ret)

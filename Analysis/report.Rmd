@@ -103,8 +103,8 @@ load("./output/expdataFull.Rda")
 
 
 ```{r summary, echo=FALSE, results='asis', cache=T}
-stats <- summary_stats(expdataFull)
-exp1_stats <- subset(stats, 
+statsFull <- summary_stats(expdataFull)
+exp1_stats <- subset(statsFull, 
                eval(parse(text=condition_builder("ExpNo","==", c(1)))))
 
 print(xtable(head(exp1_stats), 
@@ -120,7 +120,9 @@ print(xtable(head(exp1_stats),
 
 ## Results
 
-The following set of plots show the logged\* median biomass density [$kg/km^{2}$] for the aseasonal environment in Cell0 (**left**) and the seasonal environment in Cell1 (**right**) for experiment 1 through 4 (i.e. unaltered system, and one carnivorous group removed for the remainder). The y-axes are scaled identically for easy comparison.   
+### Overview
+
+The following set of plots show the logged\* median biomass density [$kg/km^{2}$] for the aseasonal environment in Cell0 (**left**) and the seasonal environment in Cell1 (**right**) for experiment 1 through 4 (i.e. unaltered system, and one carnivorous group removed for the remainder). The y-axes are scaled identically for easy comparison. The median was chosen over the mean as summary statistic as the distributions of observations for each time step often did not conform with normality (visual inspection with function `distribution_plot()`.
 
 After an initial 'burn-in' phase of approx. 200 to 400 time steps (15 to 30 years), the systems tend to develop towards a dynamic equilibrium. However, especially for **autotrophs and herbivores in the aseasonal**, and for **herbivores and carnivores in the seasonal** system a **slight increase over time** can be seen, calling for additional measures / analysis (e.g time series analysis).  
 The **seasonal** environment seems to be **robust to alterations** of both functional diversity and composition, as both biomass density and ratios appear constant, **except for the case of removing iteroparous ectotherms (C-ect-i; experiment 4)**, where variability is increased and maximum values lowered. 
@@ -150,11 +152,11 @@ legend("center", legend = cols$FGroup, col = cols$Color, lwd = 4 , bty="n", hori
 ```
 
 
-```{r TimeSeries, echo=F, fig.height=16, fig.width=12}
+```{r OverviewPlot, echo=F, fig.height=16, fig.width=12}
 
 
 
-invisible(data_plot(stats, expno = 1:4, logscale = T))
+invisible(data_plot(statsFull, expno = 1:4, logscale = T))
 
 
 
@@ -165,19 +167,33 @@ The following two plots compare the logged biomass density of by trophic group f
 
 ```{r compare, echo=FALSE, fig.height=12, fig.width=12, cache=FALSE}
 
-invisible(data_boxplot(stats, expno=c(1:4), logscale = T, cutoff=500))
+invisible(data_boxplot(statsFull, expno=c(1:4), logscale = T, cutoff=500))
 # t10 <- subset(exp1, TimeStep=="10")
 
 # head(t10)
 
 ```
 
-As mentioned above, the differences between experiments are easily discerned for certain trophic groups. However, the approach is based on the assumption that the variability of the observed biomass density can be fully attributed to seasonality or cyclical dynamics, when the data is cut off after 50 years. However, a decomposition of the time series - here tentatively performed for autotrophs in the aseasonal environment, shows trends for experiments 1 to 4 experiment (i.e. one carnivorous group removed). The **top** plot shows the observed values (cf. above) for autotrophs in the **aseasonal** environment. Removing the cyclical / periodic patterns reveals slightly increasing trends for experiment 1 to 2. Additional diagnostic based on time series analysis or fitting linear models (i.e. testing for non-zero slopes) could be performed for all experiments and trophic groups.
+### Trends vs. Dynamic Equilibrium
+
+As mentioned above, the differences between experiments are easily discerned for certain trophic groups. However, the approach is based on the assumption that the variability of the observed biomass density can be fully attributed to seasonality or cyclical dynamics, when the data is cut off after 50 years. However, a decomposition of the time series - here tentatively performed for autotrophs in the aseasonal environment, shows trends for experiments 1 to 4 experiment (i.e. one carnivorous group removed). The **top** plot shows the observed values (cf. above) for autotrophs in the **aseasonal** environment. Removing the cyclical / periodic patterns reveals slightly increasing trends for experiment 1 to 2. 
+<!-- Additional diagnostic based on time series analysis or fitting linear models (i.e. testing for non-zero slopes) could be performed for all experiments and trophic groups.-->
+
 
 ```{r tsdecomp, echo=F, fig.height=12, fig.width=12}
 
-p <- ts_decomp(stats, fgroup = "autotroph", cellcode="Cell0", expno=1:4, cutoff=50*12)
+p <- ts_decomp(statsFull, fgroup = "autotroph", cellcode="Cell0", expno=1:4, cutoff=50*12)
 # Other code
+
+```
+
+Linear models were fitted to each decomposed time series to test for non-zero slopes (i.e. true trends). An optimaziation function was implemented to identify the optimal time interval (i.e. cut-off) by minimizing the number of non-zero slopes found throughout all experiments and functional groups. A scanning window of 50 to 95 years as cut-off was used.
+
+```{r tsdecompID, echo=F, fig.height=6, fig.width=12}
+
+invisible(ts_trendplotID(50,95))
+invisible(5+3)
+# doesn't plot
 
 ```
 
@@ -188,7 +204,7 @@ Experiment 7 (i.e. Removed: ecto. Carnivores (semelp.) + ecto. Carnivores (itero
 
 ```{r exp7, echo=F, fig.height=6, fig.width=12}
 
-invisible(data_plot(stats,  expno=7, logscale=T))
+invisible(data_plot(statsFull,  expno=7, logscale=T))
 # Other code
 
 ```

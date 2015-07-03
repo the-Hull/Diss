@@ -1,5 +1,6 @@
 ## First exploratory data analysis
 
+### DEBUG: Add CI as polygons / ribbons
 
 #  Identify ideal window for cutting off data  ---------------------------------
 
@@ -68,9 +69,17 @@ for(ce in cells){
                   ## Plot if n == 1
                   if(n==1){
                         plot(stats$Median, ylim=c(min(stats$Min), max(stats$Max)))
+
+                        xx <- c(stats$Min, rev(stats$Min))
+                        yy <- c(stats$Max, rev(stats$Max))
+                        polygon(xx, yy, col=add_alpha(2, alpha=0.8))
                         lines(1:nrow(stats), stats$Median, col=1, lwd=1.5)
                   } else {
 
+                        lines(1:nrow(stats), stats$Median, col=1, lwd=1.5)
+                        xx <- c(stats$Min, rev(stats$Min))
+                        yy <- c(stats$Max, rev(stats$Max))
+                        polygon(xx, yy, col="red")
                         lines(1:nrow(stats), stats$Median, col=1, lwd=1.5)
 
                   }
@@ -81,15 +90,15 @@ for(ce in cells){
 
                   }
 
-                  for(t in 1:ts){
-                        ts.dat <- subset(dat, TimeStep==t)
-
-                        points(ts.dat$MassDens,
-                               col=add_alpha(n+1, alpha=0.2),
-                               pch=16,
-                               cex=0.5)
-
-                  }
+#                   for(t in 1:ts){
+#                         ts.dat <- subset(dat, TimeStep==t)
+#
+#                         points(ts.dat$MassDens,
+#                                col=add_alpha(n+1, alpha=0.2),
+#                                pch=16,
+#                                cex=0.5)
+#
+#                   }
             }
 
 
@@ -97,7 +106,7 @@ for(ce in cells){
 
 
             rm(dat)
-            rm(stats)
+            # rm(stats)
 
       }
 }
