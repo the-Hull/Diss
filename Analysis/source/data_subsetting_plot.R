@@ -1,7 +1,7 @@
 
 # Plot Time Series of BioMass Density, for a set of functional groups and experiments -----
 
-data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F){
+data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F){
 
 
       ## Check if any subsetting is required
@@ -151,6 +151,28 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F){
                         # Loop for plotting corresponding data (Plot overlayed with  lines)
                         for(j in 1:ngroups){
 
+
+                              # set up for CI
+                              if(CI==T){
+                                    xx <- c(1:length(unique(tmp2.data4plot$TimeStep)),
+                                            rev(1:length(unique(tmp2.data4plot$TimeStep))))
+
+                                    y1 <- if(logscale==T){
+                                                 log10(tmp2.data4plot$medianLCI[tmp2.data4plot$FGroup==groups[j]])
+                                                } else {
+                                                 tmp2.data4plot$medianLCI[tmp2.data4plot$FGroup==groups[j]]
+                                                }
+
+                                    y2 <- rev(
+                                          if(logscale==T){
+                                                log10(tmp2.data4plot$medianUCI[tmp2.data4plot$FGroup==groups[j]])
+                                          } else {
+                                                tmp2.data4plot$medianUCI[tmp2.data4plot$FGroup==groups[j]]
+                                          }
+                                    )
+
+                                    yy <- c(y1,y2)
+                              }
                               # Identify color according to group in loop
                               colmatch <- cols[which(cols$FGroup==groups[j]),2]
 
@@ -162,7 +184,7 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F){
                                     upperLim <- max(tmp.data$Median)*1.001
 
 
-                                    plot(tmp2.data4plot$Median[tmp.data4plot$FGroup==groups[j]],
+                                    plot(tmp2.data4plot$Median[tmp2.data4plot$FGroup==groups[j]],
                                          xlab="Time Step (months)",
                                          ylab=paste(ifelse(logscale, "log", ""),
                                                "Biomass Density [kg/sqkm]"),
@@ -172,6 +194,13 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F){
                                                 upperLim),
                                          type="l",
                                          lty=1)
+
+                                    if(CI==T){
+
+                                          polygon(xx, yy,
+                                                  col=add_alpha(colmatch, alpha = 0.4),
+                                                  border=NA)
+                                    }
 
                                     # ID Stamp
                                     text(round(length(unique(tmp.data4plot$TimeStep))*0.5),
@@ -187,8 +216,15 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F){
                                          )
                               # Plot remaining groups
                               } else {
-                                    lines(tmp2.data4plot$Median[tmp.data4plot$FGroup==groups[j]],
+                                    lines(tmp2.data4plot$Median[tmp2.data4plot$FGroup==groups[j]],
                                           col=colmatch)
+
+
+                                    if(CI==T){
+                                          polygon(xx, yy,
+                                            col=add_alpha(colmatch, alpha = 0.4),
+                                            border=NA)
+                                    }
                               }
                         }
                   }

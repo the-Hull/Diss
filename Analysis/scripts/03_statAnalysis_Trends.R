@@ -7,7 +7,7 @@
 ts_trendplotID(50,95)
 
 
-# Test if system dynamics are sensitive to summary stats ------------------
+# Test if system dynamics follow normal distribution (for each t) ------------------
 
 
 

@@ -6,7 +6,7 @@ summary_stats <- function(data){
 
       # Group data by Variables of interest
 
-      nsample <- 10
+      nsample <- 10^3
 
       tmp <- group_by(data,
                       ExpNo,
