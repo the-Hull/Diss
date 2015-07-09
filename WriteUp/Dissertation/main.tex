@@ -28,30 +28,30 @@ paper=a4
 
 \begin{document}
 \input{define/commands.tex}
-%\input{title/titlepage.tex}
+\input{title/titlepage.tex}
 \clearpage
 % Empty Page after Title
 
 
-%\frontmatter %set roman page numbering
+\frontmatter %set roman page numbering
 
 
-%\input{frontmatter/declaration.tex}
-%\clearpage
+\input{frontmatter/declaration.tex}
+\clearpage
 %
-%\input{frontmatter/acknowledgements.tex}
-%\clearpage
+\input{frontmatter/acknowledgements.tex}
+\clearpage
 %
-%\input{frontmatter/abstract.tex}
+\input{frontmatter/abstract.tex}
 %
-%\tableofcontents
-%\clearpage
+\tableofcontents
+\clearpage
 %
-%\listoffigures
-%\clearpage
+\listoffigures
+\clearpage
 %
-%\listoftables
-%\clearpage
+\listoftables
+\clearpage
 
 
 %% ----------------------------------------------------
@@ -66,7 +66,14 @@ paper=a4
 
 \input{intro/intro.tex}
 \clearpage
-textest
+
+\input{mat/matmet.tex}
+\clearpage
+
+\input{res/res.tex}
+\clearpage
+
+\input{dis/dis.tex}
 
 \bibliographystyle{apalike}
 %\footnotesize

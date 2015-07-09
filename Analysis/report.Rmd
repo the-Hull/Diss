@@ -375,10 +375,9 @@ Functional diversity (including the control) has 3 levels. Within these 3 levels
 **"polyculture"** = all CG -- ABC  
 **"biculture"**   = 2 CG   -- AB /  AC / BC  
 **"monoculture"** = 1 CG   -- A  /  B  / C  
-
+With 7 individual levels.  
 
 ***
-With 7 individual levels.  
 As most differences seem to result from removing either endothermic or iteroparous ectothermic carnivores, I am wondering if it may be appropriate / better to collapse the levels further. Levels could carry information on whether the system has endothermic, iteroparous ecto.,  both  or no carnivore groups present:
 
 
