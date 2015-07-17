@@ -20,6 +20,7 @@ load("./output/expdataFull.Rda")
 # save("statsFull", file="./output/statsFull_medianCI.Rda")
 
 load("./output/statsFull_medianCI.Rda")
+load("./output/statsDens_medianCI.Rda")
 
 # Join Simulation Labels to Data ------------------------------------------
 
