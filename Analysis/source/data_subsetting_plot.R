@@ -1,7 +1,11 @@
 
 # Plot Time Series of BioMass Density, for a set of functional groups and experiments -----
 
-data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F){
+data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F, ylab){
+
+
+      y.lab <- paste(ifelse(logscale, "log", ""),
+            ylab)
 
 
       ## Check if any subsetting is required
@@ -186,8 +190,7 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F){
 
                                     plot(tmp2.data4plot$Median[tmp2.data4plot$FGroup==groups[j]],
                                          xlab="Time Step (months)",
-                                         ylab=paste(ifelse(logscale, "log", ""),
-                                               "Biomass Density [kg/sqkm]"),
+                                         ylab=y.lab,
                                          col=colmatch,
                                          xlim=c(0, length(unique(tmp2.data4plot$TimeStep))),
                                          ylim=c(lowerLim,

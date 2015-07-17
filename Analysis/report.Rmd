@@ -178,7 +178,7 @@ legend("center", legend = cols$FGroup, col = cols$Color, lwd = 1 , bty="n", hori
 
 
 
-invisible(data_plot(statsFull, expno = 1:7, logscale = T, CI=T))
+invisible(data_plot(statsFull, expno = 1:7, logscale = T, CI=T, ylab="Biomass Density [kg/sqkm]"))
 
 
 
