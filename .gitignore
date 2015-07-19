@@ -10,6 +10,7 @@
 *.bak
 /Writeup/Proposal
 /Model
+/orga
 
 *.xlsx
 *.html

@@ -1,28 +1,57 @@
 ## Stat Modelling
 
 
-HA.summary <- inner_join(HA.summary, statsFull[statsFull$FGroup=="carnivore" & statsFull$ExpNo!=8 ,c("ExpNo","CellCode", "TimeStep", "Mean", "Median")], by=c("ExpNo", "TimeStep", "CellCode"))
-names(HA.summary)[5] <- "Mean"
-names(HA.summary)[9] <- "Median"
-names(HA.summary)[20] <- "carMean"
-names(HA.summary)[21] <- "carMedian"
+# HA.summary <- inner_join(HA.summary, statsFull[statsFull$FGroup=="carnivore" & statsFull$ExpNo!=8 ,c("ExpNo","CellCode", "TimeStep", "Mean", "Median")], by=c("ExpNo", "TimeStep", "CellCode"))
+# names(HA.summary)[5] <- "Mean"
+# names(HA.summary)[9] <- "Median"
+# names(HA.summary)[22] <- "carMean"
+# names(HA.summary)[23] <- "carMedian"
+#
+#
+# # By cell. Justification: different dynamics, model not well behaved in seas.
+#
+# # Subset for aseasonal (Cell1)
 
 
-# By cell. Justification: different dynamics, model not well behaved in seas.
+load("./output/HARatios_medianCI.Rda")
+load("./output/simConcise.Rda")
+HA.summary <- inner_join(HA.summary, simConcise)
 
-# Subset for aseasonal (Cell1)
 
-HA.0 <- subset(HA.summary, CellCode=="Cell0" & TimeStep>=1080)
+HA.0 <- subset(HA.summary, CellCode=="Cell0" & TimeStep>=1080 & ExpNo!=8)
 HA.0 <- droplevels(HA.0)
 HA.0$FD <- as.factor(HA.0$FD)
 HA.0$FD <- relevel(HA.0$FD, ref="9")
 HA.0$FD <- factor(HA.0$FD, levels(HA.0$FD)[c(1,3,2)])
+HA.0$ExpNo <- as.factor(HA.0$ExpNo)
 
+
+
+# Test for differences between FD Levels ----------------------------------
+
+FD.ref <- aov(log10(Median) ~ FD, data=HA.0, weights=weights)
+#non-normal residuals.
+
+
+
+## Using autotrophs BMD:
+
+autotrophs <- subset(statsAov, FGroup=="autotroph" &
+                           CellCode=="Cell0" &
+                           TimeStep>=90*12 &
+                           ExpNo!=8)
+autotrophs$FD <- droplevels(autotrophs$FD)
+
+kruskalmc(Median~ExpNo, data=autotrophs)
+
+
+FD.auto.t <- aov(log10(Median) ~ FD, weights=weights, data=autotrophs)
+TukeyHSD(FD.auto.t, "FD", ordered = F)
+FD.auto <- aov(Median ~ FD, weights=weights, data=autotrophs)
 # HA.1$FD <- relevel(HA.1$FD, ref="9")
 # HA.1$pEND <- relevel(HA.1$pEND, ref="C")
 # HA.1$pECTi <- relevel(HA.1$pECTi, ref="C")
 # HA.1$pECTs <- relevel(HA.1$pECTs, ref="C")
-HA.0$ExpNo <- as.factor(HA.0$ExpNo)
 
 
 # ANOVA:
