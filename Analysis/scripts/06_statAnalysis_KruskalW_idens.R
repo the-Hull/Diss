@@ -1,5 +1,8 @@
 ## Kruskal Wallis tests for differences between groups
 
+timecut <- statsAov[statsAov$TimeStep>=1080,]
+
+
 load("./output/statsDens_medianCI.Rda")
 load("./output/simConcise.Rda")
 simConcise$ExpNo <- as.factor(simConcise$ExpNo)
@@ -20,6 +23,10 @@ bigtabsPath <- "output/KruskalW/bigtabs/"
 
 IDENS <- new.env() #Storage for output
 
+IDENS$rankmedian <- new.env()
+
+IDENS$ktest <- kruskal.test(statsDens$Median~statsDens$ExpNo)
+
 cells <- unique(statsDens$CellCode)
 
 fgroups <- unique(statsDens$FGroup)
@@ -29,7 +36,6 @@ exptest <- expno[-8]
 numexp <- length(exptest)
 
 categ <- names(statsDens)[c(1,23)]
-
 
 for(ce in cells){
       curPath <- paste0(outPath,"KruskalW/IDENS/", ce)
@@ -57,6 +63,9 @@ for(ce in cells){
                                                     CellCode==ce),
                    envir = IDENS)
 
+
+
+
             for(cat in categ){
 
 
@@ -66,27 +75,37 @@ for(ce in cells){
                   dat.tmp <- kruskalmc(as.formula(paste("Median~",cat)),
                                        data= dat)$dif.com
 
-                  dat.tmp[,1] <- apply(as.matrix(dat.tmp[,1]),
-                                       1,
-                                       FUN = function(x) as.numeric(rdec(x,2)))
-
-                  dat.tmp[,2] <- apply(as.matrix(dat.tmp[,2]),
-                                       1,
-                                       FUN = function(x) as.numeric(rdec(x,2)))
-
                   tr <- which(dat.tmp$difference==T)
                   ntr <- is.na(dat.tmp$difference)
                   dat.tmp[tr,1] <- apply(as.matrix(dat.tmp[tr,1]),
                                          1,
-                                         FUN=function(x) paste0("\\textbf{", rdec(x,0), "}"))
+                                         FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
                   dat.tmp[tr,2] <- apply(as.matrix(dat.tmp[tr,2]),
                                          1,
-                                         FUN=function(x) paste0("\\textbf{", rdec(x,0), "}"))
+                                         FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
 
                   dat.tmp <- dat.tmp[,1:2]
 
                   dat.tmp[ntr,] <- NA
                   colnames(dat.tmp) <- c("Obs.", "Crit.")
+
+
+
+                  dat.tmp[,1] <- apply(as.matrix(dat.tmp[,1]),
+                                       1,
+                                       FUN = function(x){
+                                             ifelse(substring(x,first = 1, last = 1)!="\\",
+                                                    rdec(as.numeric(x),2),
+                                                    x)
+                                       })
+
+                  dat.tmp[,2] <- apply(as.matrix(dat.tmp[,2]),
+                                       1,
+                                       FUN = function(x){
+                                             ifelse(substring(x,first = 1, last = 1)!="\\",
+                                                    rdec(as.numeric(x),2),
+                                                    x)
+                                       })
 
 
                   assign(paste0(fg, "_", cat,  "_", ce, "_res"),
@@ -96,11 +115,22 @@ for(ce in cells){
                          envir = IDENS
                   )
 
+
+                  assign(paste0(fg, "_", cat,  "_", ce, "_ranks"),
+
+                         tapply(rank(dat$Median),list(dat$ExpNo), median)
+                         ,
+                         envir = IDENS$rankmedian
+                  )
+
+
                   write.csv(dat.tmp, file=paste0(curPath,"/",fg, "_", cat, "_",ce, "_res.csv"))
 
                   xtab <- xtable(dat.tmp)
                   print(xtab, file=paste0(xPath,"/",fg, "_", cat,  "_", ce, "_res.tex"),
                         sanitize.text.function = function(x) x)
+
+
 
             }
 
@@ -110,6 +140,7 @@ for(ce in cells){
 }
 IDENS.kw <- as.list(mget(ls(pattern = "res", envir = IDENS), envir = IDENS))
 
+save(IDENS, files="output/KruskalW/IDENS_env.Rda")
 save(IDENS.kw, file="output/KruskalW/IndDens_KruskalW.Rda")
 
 if(!file.exists(bigtabsPath)){
@@ -151,7 +182,7 @@ for(ca in categ){
                                        c,
                                        ".tex"),
                   booktabs = T,
-                  rotate.colnames = T,
+                  # ,rotate.colnames = T,
                   sanitize.text.function = function(x){x})
 
       }
@@ -159,3 +190,8 @@ for(ca in categ){
 
 bigtabsdata <- as.list(res)
 save(bigtabsdata, file="./output/KruskalW/IDENS.kw_bigtabs.Rda")
+
+
+
+
+

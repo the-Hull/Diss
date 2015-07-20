@@ -25,8 +25,8 @@ load("./output/statsDens_medianCI.Rda")
 # Join Simulation Labels to Data ------------------------------------------
 
 simOverview <- read.csv("./report_data/SimOverview.csv", header=T)
-# simOverview$FD <- factor(9 - simOverview$RM_No)
-simOverview$FD <- 9 - simOverview$RM_No
+simOverview$FD <- factor(9 - simOverview$RM_No)
+# simOverview$FD <- 9 - simOverview$RM_No
 
 
 simConcise <- simOverview[ ,c(1,8,9,10,11,12:16)]
@@ -48,6 +48,8 @@ simConcise$pECTia <- relevel(simConcise$pECTia, ref="1")
 simConcise$pECTsa <- relevel(simConcise$pECTsa, ref="1")
 
 simConcise$Label_Abb <- relevel(simConcise$Label_Abb, ref="C(end) + C(ect)s + C(ect)i")
+# save(simConcise, file="./output/simConcise.Rda")
+
 
 
 statsAov <- inner_join(statsFull, simConcise)
@@ -123,33 +125,95 @@ statsAov$TL[statsAov$TL=="carnivore"] <- 4
 
 # Create DF for H:A Ratios ------------------------------------------------
 
-load("./output/HARatios.Rda")
+load("./output/HARatios_medianCI.Rda")
 HA.summary <- inner_join(HA.summary, simConcise)
 
 
+
+
+## Subset Herbivore and Autotroph
+herbivores <- subset(expdataFull, FGroup=="herbivore" & ExpNo!=8)
+autotrophs <- subset(expdataFull, FGroup=="autotroph" & ExpNo!=8)
+
+names(herbivores)[6] <- "H.MassDens"
+names(autotrophs)[6] <- "A.MassDens"
+
+
+## Join subsets together
+HA.df <- full_join(herbivores,
+                   autotrophs,
+                   by=c("ExpNo", "SimNo", "TimeStep", "CellCode", "Folder")
+)
+
+# Tidy up
+HA.df <- HA.df[ ,-c(2,5,8)]
+HA.df$HA.Ratio <- HA.df$H.MassDens / HA.df$A.MassDens
+HA.df <- HA.df[ ,-c(4,6)]
+
+# Grouping:
+HA.tmp <- group_by(HA.df,
+                   ExpNo,
+                   CellCode,
+                   TimeStep)
+
+
+# Summary stats + bootstrapping for median CI
+nsample=10^4
+HA.summary <- droplevels(summarize(HA.tmp,
+                                   Count=n(),
+                                   Mean=mean(HA.Ratio),
+                                   SD=sd(HA.Ratio),
+                                   Min=min(HA.Ratio),
+                                   Max=max(HA.Ratio),
+                                   Median=median(HA.Ratio)
+                                   ,medianLCI=quantile(apply(matrix(sample(HA.Ratio,
+                                                                          rep=TRUE,
+                                                                          nsample*length(HA.Ratio)),
+                                                                   nrow=nsample),
+                                                            1,
+                                                            median),
+                                                      0.025),
+                                   medianUCI=quantile(apply(matrix(sample(HA.Ratio,
+                                                                          rep=TRUE,
+                                                                          nsample*length(HA.Ratio)),
+                                                                   nrow=nsample),
+                                                            1,
+                                                            median),
+                                                      0.975)
+
+))
+
+
+
+
+# Create DF for O:A Ratios ------------------------------------------------
+load("./output/OARatios_medianCI.Rda")
+OA.summary <- inner_join(OA.summary, simConcise)
 #
 #
-# ## Subset Herbivore and Autotroph
-# herbivores <- subset(expdataFull, FGroup=="herbivore" & ExpNo!=8)
+#
+#
+# ## Subset omnivore and Autotroph
+# omnivores <- subset(expdataFull, FGroup=="omnivore" & ExpNo!=8)
 # autotrophs <- subset(expdataFull, FGroup=="autotroph" & ExpNo!=8)
 #
-# names(herbivores)[6] <- "H.MassDens"
+# names(omnivores)[6] <- "O.MassDens"
 # names(autotrophs)[6] <- "A.MassDens"
 #
 #
 # ## Join subsets together
-# HA.df <- full_join(herbivores,
+# OA.df <- full_join(omnivores,
 #                    autotrophs,
 #                    by=c("ExpNo", "SimNo", "TimeStep", "CellCode", "Folder")
 # )
 #
 # # Tidy up
-# HA.df <- HA.df[ ,-c(2,5,8)]
-# HA.df$HA.Ratio <- HA.df$H.MassDens / HA.df$A.MassDens
-# HA.df <- HA.df[ ,-c(4,6)]
+# OA.df <- OA.df[ ,-c(2,5,8)]
+# OA.df$OA.Ratio <- OA.df$O.MassDens / OA.df$A.MassDens
+# OA.df <- OA.df[ ,-c(4,6)]
 #
 # # Grouping:
-# HA.tmp <- group_by(HA.df,
+# OA.tmp <- group_by(OA.df,
 #                    ExpNo,
 #                    CellCode,
 #                    TimeStep)
@@ -157,29 +221,94 @@ HA.summary <- inner_join(HA.summary, simConcise)
 #
 # # Summary stats + bootstrapping for median CI
 # nsample=10^4
-# HA.summary <- droplevels(summarize(HA.tmp,
+# OA.summary <- droplevels(summarize(OA.tmp,
 #                                    Count=n(),
-#                                    Mean=mean(HA.Ratio),
-#                                    SD=sd(HA.Ratio),
-#                                    Min=min(HA.Ratio),
-#                                    Max=max(HA.Ratio),
-#                                    Median=median(HA.Ratio)
-#                                    ,medianLCI=quantile(apply(matrix(sample(HA.Ratio,
+#                                    Mean=mean(OA.Ratio),
+#                                    SD=sd(OA.Ratio),
+#                                    Min=min(OA.Ratio),
+#                                    Max=max(OA.Ratio),
+#                                    Median=median(OA.Ratio)
+#                                    ,medianLCI=quantile(apply(matrix(sample(OA.Ratio,
+#                                                                            rep=TRUE,
+#                                                                            nsample*length(OA.Ratio)),
+#                                                                     nrow=nsample),
+#                                                              1,
+#                                                              median),
+#                                                        0.025),
+#                                    medianUCI=quantile(apply(matrix(sample(OA.Ratio,
 #                                                                           rep=TRUE,
-#                                                                           nsample*length(HA.Ratio)),
-#                                                                    nrow=nsample),
-#                                                             1,
-#                                                             median),
-#                                                       0.025),
-#                                    medianUCI=quantile(apply(matrix(sample(HA.Ratio,
-#                                                                           rep=TRUE,
-#                                                                           nsample*length(HA.Ratio)),
+#                                                                           nsample*length(OA.Ratio)),
 #                                                                    nrow=nsample),
 #                                                             1,
 #                                                             median),
 #                                                       0.975)
-
+#
 # ))
+#
+#
+
+
+
+# Create DF for C:A Ratios ------------------------------------------------
+# load("./output/CARatios_medianCI.Rda")
+# OA.summary <- inner_join(CA.summary, simConcise)
+#
+#
+
+
+## Subset carnivore and Autotroph
+carnivores <- subset(expdataFull, FGroup=="carnivore" & ExpNo!=8)
+autotrophs <- subset(expdataFull, FGroup=="autotroph" & ExpNo!=8)
+
+names(carnivores)[6] <- "C.MassDens"
+names(autotrophs)[6] <- "A.MassDens"
+
+
+## Join subsets together
+CA.df <- full_join(carnivores,
+                   autotrophs,
+                   by=c("ExpNo", "SimNo", "TimeStep", "CellCode", "Folder")
+)
+
+# Tidy up
+CA.df <- CA.df[ ,-c(2,5,8)]
+CA.df$CA.Ratio <- CA.df$C.MassDens / CA.df$A.MassDens
+CA.df <- CA.df[ ,-c(4,6)]
+
+# Grouping:
+CA.tmp <- group_by(CA.df,
+                   ExpNo,
+                   CellCode,
+                   TimeStep)
+
+
+# Summary stats + bootstrapping for median CI
+nsample=10^4
+CA.summary <- droplevels(summarize(CA.tmp,
+                                   Count=n(),
+                                   Mean=mean(CA.Ratio),
+                                   SD=sd(CA.Ratio),
+                                   Min=min(CA.Ratio),
+                                   Max=max(CA.Ratio),
+                                   Median=median(CA.Ratio)
+                                   ,medianLCI=quantile(apply(matrix(sample(CA.Ratio,
+                                                                           rep=TRUE,
+                                                                           nsample*length(CA.Ratio)),
+                                                                    nrow=nsample),
+                                                             1,
+                                                             median),
+                                                       0.025),
+                                   medianUCI=quantile(apply(matrix(sample(CA.Ratio,
+                                                                          rep=TRUE,
+                                                                          nsample*length(CA.Ratio)),
+                                                                   nrow=nsample),
+                                                            1,
+                                                            median),
+                                                      0.975)
+
+))
+
+
 
 
 
@@ -204,7 +333,7 @@ HA.summary <- inner_join(HA.summary, simConcise)
 # HA.df <- full_join(herbivores,
 #                    autotrophs,
 #                    by=c("ExpNo", "SimNo", "TimeStep", "CellCode")
-# )
+#
 #
 # # Tidy up
 # HA.df <- HA.df[ ,-c(4,7)]

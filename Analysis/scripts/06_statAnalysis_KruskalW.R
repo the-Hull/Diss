@@ -2,6 +2,8 @@
 rdec <- function(x, k){format(round(x), nsmall=k)}
 
 
+##
+
 ## Kruskal Wallis tests for differences between groups
 
 load("./output/statsAov.Rda")
@@ -20,6 +22,11 @@ bigtabsPath <- "output/KruskalW/bigtabs/"
 ## ------ BMD ------
 
 BMD <- new.env() #Storage for output
+BMD$rankmedian <- new.env()
+
+BMD$ktest <- kruskal.test(statsAov$Median~statsAov$ExpNo)
+
+
 
 cells <- unique(statsAov$CellCode)
 
@@ -67,28 +74,38 @@ for(ce in cells){
                   dat.tmp <- as.data.frame(kruskalmc(as.formula(paste("Median~",cat)),
                             data= dat)$dif.com, colclasses=c("numeric", "numeric", "logical"))
 
-
-                  dat.tmp[,1] <- apply(as.matrix(dat.tmp[,1]),
-                                       1,
-                                       FUN = function(x) as.numeric(rdec(x,2)))
-
-                  dat.tmp[,2] <- apply(as.matrix(dat.tmp[,2]),
-                                       1,
-                                       FUN = function(x) as.numeric(rdec(x,2)))
-
                   tr <- which(dat.tmp$difference==T)
                   ntr <- is.na(dat.tmp$difference)
                   dat.tmp[tr,1] <- apply(as.matrix(dat.tmp[tr,1]),
                                                             1,
-                                                            FUN=function(x) paste0("\\textbf{", rdec(x,0), "}"))
+                                                            FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
                   dat.tmp[tr,2] <- apply(as.matrix(dat.tmp[tr,2]),
                                                             1,
-                                                            FUN=function(x) paste0("\\textbf{", rdec(x,0), "}"))
+                                                            FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
 
                   dat.tmp <- dat.tmp[,1:2]
 
                   dat.tmp[ntr,] <- NA
                   colnames(dat.tmp) <- c("Obs.", "Crit.")
+
+
+
+                  dat.tmp[,1] <- apply(as.matrix(dat.tmp[,1]),
+                                       1,
+                                       FUN = function(x){
+                                             ifelse(substring(x,first = 1, last = 1)!="\\",
+                                                    rdec(as.numeric(x),2),
+                                                    x)
+                                             })
+
+                  dat.tmp[,2] <- apply(as.matrix(dat.tmp[,2]),
+                                       1,
+                                       FUN = function(x){
+                                             ifelse(substring(x,first = 1, last = 1)!="\\",
+                                                    rdec(as.numeric(x),2),
+                                                    x)
+                                       })
+
 
 
 
@@ -98,6 +115,14 @@ for(ce in cells){
                          ,
                          envir = BMD
                   )
+
+                  assign(paste0(fg, "_", cat,  "_", ce, "_ranks"),
+
+                         tapply(rank(dat$Median),list(dat$ExpNo), median)
+                         ,
+                         envir = BMD$rankmedian
+                  )
+
 
                   write.csv(dat.tmp, file=paste0(curPath,"/",fg, "_", cat, "_",ce, "_res.csv"))
 
@@ -112,7 +137,7 @@ for(ce in cells){
 
 }
 BMD.kw <- as.list(mget(ls(pattern = "res", envir = BMD), envir = BMD))
-
+save(BMD, file="./output/KruskalW/BMD_env.Rda")
 save(BMD.kw, file="output/KruskalW/BioMassDens_KruskalW.Rda")
 
 if(!file.exists(bigtabsPath)){
@@ -155,6 +180,7 @@ for(ca in categ){
                   booktabs = T,
                   rotate.colnames = F
                   ,sanitize.text.function = function(x){x}
+                  ,align="c"
                   )
 
       }
