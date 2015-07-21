@@ -22,9 +22,9 @@ bigtabsPath <- "output/KruskalW/bigtabs/"
 ## ------ BMD ------
 
 BMD <- new.env() #Storage for output
-BMD$rankmedian <- new.env()
+BMD$rankmean <- new.env()
 
-BMD$ktest <- kruskal.test(statsAov$Median~statsAov$ExpNo)
+BMD$kwtest <- new.env()
 
 
 
@@ -61,9 +61,9 @@ for(ce in cells){
       for(fg in fgroups){
 
             assign(paste0(fg, "_dat"), subset(statsAov, FGroup==fg &
-                              TimeStep>=1080 &
-                              CellCode==ce),
-             envir = BMD)
+                                                    TimeStep>=1080 &
+                                                    CellCode==ce),
+                   envir = BMD)
 
             for(cat in categ){
 
@@ -72,16 +72,16 @@ for(ce in cells){
                              envir = BMD)
 
                   dat.tmp <- as.data.frame(kruskalmc(as.formula(paste("Median~",cat)),
-                            data= dat)$dif.com, colclasses=c("numeric", "numeric", "logical"))
+                                                     data= dat)$dif.com, colclasses=c("numeric", "numeric", "logical"))
 
                   tr <- which(dat.tmp$difference==T)
                   ntr <- is.na(dat.tmp$difference)
                   dat.tmp[tr,1] <- apply(as.matrix(dat.tmp[tr,1]),
-                                                            1,
-                                                            FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
+                                         1,
+                                         FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
                   dat.tmp[tr,2] <- apply(as.matrix(dat.tmp[tr,2]),
-                                                            1,
-                                                            FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
+                                         1,
+                                         FUN=function(x) paste0("\\(\\mathbf{", rdec(x,2), "}\\)"))
 
                   dat.tmp <- dat.tmp[,1:2]
 
@@ -96,7 +96,7 @@ for(ce in cells){
                                              ifelse(substring(x,first = 1, last = 1)!="\\",
                                                     rdec(as.numeric(x),2),
                                                     x)
-                                             })
+                                       })
 
                   dat.tmp[,2] <- apply(as.matrix(dat.tmp[,2]),
                                        1,
@@ -118,10 +118,19 @@ for(ce in cells){
 
                   assign(paste0(fg, "_", cat,  "_", ce, "_ranks"),
 
-                         tapply(rank(dat$Median),list(dat$ExpNo), median)
+                         tapply(rank(dat$Median),list(dat$ExpNo), mean)
                          ,
-                         envir = BMD$rankmedian
+                         envir = BMD$rankmean
                   )
+
+                  assign(paste0(fg, "_", cat,  "_", ce, "_kwtest"),
+
+                         kruskal.test(dat$Median~dat$ExpNo)
+                         ,
+                         envir = BMD$kwtest
+                  )
+
+
 
 
                   write.csv(dat.tmp, file=paste0(curPath,"/",fg, "_", cat, "_",ce, "_res.csv"))
@@ -149,9 +158,9 @@ for(ca in categ){
       for(c in cells){
 
             bigtab <- do.call(cbind,
-                           mget(ls(pattern=paste0(ca, "_", c),
-                                   envir = BMD),
-                                envir = BMD))
+                              mget(ls(pattern=paste0(ca, "_", c),
+                                      envir = BMD),
+                                   envir = BMD))
 
             colnames(bigtab) <- gsub("_.*res[.]", " ", colnames(bigtab))
 
@@ -181,7 +190,7 @@ for(ca in categ){
                   rotate.colnames = F
                   ,sanitize.text.function = function(x){x}
                   ,align="c"
-                  )
+            )
 
       }
 }

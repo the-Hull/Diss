@@ -33,5 +33,6 @@ for(i in 2:6){
 #       sanitize.text.function = function(x){x},
 #       tabular.environment="tabularx",
 #       width="\\textwidth",
-#       add.to.row = list(list(rows), "[1ex]")
+#       add.to.row = list(list(rows), "[1ex]"),
+#           caption.placement = "top"
 # )

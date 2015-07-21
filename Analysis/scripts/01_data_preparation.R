@@ -29,40 +29,43 @@ simOverview$FD <- factor(9 - simOverview$RM_No)
 # simOverview$FD <- 9 - simOverview$RM_No
 
 
-simConcise <- simOverview[ ,c(1,8,9,10,11,12:16)]
-
+# simConcise <- simOverview[ ,c(1,8,9,10,11,12:16)]
+#
 # simConcise$FD <- relevel(simConcise$FD, ref="9")
-simConcise$weights <- c(3, rep(1,6),3)
+# simConcise$weights <- c(3, rep(1,6),3)
+#
+#
+# simConcise$pEND <- relevel(simConcise$pEND, ref="C")
+# simConcise$pECTi <- relevel(simConcise$pECTi, ref="C")
+# simConcise$pECTs <- relevel(simConcise$pECTs, ref="C")
+#
+# simConcise$pENDa <- as.factor(simConcise$pENDa)
+# simConcise$pECTia <- as.factor(simConcise$pECTia)
+# simConcise$pECTsa <- as.factor(simConcise$pECTsa)
+#
+# simConcise$pENDa <- relevel(simConcise$pENDa, ref="1")
+# simConcise$pECTia <- relevel(simConcise$pECTia, ref="1")
+# simConcise$pECTsa <- relevel(simConcise$pECTsa, ref="1")
 
+# simConcise$comp <- paste0(simConcise$pECTia, simConcise$pECTsa, simConcise$pENDa)
 
-simConcise$pEND <- relevel(simConcise$pEND, ref="C")
-simConcise$pECTi <- relevel(simConcise$pECTi, ref="C")
-simConcise$pECTs <- relevel(simConcise$pECTs, ref="C")
-
-simConcise$pENDa <- as.factor(simConcise$pENDa)
-simConcise$pECTia <- as.factor(simConcise$pECTia)
-simConcise$pECTsa <- as.factor(simConcise$pECTsa)
-
-simConcise$pENDa <- relevel(simConcise$pENDa, ref="1")
-simConcise$pECTia <- relevel(simConcise$pECTia, ref="1")
-simConcise$pECTsa <- relevel(simConcise$pECTsa, ref="1")
-
-simConcise$Label_Abb <- relevel(simConcise$Label_Abb, ref="C(end) + C(ect)s + C(ect)i")
+#
+# simConcise$Label_Abb <- relevel(simConcise$Label_Abb, ref="C(end) + C(ect)s + C(ect)i")
 # save(simConcise, file="./output/simConcise.Rda")
 
 
 
-statsAov <- inner_join(statsFull, simConcise)
-
-statsAov$TL <- statsAov$FGroup
-
-statsAov$TL[statsAov$TL=="autotroph"] <- 1
-statsAov$TL[statsAov$TL=="herbivore"] <- 2
-statsAov$TL[statsAov$TL=="omnivore"] <- 3
-statsAov$TL[statsAov$TL=="carnivore"] <- 4
-
-
+# statsAov <- inner_join(statsFull, simConcise)
 #
+# statsAov$TL <- statsAov$FGroup
+#
+# statsAov$TL[statsAov$TL=="autotroph"] <- 1
+# statsAov$TL[statsAov$TL=="herbivore"] <- 2
+# statsAov$TL[statsAov$TL=="omnivore"] <- 3
+# statsAov$TL[statsAov$TL=="carnivore"] <- 4
+#
+#
+# #
 # # Create DF for H:C ratios ------------------------------------------------
 #
  load("./output/HCRatios.Rda")
