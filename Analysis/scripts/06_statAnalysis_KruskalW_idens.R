@@ -1,4 +1,6 @@
 ## Kruskal Wallis tests for differences between groups
+## helper function
+rdec <- function(x, k){format(round(x), nsmall=k)}
 
 timecut <- statsAov[statsAov$TimeStep>=1080,]
 
@@ -23,9 +25,9 @@ bigtabsPath <- "output/KruskalW/bigtabs/"
 
 IDENS <- new.env() #Storage for output
 
-IDENS$rankmedian <- new.env()
+IDENS$rankmean <- new.env()
 
-IDENS$ktest <- kruskal.test(statsDens$Median~statsDens$ExpNo)
+IDENS$kwtest <- new.env()
 
 cells <- unique(statsDens$CellCode)
 
@@ -118,11 +120,19 @@ for(ce in cells){
 
                   assign(paste0(fg, "_", cat,  "_", ce, "_ranks"),
 
-                         tapply(rank(dat$Median),list(dat$ExpNo), median)
+                         tapply(rank(dat$Median),list(dat$ExpNo), mean)
                          ,
-                         envir = IDENS$rankmedian
+                         envir = IDENS$rankmean
                   )
 
+
+
+                  assign(paste0(fg, "_", cat,  "_", ce, "_kwtest"),
+
+                         kruskal.test(dat$Median~dat$ExpNo)
+                         ,
+                         envir = IDENS$kwtest
+                  )
 
                   write.csv(dat.tmp, file=paste0(curPath,"/",fg, "_", cat, "_",ce, "_res.csv"))
 
@@ -140,7 +150,7 @@ for(ce in cells){
 }
 IDENS.kw <- as.list(mget(ls(pattern = "res", envir = IDENS), envir = IDENS))
 
-save(IDENS, files="output/KruskalW/IDENS_env.Rda")
+save(IDENS, file="output/KruskalW/IDENS_env.Rda")
 save(IDENS.kw, file="output/KruskalW/IndDens_KruskalW.Rda")
 
 if(!file.exists(bigtabsPath)){
