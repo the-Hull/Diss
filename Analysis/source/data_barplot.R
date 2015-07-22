@@ -1,4 +1,6 @@
 ## Produce Barplots of Median Biomass / Abundance density
+## requires output from boot_resample()
+
 
 data_barplot <- function(dat,cell,logscale=F, addauto=F,...){
 

@@ -3,7 +3,9 @@
 
 ## data needed: statsAov / statsDensAov (Median + composition factor)
 
-comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
+
+
+comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F, labels){
 
       numfg <- length(unique(dat$FGroup))
 
@@ -49,13 +51,13 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
 
       ## create boxplot
 
-      x11()
+      # x11()
       par(mfrow=c(nplot,1))
-      par(tcl=-.25)
+      par(tcl=-.5)
       par(mgp= c(2.5, 0.75, 0))
 
       if(nplot>1){
-            par(mar=c(3,4,2,0.5))
+            par(mar=c(3,5.5,2,0.5))
       }
 
       outplot <- lapply(plotlist,
@@ -64,7 +66,8 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
                                       dat=x
                                       ,plot=F
                                       ,axes=F
-                                      ,xaxt=F)
+                                      ,xaxt=F
+                                      ,frame=T)
                         })
       id <- unlist(
                   lapply(
@@ -87,11 +90,11 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
 
 
       i <- 1
-      ylabs <- c(paste0(ifelse(logscale==T,"log ",""),
-                        "Biomass Density [kg/sqkm]"),
-                 paste0(ifelse(logscale==T,"log ",""),
-                        "Abundance Density [n/sqkm]")
-                  )
+#       ylabs <- c(paste0(ifelse(logscale==T,"log ",""),
+#                         labels[1]),
+#                  paste0(ifelse(logscale==T,"log ",""),
+#                         labels[2])
+#                   )
 
       invisible(lapply(plotlist,
              FUN=function(x){
@@ -99,7 +102,9 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
                            dat=x,
                            col=cols,
                            names=names,
-                           ylab=ylabs[i])
+                           ylab=labels[i],
+                           frame=T
+                           )
 
 
                    if(i==1){
@@ -110,9 +115,9 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
                                 legend=c("3","2", "1", "none"),
                                 col=1,
                                 pt.cex=1.5,
-                                title="Carnivorous\nGroups",
+                                title="Carnivorous Groups",
                                 xjust = 0.5,
-                                inset=c(0.35, .1),
+                                inset=c(0.25, .45),
                                 y.intersp=0.8,
                                 title.adj = 0.5,
                                 yjust = 0
@@ -122,7 +127,7 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
 
                   }
 
-                   abline(v=8.5, lty=2, col="gray85")
+                   abline(v=8.5, lty=2, col="gray65", lwd=1.5)
 
                   mtext(text = c("Cell 0","Cell 1"),
                         side = 3,
@@ -134,18 +139,18 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F){
 
              }))
 
-      text(x = 3, y=9e6, (" A | B | C"))
-      text(x = 1.5, y=8e6,"A = ECT-i")
-      text(x = 3, y=8e6, "B = ECT-s")
-      text(x = 4.5, y=8e6, "C = END")
-      rect(.75, 7.25e6, 5.25, 9.85e6, border=T, density=-1)
+#       text(x = 3, y=9e6, (" A | B | C"))
+#       text(x = 1.5, y=8e6,"A = ECT-i")
+#       text(x = 3, y=8e6, "B = ECT-s")
+#       text(x = 4.5, y=8e6, "C = END")
+#       rect(.75, 7.25e6, 5.25, 9.85e6, border=T, density=-1)
+#
+#
+#
+#
 
 
 
-
-
-
-
-
+      invisible(plotlist)
 
 }

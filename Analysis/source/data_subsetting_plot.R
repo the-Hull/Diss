@@ -1,11 +1,11 @@
 
 # Plot Time Series of BioMass Density, for a set of functional groups and experiments -----
 
-data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F, ylab){
+data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, mf=T, id=F, CI=F,...){
 
 
-      y.lab <- paste(ifelse(logscale, "log", ""),
-            ylab)
+#       y.lab <- paste(ifelse(logscale, "log", ""),
+#             ylab)
 
 
       ## Check if any subsetting is required
@@ -95,21 +95,35 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F, y
 
 
             # open graphics device
-            x11()
+            # x11()
 
             # Graphics Layout
-            par(mfrow=plot.layout)
-            par(mar=c(4,4,1,1))
+            if(mf==T){
+                  par(mfrow=plot.layout)
+                  par(mar=c(4,4,1,1))
+            } else {
+
+            }
 
             # Dataframe for color matching
+#             cols <- data.frame(FGroup=c("autotroph",
+#                                         "carnivore",
+#                                         "herbivore",
+#                                         "omnivore"),
+#                                Color=c("chartreuse3",
+#                                        "orangered4",
+#                                        "seagreen4",
+#                                        "darkgoldenrod3"),
+#                                stringsAsFactors = F)
+
             cols <- data.frame(FGroup=c("autotroph",
                                         "carnivore",
                                         "herbivore",
                                         "omnivore"),
-                               Color=c("chartreuse3",
-                                       "orangered4",
-                                       "seagreen4",
-                                       "darkgoldenrod3"),
+                               Color=c("#A7F62F",
+                                       "#CC2614" ,
+                                       "#44CA9F" ,
+                                       "#FFA41A"),
                                stringsAsFactors = F)
 
             exp.labels <- c("C(end) + C(ect)s + C(ect)i",
@@ -189,14 +203,15 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F, y
 
 
                                     plot(tmp2.data4plot$Median[tmp2.data4plot$FGroup==groups[j]],
-                                         xlab="Time Step (months)",
-                                         ylab=y.lab,
+                                         # xlab="Time Step (months)",
+                                         # ylab=y.lab,
                                          col=colmatch,
                                          xlim=c(0, length(unique(tmp2.data4plot$TimeStep))),
                                          ylim=c(lowerLim,
                                                 upperLim),
                                          type="l",
-                                         lty=1)
+                                         lty=1,
+                                         ...)
 
                                     if(CI==T){
 
@@ -206,6 +221,9 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F, y
                                     }
 
                                     # ID Stamp
+
+                                    if(id==T){
+
                                     text(round(length(unique(tmp.data4plot$TimeStep))*0.5),
                                          lowerLim+max(tmp.data$Median)*ifelse(logscale, 0.01, 0.85),
                                          paste0("E: ",
@@ -217,10 +235,11 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F, y
                                                ifelse(cells[k]=="Cell0", ": aseasonal)", ": seasonal)")
                                                )
                                          )
+                                    }
                               # Plot remaining groups
                               } else {
                                     lines(tmp2.data4plot$Median[tmp2.data4plot$FGroup==groups[j]],
-                                          col=colmatch)
+                                          col=colmatch,...)
 
 
                                     if(CI==T){
