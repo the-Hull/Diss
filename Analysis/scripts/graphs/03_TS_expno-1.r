@@ -1,8 +1,9 @@
 ### Graph for time series, expno 1
 
 xl <- "\\textbf{Time Step (months)}"
-# yl <- "\\textbf{$\\log_{10}$ Biomass Density} \\\ $[kg\\cdot km^{-2}]$"
-yl <- "test"
+# xl <- "test"
+yl <- "\\textbf{$\\log_{10}$ Biomass Density} \\\ $[kg\\cdot km^{-2}]$"
+# yl <- "test"
 
 # x11()
 
@@ -26,7 +27,7 @@ data_plot(dat,expno = 1,
           xlab=xl,
           ylab=yl)
 
-mtext("\\textbf{Cell 0 - Aseasonal}", side=4, line=0.5, las=0)
+# mtext("\\textbf{Cell 0 - Aseasonal}", side=4, line=0.5, las=0)
 
 
 par(mar=c(4.5,4.5,1,3))
@@ -39,7 +40,7 @@ data_plot(dat2,expno = 1,
           xlab=xl,
           ylab=yl)
 
-mtext("\\textbf{Cell 1 - Seasonal}", side=4, line=0.5, las=0)
+# mtext("\\textbf{Cell 1 - Seasonal}", side=4, line=0.5, las=0)
 
 
 dev.off()
