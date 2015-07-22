@@ -106,7 +106,7 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, CI=F, y
                                         "carnivore",
                                         "herbivore",
                                         "omnivore"),
-                               Color=c("olivedrab",
+                               Color=c("chartreuse3",
                                        "orangered4",
                                        "seagreen4",
                                        "darkgoldenrod3"),
