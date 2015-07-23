@@ -2,7 +2,7 @@
 # Create time series and decompose trends from observed data --------------
 
 
-ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1, plot=T){
+ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1, plot=T,lwd=2,...){
 
 ## Create Subset for Data
 
@@ -84,7 +84,7 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1, plot=T){
 
 
             # Open GFX
-            x11()
+            # x11()
 
             # Set up layout for plot
             layout <- layout(mat = matrix(c(1,3,2),
@@ -93,7 +93,9 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1, plot=T){
 
             # Counter for colors
 
-            par(mar=c(4,4.5,1.5,0.5))
+            par(mar=c(4,6,1.5,0.5))
+
+            cols <- RColorBrewer::brewer.pal(n = 8, name = "Dark2")
 
             for(k in 1:length(tmp.list)){
 
@@ -105,13 +107,14 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1, plot=T){
                                           if(length(expno)==1){
 
                                                 plot(log10(x+1),
-                                                     xlab = "Time (years)",
-                                                     ylab = "log Biomass Density [kg/sqkm]",
+#                                                      xlab = "Time (years)",
+#                                                      ylab = "log Biomass Density [kg/sqkm]",
                                                      ylim = c(y.min, y.max),
                                                      main = paste(names(tmp.list)[k],
                                                                   "Values for experiment",
                                                                   expno
-                                                            )
+                                                            ),
+                                                      ...
 
                                                      )
 
@@ -122,24 +125,26 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1, plot=T){
                                                 if(i==1){
 
                                                       plot(log10(x+1),
-                                                           xlab = "Time (years)",
-                                                           ylab = "log Biomass Density [kg/sqkm]",
+#                                                            xlab = "Time (years)",
+#                                                            ylab = "log Biomass Density [kg/sqkm]",
                                                            ylim = c(y.min, y.max)
                                                            ,type='l'
-                                                           ,lwd=1.4,
-                                                           main = paste(names(tmp.list)[k],
+                                                           ,lwd=lwd
+                                                            ,col=cols[i]
+                                                           ,main = paste(names(tmp.list)[k],
                                                                         "Values"
       #                                                                   ,ifelse(numexp>1, "Experiments", "Experiment"),
       #                                                                   paste(expno, collapse=", ")
-                                                                        ))
+                                                                        ),...
+                                                            )
                                                       i <<- i + 1
 
 
                                                 } else {
 
                                                       lines(log10(x+1),
-                                                            col=i
-                                                            ,lwd=1.4)
+                                                            col=cols[i]
+                                                            ,lwd=lwd)
 
 
                                                       i <<- i + 1
@@ -158,16 +163,21 @@ ts_decomp <- function(data, fgroup, cellcode, expno=NULL, cutoff=1, plot=T){
 
             par(mar=rep(0,4))
             plot(1:1, type="n", xlab="", ylab="", axes=F)
-            text(1,1, paste(fgroup, "in", cellcode), cex=1.5, pos=3)
+            # text(1,1, paste(fgroup, "in", cellcode), cex=1.5, pos=3)
 
-            legend("bottom",
+            legend("center",
                    legend = paste("Exp.:", expno),
-                   col = 1:numexp,
+                   col = cols[1:numexp],
                    lty=1,
-                   lwd=2,
-                   horiz=T,
+                   lwd=7,
+                   xpd=T,
+                   horiz=F,
                    bty = "n",
-                   cex = 1.3)
+                   # pch=15,
+                   y.intersp = 1.2,
+                   cex = .9,
+                   ncol = 4,
+                   x.intersp = 0.9)
 
             return(list(sub=tmp1, dec=list.dec))
 

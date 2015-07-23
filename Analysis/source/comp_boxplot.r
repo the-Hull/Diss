@@ -5,7 +5,7 @@
 
 
 
-comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F, labels){
+comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F, labels, legendpos){
 
       numfg <- length(unique(dat$FGroup))
 
@@ -108,7 +108,7 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F, lab
 
 
                    if(i==1){
-                         legend("bottomleft",
+                         legend(legendpos,
                                 bty="n",
                                 pch=21,
                                 pt.bg=rev(pal),
@@ -117,7 +117,7 @@ comp_boxplot <- function(dat,dat2=NULL, resp, cutoff, type=NULL, logscale=F, lab
                                 pt.cex=1.5,
                                 title="Carnivorous Groups",
                                 xjust = 0.5,
-                                inset=c(0.25, .45),
+                                inset=c(0.075, .15),
                                 y.intersp=0.8,
                                 title.adj = 0.5,
                                 yjust = 0

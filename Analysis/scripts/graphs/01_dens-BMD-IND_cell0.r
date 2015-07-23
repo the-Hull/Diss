@@ -1,5 +1,11 @@
+load("./output/bootMedian_BMD.rda")
+load("./output/bootMedian_IND.rda")
+
 # Tikz Set up
+require(tikzDevice)
 options(tikzDocumentDeclaration = "\\documentclass[12pt]{scrbook}")
+
+
 
 avlab <- "\\textbf{Av. Body Mass $[kg\\cdot n^{-1}]$}"
 # avlab <- "test"
@@ -28,7 +34,7 @@ cols <- data.frame(FGroup=c("autotrophs",
 cols <- cols[c(1,3,4,2), ]
 
 
-# x11()
+# x11() ## run with plot=T once
 barIND <- data_barplot(dat = bootmedian_IND,
                        logscale = F,
                        cell = 0,
@@ -112,7 +118,6 @@ abline(h=abh,
 ###
 # dev.off()
 ###
-
 #
 # #  Avg Body mass plot -----------------------------------------------------
 tikz("../WriteUp/Dissertation/res/fig/BMD_IND_0_avg.tex",
@@ -152,15 +157,15 @@ abline(h=0,
 abline(v=seq(5.5,35.5,5), lty=2, lwd=1.5, col="gray60")
 
 legend("topleft",
-       legend=cols$FGroup,
+       legend=cols$FGroup[-1],
        pch=21,
        col="gray60",
-       pt.bg=cols$Color,
+       pt.bg=cols$Color[-1],
        pt.cex=1.5,
        x.intersp = 0.7,
        y.intersp = 1.3,
        xjust=1,
-       # inset=c(.045,0.06),
+       inset=c(.055,0.06),
        bg="white",
        box.col="white",
        box.lwd=0

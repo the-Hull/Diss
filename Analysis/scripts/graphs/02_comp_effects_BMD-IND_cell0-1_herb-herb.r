@@ -1,6 +1,8 @@
 ## Graph for composition differences
-
+require(tikzDevice)
 ## Tikz Set up
+load("./output/statsDensAov.Rda")
+load("./output/statsAov.Rda")
 options(tikzDocumentDeclaration = "\\documentclass[12pt]{scrbook}")
 #
 # avlab <- "\\textbf{Av. Body Mass $[kg\\cdot n^{-1}]$}"
@@ -18,23 +20,24 @@ indlab <- "\\textbf{$\\log_{10}$ Herbivore Abundance Density \\\ $[n\\cdot km^{-
 
 # x11()
 #
-# tikz("../WriteUp/Dissertation/res/fig/comp_effects_herb-herb.tex",
-#      width = 8,
-#      height = 8,
-#      standAlone = T,
-#      timestamp = T)
+tikz("../WriteUp/Dissertation/res/fig/comp_effects_herb-herb.tex",
+     width = 8,
+     height = 8,
+     standAlone = T,
+     timestamp = T)
 #
 # # png("../presentation/fig/comp_effects_herb-herb.png", width = 10,height = 8,units = "in", res=300,
 #      bg="transparent")
 
 par(mar=c(4.5,
-          4.5,
+          5,
           0.5,
           0.5))
 # x11()
 dat <- comp_boxplot(statsAov, statsDensAov,cutoff=1080,type = NULL,
                     resp = c("herbivore","herbivore"),logscale = T,
-                    labels=c(bmdlab, indlab))
+                    labels=c(bmdlab, indlab),
+                    legendpos = "bottomright")
 # dev.off()
 
 

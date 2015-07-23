@@ -1,3 +1,5 @@
+load("./output/bootMedian_BMD.rda")
+load("./output/bootMedian_IND.rda")
 ## Tikz Set up
 options(tikzDocumentDeclaration = "\\documentclass[12pt]{scrbook}")
 
@@ -30,7 +32,7 @@ cols <- cols[c(1,3,4,2), ]
 barIND.cell1 <- data_barplot(dat = bootmedian_IND,
                        logscale = F,
                        cell = 1,
-                       addauto = T, plot=F)
+                       addauto = T, plot=T)
 x11()
 # tikz("../WriteUp/Dissertation/res/fig/BMD_IND_1.tex",
 #      width = 8,
@@ -157,10 +159,10 @@ abline(h=0,
 abline(v=seq(5.5,35.5,5), lty=2, lwd=1.5, col="gray60")
 
 legend("topright",
-       legend=cols$FGroup,
+       legend=cols$FGroup[-1],
        pch=21,
        col="gray60",
-       pt.bg=cols$Color,
+       pt.bg=cols$Color[-1],
        pt.cex=1.5,
        x.intersp = 0.7,
        y.intersp = 1.3,
