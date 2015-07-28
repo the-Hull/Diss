@@ -206,7 +206,6 @@ data_plot <- function(data, expno=NULL, fgroup=NULL, plot=T, logscale=F, mf=T, i
                                          # xlab="Time Step (months)",
                                          # ylab=y.lab,
                                          col=colmatch,
-                                         xlim=c(0, length(unique(tmp2.data4plot$TimeStep))),
                                          ylim=c(lowerLim,
                                                 upperLim),
                                          type="l",

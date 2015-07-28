@@ -1,7 +1,7 @@
 ## helper function
 rdec <- function(x, k){format(round(x), nsmall=k)}
-
-
+require(pgirmess)
+require(xtable)
 ##
 
 ## Kruskal Wallis tests for differences between groups
@@ -33,7 +33,8 @@ cells <- unique(statsAov$CellCode)
 fgroups <- unique(statsAov$FGroup)
 
 expno <- levels(statsAov$ExpNo)
-exptest <- expno[-8]
+# exptest <- expno[-8]
+exptest <- expno
 numexp <- length(exptest)
 
 categ <- names(statsAov)[c(1,23)]
@@ -107,7 +108,7 @@ for(ce in cells){
                                        })
 
 
-
+                  dat <- as.data.frame(dat)
 
                   assign(paste0(fg, "_", cat,  "_", ce, "_res"),
 
@@ -118,14 +119,14 @@ for(ce in cells){
 
                   assign(paste0(fg, "_", cat,  "_", ce, "_ranks"),
 
-                         tapply(rank(dat$Median),list(dat$ExpNo), mean)
+                         tapply(rank(dat$Median),list(dat[,cat]), mean)
                          ,
                          envir = BMD$rankmean
                   )
 
                   assign(paste0(fg, "_", cat,  "_", ce, "_kwtest"),
 
-                         kruskal.test(dat$Median~dat$ExpNo)
+                         kruskal.test(dat$Median~dat[,cat])
                          ,
                          envir = BMD$kwtest
                   )
@@ -135,9 +136,28 @@ for(ce in cells){
 
                   write.csv(dat.tmp, file=paste0(curPath,"/",fg, "_", cat, "_",ce, "_res.csv"))
 
-                  xtab <- xtable(dat.tmp)
+
+                  curr.test <- get(x = paste0(fg, "_", cat,  "_", ce, "_kwtest"),
+                                   envir = BMD$kwtest)
+                  curr.test[5] <- paste(cat,"for",fg, "in", ce, "biomass density [$kg\\cdot km^{-2}$]")
+#
+                  xtab <- xtable(dat.tmp,
+                                 caption = paste0("$\\chi_{",curr.test[2], "} = ", round(as.numeric(curr.test[1]),2),"$ ",
+                                                  "$p = ", round(as.numeric(curr.test[3]), 4), "$ ", curr.test[5]),
+                                 label = "tab:"
+
+                  )
+
+
                   print(xtab, file=paste0(xPath,"/",fg, "_", cat,  "_", ce, "_res.tex"),
-                        sanitize.text.function = function(x){x})
+                        sanitize.text.function = function(x){x},
+                        tabular.environment = "tabular*",
+                        caption.placement = "top",
+                        booktabs = T,
+                        sanitize.colnames.function = function(x){
+                              paste0("\\textbf{", x, "}")
+                        }
+                        )
 
             }
 

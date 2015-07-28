@@ -66,6 +66,29 @@ simOverview$FD <- factor(9 - simOverview$RM_No)
 #
 #
 # #
+
+# Average BM -------------------------------------------------------------
+
+load("./output/statsAov.Rda")
+load("./output/statsDensAov.Rda")
+
+
+tmp <- statsAov[,c(1:4, 12)]
+names(tmp)[5] <- "MedBMD"
+tmp.df <- left_join(statsDensAov, tmp)
+tmp.df$AvBM <- tmp.df$Median/tmp.df$MedBMD
+tmp.df <- tmp.df[, c(1:4, 15,17:27)]
+statsAvbm <- tmp.df
+names(statsAvbm)[16] <- "Median"
+save(statsAvbm, file="./output/statsAvbm.Rda")
+
+statsAvbm <- statsAvbm[complete.cases(statsAvbm),]
+bootmed_Avbm <- boot_resamp(statsAvbm, cutoff = 1080, 10^4)
+
+save(bootmedianCI_Avbm, file="output/bootmedianCI_Avbm.Rda")
+
+
+
 # # Create DF for H:C ratios ------------------------------------------------
 #
  load("./output/HCRatios.Rda")

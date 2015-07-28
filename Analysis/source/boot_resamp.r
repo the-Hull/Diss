@@ -28,7 +28,7 @@ boot_resamp <- function(dat, cutoff, nsample){
                                                               nrow=nsample),
                                                        1,
                                                        median),
-                                                 0.975)
+                                                 0.975, na.rm = T)
 
       )
       median <- tapply(res$Med, list(res$FGroup,res$ExpNo, res$CellCode), sum)
