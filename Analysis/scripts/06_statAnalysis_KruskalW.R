@@ -142,7 +142,7 @@ for(ce in cells){
                   curr.test[5] <- paste(cat,"for",fg, "in", ce, "biomass density [$kg\\cdot km^{-2}$]")
 #
                   xtab <- xtable(dat.tmp,
-                                 caption = paste0("$\\chi_{",curr.test[2], "} = ", round(as.numeric(curr.test[1]),2),"$ ",
+                                 caption = paste0("$\\chi^{2}_{",curr.test[2], "} = ", round(as.numeric(curr.test[1]),2),"$ ",
                                                   "$p = ", round(as.numeric(curr.test[3]), 4), "$ ", curr.test[5]),
                                  label = "tab:"
 

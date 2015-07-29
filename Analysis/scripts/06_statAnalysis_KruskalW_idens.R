@@ -36,7 +36,7 @@ cells <- unique(statsDens$CellCode)
 fgroups <- unique(statsDens$FGroup)
 
 expno <- levels(statsDens$ExpNo)
-exptest <- expno[-8]
+exptest <- expno
 numexp <- length(exptest)
 
 categ <- names(statsDens)[c(1,23)]
@@ -149,7 +149,7 @@ for(ce in cells){
 
 
                   xtab <- xtable(dat.tmp,
-                                 caption = paste0("$\\chi_{",curr.test[2], "} = ", round(as.numeric(curr.test[1]),2),"$ ",
+                                 caption = paste0("$\\chi^{2}_{",curr.test[2], "} = ", round(as.numeric(curr.test[1]),2),"$ ",
                                                   "$p = ", round(as.numeric(curr.test[3]), 4), "$ ", curr.test[5]),
                                  label = "tab:"
 
