@@ -72,8 +72,18 @@ data_barplot <- function(dat,cell,logscale=F, addauto=F,...){
              y1 = uci,
              angle = 90,
              length = .07,
-             lwd = 2,
+             lwd = 1,
              col="gray10")
+
+      arrows(x0 = bars,
+             y0 = dat.plot,
+             x1 = bars,
+             y1 = lci,
+             angle = 90,
+             length = .07,
+             lwd = 1,
+             col="gray10")
+
 
             invisible(list(data=dat.plot, loc=bars))
 

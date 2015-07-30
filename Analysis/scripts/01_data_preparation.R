@@ -427,3 +427,25 @@ CA.summary <- droplevels(summarize(CA.tmp,
 #
 #
 #
+
+
+## Median For Final Years + CI
+
+load("./output/HARatios_medianCI.Rda")
+load("./output/OARatios_medianCI.Rda")
+load("./output/CARatios_medianCI.Rda")
+
+require(dplyr)
+
+
+HA.summary$FGroup <- "Herb-Auto"
+HerbA_bootMedian <- boot_resamp(HA.summary, 1080, 10^4)
+
+
+
+CA.summary$FGroup <- "Car-Auto"
+CarA_bootMedian <- boot_resamp(CA.summary, 1080, 10^4)
+
+
+OA.summary$FGroup <- "Omn-Auto"
+OmnA_bootMedian <- boot_resamp(OA.summary, 1080, 10^4)

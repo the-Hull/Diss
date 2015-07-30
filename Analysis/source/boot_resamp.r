@@ -43,6 +43,8 @@ boot_resamp <- function(dat, cutoff, nsample){
             idx <- c(1,3,4,2)
       } else if(ngroups==3){
             idx <- c(2,3,1)
+      } else {
+            idx <- 1
       }
 
       out <- list(median=median[idx,,],

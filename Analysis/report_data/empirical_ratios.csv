@@ -1,0 +1,17 @@
+Name,Realm,Ecosystem type,Lat,Long,Location notes,PB (gCm-2),HB (gCm-2),OB (gCm-2),CB (gCm-2),HARatio,OARatio,CARatio
+"Barrow, Alaska",Terrestrial,Tundra,71.3,-156.77,,75.27,0.12,,,0.001594261,,
+"Andrews Experimental Forest, Oregon",Terrestrial,Temperate Forest,44,-122.5,,26862.8,0.45,,,1.67518E-05,,
+"Andrews Experimental Forest, Oregon",Terrestrial,Temperate Forest,44,-122.5,,32528.8,0.67,,,2.05971E-05,,
+"Andrews Experimental Forest, Oregon",Terrestrial,Temperate Forest,44,-122.5,,20017.6,0.67,,,3.34705E-05,,
+"Andrews Experimental Forest, Oregon",Terrestrial,Temperate Forest,44,-122.5,,22590.4,0.67,,,2.96586E-05,,
+"Andrews Experimental Forest, Oregon",Terrestrial,Temperate Forest,44,-122.5,,39300.4,0.67,,,1.70482E-05,,
+"San Simon Valley, Arizona",Terrestrial,Desert,31.92,-109.14,Approximate,184,0.06,,,0.000326087,,
+"Cedar Creek Natural History Area, Minnesota",Terrestrial,Savannah,45.41,-93.2,,17.74,0.1,,,0.005636979,,
+"Devon Island, Nunavut",Terrestrial,Tundra,75.13,-87.85,Approximate for island,57.2,0.02,,,0.00034965,,
+"Devon Island, Nunavut",Terrestrial,Tundra,75.13,-87.85,Approximate for island,399.2,0.08,,,0.000200401,,
+"AEC Reservation, Oak Ridge, Tennessee",Terrestrial,Deciduous Forest,35.93,-84.32,,8011,0.1,,0.03,1.24828E-05,,3.74485E-06
+"Oak Ridge, Tennessee",Terrestrial,Grassland,35.93,-84.32,,56.88,0.27,,,0.004746835,,
+"Luquillo Experimental Forest Biosphere Reserve, Puerto Rico",Terrestrial,Tropical Forest,18.42,-65.33,Approximate,9999,1.31,,,0.000131013,,
+Serengeti,Terrestrial,Savannah,-2.33,34.57,Approximate. Note that there are 4 sites spread over about 1 degree in lat/long; not sure which site is which.,33.47,0.73,,,0.021810577,,
+Serengeti,Terrestrial,Savannah,-2.33,34.57,Approximate. Note that there are 4 sites spread over about 1 degree in lat/long; not sure which site is which.,40,0.85,,,0.02125,,
+Serengeti,Terrestrial,Savannah,-2.33,34.57,Approximate,116.56,0.34,,,0.002916953,,

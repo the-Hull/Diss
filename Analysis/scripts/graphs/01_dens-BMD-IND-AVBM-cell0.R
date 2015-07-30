@@ -73,7 +73,7 @@ tikz("../WriteUp/Dissertation/res/fig/BMD_IND_AVBM_0.tex",
      timestamp = T)
 par(cex=1.3)
 par(cex.axis=1.3)
-par(cex.lab=1.33)
+par(cex.lab=1.5)
 
 
 # png("../presentation/fig/BMD_IND_0.png", width = 8,height = 8,units = "in", res=300,
@@ -84,7 +84,7 @@ par(mfrow=c(3,1))
 
 ## Biomass Density Plot
 par(mar=c(1,
-          6.5,
+          4.5,
           0.5,
           0.5))
 barBMD <- data_barplot(dat = bootmedian_BMD,
@@ -131,7 +131,7 @@ text(x = barBMD$loc[2,],
 
 
 par(mar=c(1,
-          6.5,
+          4.5,
           0.5,
           0.5))
 ind.loc <- data_barplot(dat = bootmedian_IND,
@@ -149,6 +149,28 @@ abline(v=seq(5.5,35.5,5), lty=2, lwd=1.5, col="gray60")
 abline(h=abh,
        col="black",
        lwd=ablwd)
+
+
+legend("topleft",
+       legend=cols$FGroup,
+       pch=21,
+       col="gray60",
+       pt.bg=cols$Color,
+       pt.cex=1.5,
+       x.intersp = 0.7,
+       y.intersp = 1.3,
+       xjust=1,
+       inset=c(.01,0.07),
+       bg="white",
+       box.col="white",
+       box.lwd=0,
+       cex=1.5,
+       xpd=T,
+       ncol=2
+       # ,title="Trophic Group"
+       # ,title.adj= 0.5
+)
+
 
 text(x = ind.loc$loc[2,],
      y = ind.loc$data[2,]+110000,
@@ -177,7 +199,7 @@ text(x = ind.loc$loc[2,],
 
 
 par(mar=c(6.5,
-          6.5,
+          4.5,
           0.5,
           0.5))
 
@@ -205,23 +227,6 @@ abline(h=0,
 
 abline(v=seq(5.5,35.5,5), lty=2, lwd=1.5, col="gray60")
 
-legend("topleft",
-       legend=cols$FGroup[-1],
-       pch=21,
-       col="gray60",
-       pt.bg=cols$Color[-1],
-       pt.cex=1.5,
-       x.intersp = 0.7,
-       y.intersp = 1.3,
-       xjust=1,
-       inset=c(.01,0.06),
-       bg="white",
-       box.col="white",
-       box.lwd=0,
-       cex=1.5
-       # ,title="Trophic Group"
-       # ,title.adj= 0.5
-)
 
 text(x = locs$loc[2,],
      y = locs$data[2,]+.5,
