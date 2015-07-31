@@ -12,19 +12,29 @@ serengeti <- median(emp$LHerA[emp$Name=="Serengeti"])
 ser.min <- min(emp$LHerA[emp$Name=="Serengeti"])
 ser.max <- max(emp$LHerA[emp$Name=="Serengeti"])
 
+andrews <- median(emp$LHerA[emp$Name=="Andrews Experimental Forest, Oregon"])
+and.min <- min(emp$LHerA[emp$Name=="Andrews Experimental Forest, Oregon"])
+and.max <- max(emp$LHerA[emp$Name=="Andrews Experimental Forest, Oregon"])
 
 
-HA.summary$FGroup <- "Herb-Auto"
-HerbA_bootMedian <- boot_resamp(HA.summary, 1080, 10^4)
+barrow <- median(emp$LHerA[emp$Name=="Barrow, Alaska"])
 
+cedar <- median(emp$LHerA[emp$Name=="Cedar Creek Natural History Area, Minnesota"])
 
-
-CA.summary$FGroup <- "Car-Auto"
-CarA_bootMedian <- boot_resamp(CA.summary, 1080, 10^4)
-
-
-OA.summary$FGroup <- "Omn-Auto"
-OmnA_bootMedian <- boot_resamp(OA.summary, 1080, 10^4)
+devon <- median(emp$LHerA[emp$Name=="Devon Island, Nunavut"])
+#
+#
+# HA.summary$FGroup <- "Herb-Auto"
+# HerbA_bootMedian <- boot_resamp(HA.summary, 1080, 10^4)
+#
+#
+#
+# CA.summary$FGroup <- "Car-Auto"
+# CarA_bootMedian <- boot_resamp(CA.summary, 1080, 10^4)
+#
+#
+# OA.summary$FGroup <- "Omn-Auto"
+# OmnA_bootMedian <- boot_resamp(OA.summary, 1080, 10^4)
 
 # bootMedian_ratios <- new.env()
 # bootMedian_ratios$HA <- HerbA_bootMedian
@@ -34,9 +44,21 @@ OmnA_bootMedian <- boot_resamp(OA.summary, 1080, 10^4)
 
 ##### PLOT ---------------
 # Def:
-x11()
+
 alpha <- 1
 ptcex <- 2
+a.length <- 0.1
+
+require(tikzDevice)
+options(tikzDocumentDeclaration = "\\documentclass[12pt]{scrbook}")
+
+
+
+tikz("../WriteUp/Dissertation/res/fig/HetAut-Ratios.tex",
+     width = 8,
+     height = 10,
+     standAlone = T,
+     timestamp = T)
 par(mfrow=c(2,1))
 par(mar=c(1,5,1,0.5))
 
@@ -99,14 +121,14 @@ arrows(x0 = 1:7,y0 = log10(HerbA_bootMedian$median[,1]),
        y1 = log10(HerbA_bootMedian$UCI[,1]),
        lwd = 1.5,
        col = add_alpha("#44CA9F", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 arrows(x0 = 1:7,y0 = log10(HerbA_bootMedian$median[,1]),
        y1 = log10(HerbA_bootMedian$LCI[,1]),
        lwd = 1.5,
        col = add_alpha("#44CA9F", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 #### CARNIVORE
@@ -114,14 +136,14 @@ arrows(x0 = 1.33:7.33,y0 = log10(CarA_bootMedian$median[,1]),
        y1 = log10(CarA_bootMedian$UCI[,1]),
        lwd = 1.5,
        col = add_alpha("#CC2614", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 arrows(x0 = 1.33:7.33,y0 = log10(CarA_bootMedian$median[,1]),
        y1 = log10(CarA_bootMedian$LCI[,1]),
        lwd = 1.5,
        col = add_alpha("#CC2614", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 
@@ -130,38 +152,38 @@ arrows(x0 = 1.66:7.66,y0 = log10(OmnA_bootMedian$median[,1]),
        y1 = log10(OmnA_bootMedian$UCI[,1]),
        lwd = 1.5,
        col = add_alpha("#FFA41A", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 arrows(x0 = 1.66:7.66,y0 = log10(OmnA_bootMedian$median[,1]),
        y1 = log10(OmnA_bootMedian$LCI[,1]),
        lwd = 1.5,
        col = add_alpha("#FFA41A", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 ### Empirical
 
+
+text(x = 1.3, y = serengeti, label = "Serengeti,\nTanzania", pos = 4)
+
+arrows(x0 = 1, y0 = serengeti,
+       y1 = ser.max,
+       angle = 90, length = a.length)
+
+
+arrows(x0 = 1, y0 = serengeti,
+       y1 = ser.min,
+       angle = 90, length = a.length)
+
 points(1,
-       serengeti,
+       cedar,
        pch = 21,
        col = "black",
        bg = "#44CA9F",
        cex = ptcex,
        lwd = 2
 )
-
-text(x = 1, y = ser.max, label = "Serengeti", pos = 3)
-
-arrows(x0 = 1, y0 = serengeti,
-       y1 = ser.max,
-       angle = 90, length = 0.2)
-
-
-arrows(x0 = 1, y0 = serengeti,
-       y1 = ser.min,
-       angle = 90, length = 0.2)
-
 
 
 legend("topleft",
@@ -194,7 +216,7 @@ par(mar=c(4.5,5,1,0.5))
 ## Plot Herb + Auto ratios with adjust x + ylims
 plot(log10(HerbA_bootMedian$median[,2]),
      xlim = c(1,8),
-     ylim = c(-2.6,0),
+     ylim = c(-5,0),
      pch = 16,
      col = add_alpha("#44CA9F", alpha),
      cex = ptcex,
@@ -236,14 +258,14 @@ arrows(x0 = 1:7,y0 = log10(HerbA_bootMedian$median[,2]),
        y1 = log10(HerbA_bootMedian$UCI[,2]),
        lwd = 1.5,
        col = add_alpha("#44CA9F", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 arrows(x0 = 1:7,y0 = log10(HerbA_bootMedian$median[,2]),
        y1 = log10(HerbA_bootMedian$LCI[,2]),
        lwd = 1.5,
        col = add_alpha("#44CA9F", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 #### CARNIVORE
@@ -251,14 +273,14 @@ arrows(x0 = 1.33:7.33,y0 = log10(CarA_bootMedian$median[,2]),
        y1 = log10(CarA_bootMedian$UCI[,2]),
        lwd = 1.5,
        col = add_alpha("#CC2614", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 arrows(x0 = 1.33:7.33,y0 = log10(CarA_bootMedian$median[,2]),
        y1 = log10(CarA_bootMedian$LCI[,2]),
        lwd = 1.5,
        col = add_alpha("#CC2614", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 
@@ -267,18 +289,86 @@ arrows(x0 = 1.66:7.66,y0 = log10(OmnA_bootMedian$median[,2]),
        y1 = log10(OmnA_bootMedian$UCI[,2]),
        lwd = 1.5,
        col = add_alpha("#FFA41A", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 arrows(x0 = 1.66:7.66,y0 = log10(OmnA_bootMedian$median[,2]),
        y1 = log10(OmnA_bootMedian$LCI[,2]),
        lwd = 1.5,
        col = add_alpha("#FFA41A", alpha),
-       angle = 90, length = 0.2
+       angle = 90, length = a.length
 )
 
 
 
+
+### Empirical
+
+points(1,
+       barrow,
+       pch = 21,
+       col = "black",
+       bg = "#44CA9F",
+       cex = ptcex,
+       lwd = 2
+)
+
+text(x = 1.1, y = barrow, label = "Alaska,\nUSA", pos = 1)
+
+
+
+####
+points(2,
+       devon,
+       pch = 21,
+       col = "black",
+       bg = "#44CA9F",
+       cex = ptcex,
+       lwd = 2
+)
+
+text(x = 2, y = devon, label = "Alaska,\nUSA", pos = 4)
+
+
+
+points(3,
+       cedar,
+       pch = 21,
+       col = "black",
+       bg = "#44CA9F",
+       cex = ptcex,
+       lwd = 2
+)
+
+text(x = 3, y = cedar*1.2, label = "Minnesota,\nUSA", pos = 4, offset = c(1,1))
+
+
+
+
+
+text(x = 4.35, y = andrews, label = "Oregon,\nUSA", pos = 3, offset=1)
+
+
+
+
+
+arrows(x0 = 4, y0 = andrews,
+       y1 = and.max,
+       angle = 90, length = a.length)
+
+
+arrows(x0 = 4, y0 = andrews,
+       y1 = and.min,
+       angle = 90, length = a.length)
+
+points(4,
+       andrews,
+       pch = 21,
+       col = "black",
+       bg = "#44CA9F",
+       cex = ptcex,
+       lwd = 2
+)
 
 
 
@@ -315,5 +405,5 @@ legend("topright", "B", bty="n", cex=1.5)
 ## Legend
 
 
-
+dev.off()
 ## Empirical
