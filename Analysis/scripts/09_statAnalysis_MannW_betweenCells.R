@@ -21,6 +21,8 @@ res.df <- data.frame(FGroup=character(31),
                      Sig=character(31),
                      Cell0=integer(31),
                      Cell1=integer(31),
+                     count0 = integer(31),
+                     count1 = integer(31),
                      stringsAsFactors = F)
 
 i <- 1
@@ -56,7 +58,7 @@ for(fg in fgroups){
                          CELLS$median)
 
 
-
+                  nobs <- table(tmp.dat$CellCode)
 
                   curr.test <- get(paste0("BMD_", fg, ex, "_mwu"),
                       envir = CELLS$mwu)
@@ -67,7 +69,9 @@ for(fg in fgroups){
                                    as.numeric(curr.test[3]),
                                    ifelse(as.numeric(curr.test[3])<0.05,"Sig","NA" ),
                                    n1,
-                                   n2
+                                   n2,
+                                   nobs[[1]],
+                                   nobs[[2]]
                                    )
                   i <- i+1
             }
@@ -78,3 +82,6 @@ res.df$U <- as.numeric(res.df$U)
 res.df$P <- as.numeric(res.df$P)
 res.df$Cell0 <- as.numeric(res.df$Cell0)
 res.df$Cell1 <- as.numeric(res.df$Cell1)
+
+MannW_betweenCells <- res.df
+save(MannW_betweenCells, file="output/MannW/betweenCells.Rda")

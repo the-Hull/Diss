@@ -91,21 +91,29 @@ options(tikzDocumentDeclaration = "\\documentclass[12pt]{scrbook}")
 
 tikz("../WriteUp/Dissertation/res/fig/BMD_Cell1-2_AHC.tex",
      width = 8,
-     height = 8.5,
+     height = 10,
      standAlone = T,
      timestamp = T)
 
 
-par(mfrow=c(2,1))
-par(mar=c(3,6,2,0.5))
+par(mfrow=c(3,1))
+par(mar=c(1,6,3.5,0.5))
+par(cex=1)
+par(cex.axis=0.8)
+par(cex.lab=0.8)
 
 pos.auto <- barplot(auto.matbar,
                     beside = T,
                     ylim = c(0, max(auto.matbar, na.rm=T)+85000),
                     ylab = ylab.auto,
                     col = c("#A7F62F", add_alpha("#A7F62F", 0.3)),
-                    legend.text = c("Aseasonal", "Seasonal"),
-                    args.legend = list(x = "topright",bty="o", box.col="white", bg = "white"))
+                    yaxp=c(0, 2e06,2),
+                    xaxt="n"
+                    )
+
+
+
+
 
 midp.auto <- apply(pos.auto, MARGIN = 2, mean)
 text(x = midp.auto,
@@ -137,6 +145,15 @@ abline(v=seq(3.5, 21.5, by=3), col="gray60", lty=2, lwd=1.5)
 # mtext(text = line2, side = 1,line = 3.5,outer = F,at = midp.auto)
 # mtext(text = line3, side = 1,line = 4.5,outer = F,at = midp.auto)
 
+legend("topright", legend = c("Aseasonal", "Seasonal"),
+       col = c("#A7F62F", add_alpha("#A7F62F", 0.3)),
+       pch = 16,
+       bty="o",
+       box.col = "white",
+       bg="white",
+       cex=.9)
+#
+
 
 # ## ---
 #
@@ -144,43 +161,56 @@ abline(v=seq(3.5, 21.5, by=3), col="gray60", lty=2, lwd=1.5)
 #
 #
 # # x11()
-# par(mar=c(6,6,2,0.5))
-#
-# pos.herb <- barplot(herb.matbar,
-#                     beside = T,
-#                     ylim = c(0, max(herb.matbar, na.rm=T)+17500),
-#                     ylab = ylab.herb,
-#                     col = c("#44CA9F", add_alpha("#44CA9F", 0.3)),
-#                     legend.text = c("Aseasonal", "Seasonal"),
-#                     args.legend = list(x = "topleft", bty="n"))
-#
-# midp.herb <- apply(pos.herb, MARGIN = 2, mean)
-# text(x = midp.herb,
-#      apply(herb.matbar, MARGIN = 2, max) + 15000,
-#      labels = "***",
-#      cex = 1.5,
-#      xpd=T)
-#
-# abline(h=0, lwd=2)
-# abline(v=seq(3.5, 21.5, by=3), col="gray60", lty=2, lwd=1.5)
-#
-# arrows(x0 = as.numeric(pos.herb),
-#        y0 = as.numeric(herb.matbar),
-#        x1 = as.numeric(pos.herb),
-#        y1 = as.numeric(herb.ucibar),
-#        angle=90,
-#        length = 0.05,
-#        col="grey10")
-#
-#
-#
-# arrows(x0 = as.numeric(pos.herb),
-#        y0 = as.numeric(herb.matbar),
-#        x1 = as.numeric(pos.herb),
-#        y1 = as.numeric(herb.lcibar),
-#        angle=90,
-#        length = 0.05,
-#        col="grey10")
+par(mar=c(1,6,1,0.5))
+
+pos.herb <- barplot(herb.matbar,
+                    beside = T,
+                    ylim = c(0, max(herb.matbar, na.rm=T)+17500),
+                    ylab = ylab.herb,
+                    col = c("#44CA9F", add_alpha("#44CA9F", 0.3)),
+                    yaxp=c(0, 3.5e05,2),
+                    xaxt="n"
+                    )
+
+
+
+midp.herb <- apply(pos.herb, MARGIN = 2, mean)
+text(x = midp.herb,
+     apply(herb.matbar, MARGIN = 2, max) + 15000,
+     labels = "***",
+     cex = 1.5,
+     xpd=T)
+
+abline(h=0, lwd=2)
+abline(v=seq(3.5, 21.5, by=3), col="gray60", lty=2, lwd=1.5)
+
+arrows(x0 = as.numeric(pos.herb),
+       y0 = as.numeric(herb.matbar),
+       x1 = as.numeric(pos.herb),
+       y1 = as.numeric(herb.ucibar),
+       angle=90,
+       length = 0.05,
+       col="grey10")
+
+
+
+
+arrows(x0 = as.numeric(pos.herb),
+       y0 = as.numeric(herb.matbar),
+       x1 = as.numeric(pos.herb),
+       y1 = as.numeric(herb.lcibar),
+       angle=90,
+       length = 0.05,
+       col="grey10")
+
+
+legend("topright", legend = c("Aseasonal", "Seasonal"),
+       col = c("#44CA9F", add_alpha("#44CA9F", 0.3)),
+       pch = 16,
+       bty="o",
+       box.col = "white",
+       bg="white",
+       cex=.9)
 #
 #
 # mtext(text = line1, side = 1,line = 2.5,outer = F,at = midp.herb)
@@ -191,15 +221,18 @@ abline(v=seq(3.5, 21.5, by=3), col="gray60", lty=2, lwd=1.5)
 # ------ CAR
 
 # x11()
-par(mar=c(6,6,1,0.5))
+par(mar=c(4.5,6,1,0.5))
 
 pos.car <- barplot(car.matbar,
                     beside = T,
                     ylim = c(0, max(car.matbar, na.rm=T)+15000),
                     ylab = ylab.car,
                     col = c("#CC2614", add_alpha("#CC2614", 0.3)),
-                    legend.text = c("Aseasonal", "Seasonal"),
-                    args.legend = list(x = "right", bty="o",box.col = "white", bg="white"))
+                        yaxp=c(0, 1.5e05,2),
+                   xaxt="n"
+                    )
+
+
 
 midp.car <- apply(pos.car, MARGIN = 2, mean)
 text(x = midp.car,
@@ -230,8 +263,19 @@ arrows(x0 = as.numeric(pos.car),
        length = 0.05,
        col="grey10")
 
-mtext(text = line1, side = 1,line = 2.5,outer = F,at = midp.car)
-mtext(text = line2, side = 1,line = 3.5,outer = F,at = midp.car)
-mtext(text = line3, side = 1,line = 4.5,outer = F,at = midp.car)
+
+legend("topright", legend = c("Aseasonal", "Seasonal"),
+       col = c("#CC2614", add_alpha("#CC2614", 0.3)),
+       pch = 16,
+       bty="o",
+       box.col = "white",
+       bg="white",
+       cex=.9)
+
+mtext(text = 1:8, side = 1,line = 1,outer = F,at = midp.car)
+
+mtext(text = line1, side = 1,line = 2,outer = F,at = midp.car)
+mtext(text = line2, side = 1,line = 3,outer = F,at = midp.car)
+mtext(text = line3, side = 1,line = 4,outer = F,at = midp.car)
 
 dev.off()

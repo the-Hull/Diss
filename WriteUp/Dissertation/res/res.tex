@@ -1,42 +1,68 @@
 \chapter{Results}
 \label{chap:res}
-Two ecosystems of distinct climatic character (i.e. equatorial, aseasonal and temperate, seasonal) were simulated over 100 years for different levels of carnivore functional group richness and composition (cf. Section~\ref{chap:mat:exp}). Resulting ecosystem functioning, expressed as biomass density on trophic level, are presented and related to population and individual level dynamics in the following sections.
-
-\section{Temporal Dynamics}
+Two ecosystems of distinct climatic character (i.e. equatorial, aseasonal and temperate, seasonal) were simulated over 100 years for different levels of carnivore functional group richness and composition (cf. Section~\ref{chap:mat:exp}). 
+Resulting ecosystem functioning, expressed as autotrophic biomass density, are presented and related to community and individual level dynamics in higher trophic levels in the following sections.
+%
+\section{Ecosystem Dynamics}
+\label{chap:res:dyn} 
+Discrepancies between both systems are apparent in distinct responses of biomass density for each experiment over time and once the respective systems have reached dynamic equilibrium.\\\\
+Autotroph biomass density differed significantly across levels of carnivore functional group richness in the aseasonal system (Kruskal-Wallis Test, $\chi^{2}_{(3)} = 345.71$ $p \ll 0.05$; cf. Table~). 
+However, the responses were not uniform within these levels (Kruskal-Wallis Test across experiments $\chi^{2}_{(7)} = 783.67$ $p \ll 0.05$, identified by \textit{post-hoc} multiple comparisons). \\
+In the seasonal system autotroph biomass density was unaffected by both carnivore functional group richness (Kruskal-Wallis Test, $\chi^{2}_{(3)} = 6.35$, $p = 0.096$) and composition (Kruskal-Wallis Test, $\chi^{2}_{(7)} = 10.08$, $p = 0.18$)
+\add{total median biomass density for each system?}
+\subsection{Development over time}
 \label{chap:res:dyn:temporal}
-
 %Overall dynamics are more strongly governed by climatic conditions in the temperate, seasonal ecosystem, whereas carnivore group composition dictates ecosystem functioning more pronouncedly for the aseasonal ecosystem 
-
-As expected, biomass densities in the temperate ecosystem follow seasonal cycles.
+Both systems showed temporal dynamics that can be related well to their climatic characteristics resulting from their respective latitiude (i.e. 0 for the aseasonal, and 52.5 for the seasonal system).\\
+As expected, biomass densities in the temperate ecosystem follow seasonal cycles, evident in Figure~\ref{fig:chap:res:ts:expno1}.
  Annual turn-over reaches up to one order of magnitude for autotrophs, while less, but pronounced, variation is found for herbivores.
-  Omnivores and carnivores closely follow these cycles at lower biomass densities (respective order; cf. Figure~\ref{fig:chap:res:dyn:cell1}). \\
-  The aseasonal system is generally characterized by more stable biomass densities over time, related to variation resulting from random organismal interactions encoded in the model, as opposed than cyclical dynamics in the seasonal system. 
-  \textit{Exp. 4, 6, 7} and \textit{8} digress from this pattern, showing recurring cycles for autotroph and carnivore (where applicable) biomass densities, but far less systematic and pronounced (lower turnover) than found for the seasonal system. 
-(cf. Figure~\ref{fig:chap:res:ts:expno1} and \add{fig. Cell1 Cell0 compare  + all TS APPENDIX}).\\
+  Omnivores and carnivores closely follow these cycles  at lower biomass densities (respective order) and smaller amplitudes (cf. Figure~\ref{fig:chap:res:dyn:cell1}). \\\\
+  The aseasonal system is generally characterized by more stable biomass densities over time, while variation resulting from random organismal interactions encoded in the model, as opposed to cyclical dynamics in the seasonal system, dominates. 
+  \textit{Exp. 4, 6, 7} and \textit{8} digress from this pattern, showing recurring cycles for autotroph and carnivore (where applicable) biomass densities, but far less  pronounced (lower amplitude) than found for the seasonal system. 
+(cf. Figure~\ref{fig:chap:res:ts:expno1} and \add{fig. Cell1 Cell0 compare  + all TS APPENDIX}).\\\\
 Both systems display drastic changes in median biomass density within their transient ("burn-in") phase within the first 15 to 25 and 10 years of the simulations, respectively, for all trophic groups (cf. Figure~\ref{fig:chap:res:ts:expno1}; exemplary). 
 Subsequently, the systems develop towards a dynamic equilibrium. 
 Autotroph and carnivore  biomass density in \textit{exp. 2} and \textit{exp. 5}, respectively, show slight trends over the last 50 years of the simulation. 
-However, when applying the 90 year cut-off (used for subsequent analysis) these are negligible \add{appendix figure, all TS}.\\\\ 
-
-
-\begin{figure}
+However, when applying the 90 year cut-off (used for subsequent analysis) these are negligible \add{appendix figure, all TS}. For \textit{exp. 7} carnivores ($End_i$) show a rapid decline during the transient phase, leading to complete extinction in the seasonal system.
+\begin{figure}[h!]
 \centering
 \includestandalone[width=\textwidth]{res/fig/ts_expno1}
-\caption[Body mass density time series for experiment 1]{expno1 ts}
+\caption[Log-body mass density time series for \textit{exp. 1} in both systems]{Development of biomass density for the aseasonal (top) and seasonal (bottom) during 100 simulated years for autotrophs (green), herbivores (blue), omnivores (yellow) and carnivores (red). Lines are medians from 100 simulations and shaded areas represent the 95~\% confidence interval from bootstrapping. Both systems differ systematically regarding trophic level biomass dynamics: annual cycles are pronounced for all trophic groups in the seasonal system, with large (absolute) amplitudes found for autotrophs and herbivores. Variation for omnivores and carnivores is generally less pronounced (cf. \add{FIGURE TS APPEND}.) Fluctuations in the aseasonal system are more strongly governed by random organismal interaction, rather than being subject to climate forcing. Note, that the seemingly larger amplitude of carnivore biomass density (aseasonal system) is the result of using the logarithmic scale; absolute amplitudes are far larger for e.g. herbivores at a higher order of magnitude. }
 \label{fig:chap:res:ts:expno1}
 \end{figure}
+\subsection{Climatic control and functional composition}
+\label{chap:res:diff}
+All focal trophic groups (autotrophs, herbivores, carnivores) had significantly different biomass densities between the simulated aseasonal and seasonal system for all variations of carnivore group composition or when all carnivores were removed from the system (Mann-Whitney-U Test at $\alpha = 0.05$; cf.~\add{MannW-Table to Appendix}).\\\\
+Autotroph biomass density is considerably higher for \textit{exp. 1, 2, 3, and 5} in the aseasonal system, but lower for \textit{exp. 4, 6, 7 and 8}, while remaining at approx. constant values across experiments for the seasonal system. 
+Analogous, herbivore biomass density is approx. constant, while the aseasonal system mirrors the pattern found for autotrophs (i.e. low when high, and vice-versa). \\\\
+Except for \textit{exp. 6}, carnivore biomass density is considerably higher for the aseasonal system. 
+However, the varying carnivore group composition leads to a distinct pattern, where low (or zero) carnivore biomass density for both systems coincide (e.g. \textit{exp 4, 6, 7, 8}), relating well to the patterns of autotroph and herbivore biomass density for the aseasonal system. \\
+Yet, as described above, no similar directional trends are apparent for the seasonal system, and biomass densities for the lower trophic groups (i.e. autotrophs and herbivores), are not affected by the decrease in carnivore biomass density. This lack of downward cascading effects suggests that climate takes precedence  over carnivore group composition in controlling ecosystem functioning in the simulated temperate system. \add{or threshold of carnivore biomass density exists for exerting top down control?}.
 
 \begin{figure}
 \centering
-\includestandalone[width=\textwidth]{res/fig/BMD_ts_initial}
-\caption[ShortCap]{}
-\label{fig:chap:res:tsinit}
+\includestandalone[width=\textwidth]{res/fig/BMD_Cell1-2_AHC}
+\caption[Comparison median biomass density (BMD) for aseasonal and seasonal ecosystems]{Median biomass densities (BMD) at equilibrium (final 10 years) between the seasonal and aseasonal systems for autotrophs (top), herbivores (middle) and carnivores (bottom). Error bars are 95~\% confidence intervals. BMD of all depicted trophic groups differ significantly (marked with asterisks) between systems for all experiments ($p << 0.05$, Mann-Whitney-U Test at $\alpha = 0.05$; cf. \add{res.df to Appendix}).% Autotroph BMD is considerably higher for \textit{exp. 1, 2, 3, and 5} in the aseasonal system, but lower for \textit{exp. 4, 6, 7 and 8}, while remaining at approx. constant values throughout all experiments for the seasonal system. Analogous, herbivore BMD are constant across experiments, with the aseasonal system mirroring values for autotrophic biomass density (i.e. low when high, and vice-versa). Except for \textit{exp. 6}, carnivore BMD is considerably higher throughout, showing varied responses in the aseasonal system, while remaining fairly constant in the seasonal system. However, experiments lead to a consistent pattern, where low (or zero) carnivore BMD for both systems coincide (e.g. \textit{exp 4, 6, 7, 8})
+ A consistent emergent pattern of low (or zero) carnivore BMD coinciding with high herbivore and low autotroph BMD in \textit{exp. 4, 6, 7} is evident for the aseasonal system.
+  While carnivore BMD responds similar across experiments in the seasonal system (i.e. decrease compared to \textit{exp. 1}), there is no apparent cascading effect to lower trophic levels, as both herbivore and autotroph BMD remain approx. constant across experiments.
+  This hints at seasonality overriding the role of carnivore composition (and consequently any top-down control) in determining ecosystem functioning.}
+\label{fig:chap:res:dyn:c0}
 \end{figure}
 
 
-\section{Ecosystem Dynamics}
-\label{chap:res:dyn} 
-differences between cell0 and cell1
+
+
+\section{Community and individual level response}
+\label{chap:res:popind}
+%
+The carnivore group composition in \textit{exp. 4, 6 and 7} lead distinct herbivore response in biomass density, which in turn cascaded further downward affecting autotroph biomass negatively. No such pronounced dynamics were found for the seasonal system.\\\\
+Median herbivore biomass and abundance densities were compared between experiments (1 to 8) using a Krusikal-Wallis test with subsequent multiple comparison analysis (\add{adjusted p value?} $\alpha = 0.05$; cf. Table~\ref{tab:chap:res:dyn:autoBMD} and Table~\ref{tab:chap:res:dyn:herbIND}, respectively) for each system. 
+Experiments (i.e. their mean ranks) differed significantly in biomass density response only for the aseasonal  system ($\chi^{2}(7) = 783.67$, $p \ll 0.05$). 
+% seasonal  \add{adjusted p value?}($\chi^{2}(7) = 191.66$, $p \ll 0.05$) system.
+\\
+For abundance densities, significant differences between experiments were found for both the aseasonal ($\chi^{2}(7) = 834.34$, $p \ll 0.05$) and seasonal ($\chi^{2}(7) = 191.66$, $p \ll 0.05$) system. 
+Note, the sampled experiments could not be considered having originated from identical distributions (cf.~Figure \add{HISTOGRAMS OF HERB. DENSITY ~ EXPNO in Appendix}); 
+hence inferences base on mean ranks, rather than systematic shifts of central tendency (i.e. median) Figure~\add{Barplot BMD IDENS Densities}.
 
 \begin{figure}
 \centering
@@ -46,28 +72,9 @@ differences between cell0 and cell1
 \end{figure}
 
 
-some text some text
 
-
-
-%\subsection{Seasonality}
-%\label{chap:res:dyn:seas}
-
-this is for biomass density
-%\input{res/tables/autotroph_BMD_KW_Cell1Cell2.tex}
-
-
-Median autotroph biomass ($[kg\cdot km^{-2}]$) and herbivore abundance ($[n\cdot km^{-2}$]) densities were compared between experiments (1 to 8) using a Krusikal-Wallis test with subsequent multiple comparison analysis (\add{adjusted p value?} $\alpha = 0.05$; cf. Table~\ref{tab:chap:res:dyn:autoBMD} and Table~\ref{tab:chap:res:dyn:herbIND}, respectively). 
-Experiments (i.e. their mean ranks) differed significantly in biomass density response only for the aseasonal  system ($\chi^{2}(7) = 783.67$, $p \ll 0.05$). 
-% seasonal  \add{adjusted p value?}($\chi^{2}(7) = 191.66$, $p \ll 0.05$) system.
-\\
-For abundance densities, significant differences between experiments were found for both the aseasonal ($\chi^{2}(7) = 834.34$, $p \ll 0.05$) and seasonal ($\chi^{2}(7) = 191.66$, $p \ll 0.05$) system. 
-Note, the sampled experiments could not be considered having originated from identical distributions (cf.~Figure \add{HISTOGRAMS OF HERB. DENSITY ~ EXPNO in Appendix}); 
-hence inferences base on mean ranks, rather than systematic shifts of central tendency (i.e. median) Figure~\add{Barplot BMD IDENS Densities}.
-
-\input{res/tables/herbivore_IDENS_KW_Cell1Cell2.tex}
-
-
+\input{res/tables/autotroph_BMD_KW_Cell1Cell2.tex}
+%\input{res/tables/herbivore_IDENS_KW_Cell1Cell2.tex}
 
 \begin{figure}
 \centering
@@ -85,12 +92,12 @@ hence inferences base on mean ranks, rather than systematic shifts of central te
 %%\end{figure}
 
 
-\begin{figure}
-\centering
-\includestandalone[width=\textwidth]{res/fig/comp_effects_herb-herb}
-\caption[Effect of carnivore group composition on herbivore biomass and abundance density]{herbivore herbivore}
-\label{fig:chap:res:dyn:compherb}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includestandalone[width=\textwidth]{res/fig/comp_effects_herb-herb}
+%\caption[Effect of carnivore group composition on herbivore biomass and abundance density]{herbivore herbivore}
+%\label{fig:chap:res:dyn:compherb}
+%\end{figure}
 
 
 \begin{figure}
@@ -100,7 +107,6 @@ hence inferences base on mean ranks, rather than systematic shifts of central te
 \label{fig:chap:res:dyn:compherb}
 \end{figure}
 
-Test for experiment one ($Ect_i, Ect_s, End_i$) and experiment 7 ($End_i$) ($End_I, Ect_I$)
 
-%
+
 %\input{../../Analysis/output/KruskalW/BMD/Cell0/xtable/autotroph_ExpNo_Cell0_res.tex}
