@@ -1,13 +1,50 @@
 \chapter{Materials and Methods}
 \label{chap:mat}
-The following sections give a brief overview to the    structure and functioning of the \textsc{Madingley Model}, as well as the experimental design (i.e. simulated scenarios), data preparation and subsequent analyses used in this study.
+The following sections give a brief overview to the    structure and functioning of the \textsc{Madingley Model}, as well as the experimental design (i.e. simulated experiments), data preparation and subsequent analyses used in this study. Model details and explanations are taken from the main text and supplemental material of \cite{Harfoot2014} unless other sources are specified, and generally refer to processes in terrestrial ecosystems only.\\\\
+ All data and computer code to reproduce the results presented in the Section~\ref{chap:res} can be found in the attached data medium and at \textit{www.github.com/the-Hull} (as of July, 2015). The model, along with supplemental material detailing technical specifications and underlying equations are also found on the storage.
 \section{The Madingley Model}
 \label{chap:mat:madingley}
-
+%
+The \textsc{Madingley Model} is the first general ecosystem model of its kind. 
+It is process-based  and mechanistic. (i.e. uses fundamental ecological principles; cf. Section~\ref{chap:mat:madingley:princip}) and achieves its generality by being applicable to both the terrestrial and marine realm, while including both autotroph and heterotroph dynamics across all trophic levels. \\
+Interactions as well as individual  dynamics for organisms of all sizes (i.e. spanning several orders of magnitude) can be simulated at high temporal and spatial resolutions. 
+Ecosystem dynamics are determined by local environmental conditions (cf. Section~\ref{chap:mat:madingley:structure}) and interactions with surrounding systems (i.e. grid cells). 
+Rather than relying on a species specific definition of organisms, the model uses a trait-based approach, where an organism's role is determined by its membership within a functional group (cf. Section~\ref{chap:mat:madingley:structure}).
+\\\\
+Environmental conditions (for terrestrial ecosystems: precipitation
+\citetalias{FC2012}, air temperature \citetalias{FC2012}, frost days \citetalias{FC2012}, available soil water \citetalias{ISRIC2012}  and seasonality of NPP \citetalias{NASA2012}) are sourced for the grid cells corresponding to the simulated systems  from open-access databases.
+\subsection{Functional groups, stocks and cohort dynamics}
+\label{chap:mat:madingley:func}
+%
+Organisms are characterized by fixed functional traits, which determine functional group membership. These are simple, categorical life history traits, such as feeding mode or reproductive strategy (cf. Table~\add{FG table}). In addition, there are continuous traits, such as body mass or assimilation efficiencies for food intake, which modulate the ecological processes encoded into the model (cf. Section~\ref{chap:mat:madingley:princip}).\\
+In total there are nine functional groups (three for each of the major heterotrophic groups - herbivore, omnivore, carnivore)
+ Individuals were grouped into
+\add{mention time step, state variables (juvenile, adult), cohort merging}
 \subsection{Encoded Ecological Principles}
 \label{chap:mat:madingley:princip}
-
-\subsection{Modelling Framework and Model Structure}
+The model developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S1 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
+\textbf{Primary production} (i.e. plant growth) is based on an explicit carbon stock model using remotely sensed estimates of net primary productivity developed by \cite{Smith2012}. 
+Plants allocate a fixed proportion of their growth into structural maintenance, while the remainder is invested in other tissue, such as leaves (deciduous, evergreen) and fruits, which are edible for herbivores and omnivores. 
+\\\\
+\textbf{Heterotrophic growth} is determined by the difference of energy assimilated from food via herbivory (herbivores, omnivores) or predation (omnivores, carnivores) and metabolic loss, as well as energy allocated for reproduction.\\\\
+\textbf{Eating} is defined as herbivory for herbivores and omnivores, and as predation for omnivores and carnivores, where both plant stocks and heterotroph cohorts are well mixed within a grid cell. All organisms spend a fixed amount of time foraging; for omnivores this is equally distributed between herbivory and predation. 
+The efficiency with which food is assimilated is a fundamental parameter defined for each functional group (cf. Section~\ref{chap:mat:madingley:func} and \add{Table with FG Definitions}). \\
+Herbivory and predation are implemented via a Holling's Type III response function, which assumes that food intake (plant or autotroph tissue) by an organism depends on prey (or plant) density \citep{Denno2012}. 
+This is further constrained by foraging processes, i.e. handling time and attack rates, which are allometrically scaled for herbivory, and are based on a size-structured model for predation by omnivores and carnivores (\citet{Williams2011}; cf. supplemental material for details). 
+That is, predation only occurs on cohorts of suitable size classes proportional to predator body mass.
+\\
+ Handling time for predation found in omnivores and carnivores increases linearly with prey body mass, but decreases as predators increase in body size (power law relationship). Herbivore handling times are only determined by their respective body mass. \\\\
+\textbf{Metabolism} is modelled according to  power-law relationships which scale with body mass after \cite{Brown2004}, based on field and basal metabolic rates derived from \cite{Nagy1999}. 
+ Activity is governed by ambient temperature, and hence thermoregulating organisms (endotherms) are assumed to be active throughout each simulated time step. 
+\\\\
+\textbf{Reproduction} occurs after an individual has reached adult body mass, when all further body mass is stored for reproduction. 
+Once enough reproductive potential has been allocated (i.e. body mass), an organism will bear offspring. 
+Semelparous organisms use all of their stored reproductive biomass and part of their adult biomass, while iteroparous organisms only make use of their stored reproductive biomass. Offspring is generated in new cohorts.
+\\\\
+\textbf{Mortality} is governed by four processes: (i) a background mortality, implemented as a constant rate; (ii) starvation, when an organisms loses a certain proportion of its maximum body mass;  (iii) senescence, which increases exponentially once an organism has reached maturity (i.e. adult body mass); and (iv) predation. \\\\
+\textbf{Dispersal} is always experienced by the entire cohort (i.e. a cohort is never split). For this study, two mechanisms of dispersal (within grid cells) were modelled: (i) active, but random, diffusive dispersal after birth for juvenile cohorts in search of new territory; and (ii) active dispersal when a certain threshold of  food deprivation (i.e. low resource densities) has been experienced. As only single grid cells were simulated, there was no dispersal in or out of the regarded system.
+ 
+\subsection{Model structure, input and definitions}
 \label{chap:mat:madingley:structure}
 
 \subsection{Outputs}
@@ -16,7 +53,7 @@ The following sections give a brief overview to the    structure and functioning
 \section{Experiment Design and Model Set-up}
 \label{chap:mat:exp}
 
-Cohort seeding: Figure~\ref{fig:app:tsinit}
+Terminology, Cohort seeding: Figure~\ref{fig:app:tsinit}
 
 \section{Data Preparation}
 \label{chap:mat:data}
