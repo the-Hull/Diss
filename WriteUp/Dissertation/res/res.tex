@@ -1,14 +1,14 @@
 \chapter{Results}
 \label{chap:res}
 Two ecosystems of distinct climatic character (i.e. equatorial, aseasonal and temperate, seasonal) were simulated over 100 years for different levels of carnivore functional group richness and composition (cf. Section~\ref{chap:mat:exp}). 
-Resulting ecosystem functioning, expressed as autotrophic biomass density, is presented and related to community and individual level dynamics in higher trophic levels in the following sections.
+Resulting ecosystem functioning, using autotrophic biomass density as a proxy for biomass accumulation from primary production, is presented and related to community and individual level dynamics in higher trophic levels.
 %
 \section{Ecosystem Dynamics}
 \label{chap:res:dyn} 
-Discrepancies between both systems are apparent in distinct responses of biomass density for each experiment over time and once the respective systems have reached dynamic equilibrium.\\\\
-Autotroph biomass density decreased significantly across levels of carnivore functional group richness in the aseasonal system (Kruskal-Wallis Test; $\chi^{2}_{(3)} = 345.71$ $p \ll 0.05$, cf. Table~\ref{tab:chap:res:dyn:autoBMD}) from approx. 1670723 $kg\cdot km^{-2}$ with all carnivore groups present, to approx. 452183 $kg\cdot km^{-2}$ without carnivores (cf. Table~\ref{tab:chap:res:median}). 
-However, responses were not uniform (Kruskal-Wallis Test across experiments; $\chi^{2}_{(7)} = 783.67$ $p \ll 0.05$, cf. Table~\ref{tab:chap:res:dyn:autoBMD}), i.e. functional composition affected median biomass density within a given level of functional group richness. \\
-In the seasonal system autotroph biomass density was unaffected by both carnivore functional group richness (Kruskal-Wallis Test; $\chi^{2}_{(3)} = 6.35$, $p = 0.096$) and composition (Kruskal-Wallis Test; $\chi^{2}_{(7)} = 10.08$, $p = 0.18$).
+Discrepancies between both systems are apparent in distinct responses of autotroph biomass density for each experiment over time and once the respective systems have reached dynamic equilibrium.\\\\
+Autotroph biomass density decreased significantly across levels of carnivore functional group richness in the aseasonal system (KW; $\chi^{2}_{(3)} = 345.71$ $p \ll 0.05$, cf. Table~\ref{tab:chap:res:dyn:autoBMD}) from approx. 1670723 $kg\cdot km^{-2}$ with all carnivore groups present, to approx. 452183 $kg\cdot km^{-2}$ without carnivores (cf. Table~\ref{tab:chap:res:median}). 
+However, responses were not uniform (KW across experiments; $\chi^{2}_{(7)} = 783.67$ $p \ll 0.05$, cf. Table~\ref{tab:chap:res:dyn:autoBMD}), i.e. functional composition affected median biomass density within a given level of functional group richness. \\
+In the seasonal system autotroph biomass density was unaffected by both carnivore functional group richness (KW; $\chi^{2}_{(3)} = 6.35$, $p = 0.096$) and composition (KW; $\chi^{2}_{(7)} = 10.08$, $p = 0.18$).
 
 \input{res/tables/medianBMD}
 \subsection{Development over time}
@@ -25,7 +25,7 @@ As expected, biomass densities in the temperate ecosystem follow seasonal cycles
 Both systems display drastic changes in median biomass density within their transient ("burn-in") phase within the first 15 to 25 and 10 years of the simulations, respectively, for all trophic groups (cf. Figure~\ref{fig:chap:res:ts:expno1}; exemplary). 
 Subsequently, the systems develop towards a dynamic equilibrium. 
 Autotroph and carnivore  biomass density in \textit{exp. 2} and \textit{exp. 5}, respectively, show slight trends over the last 50 years of the simulation. 
-However, when applying the 90 year cut-off (used for subsequent analysis) these are negligible \add{appendix figure, all TS}. For \textit{exp. 7} carnivores ($End_i$) show a rapid decline during the transient phase, leading to complete extinction in the seasonal system.
+However, when applying the 90 year cut-off (used for subsequent analysis) these are negligible \add{appendix figure, all TS}. For \textit{exp. 7}, endothermic carnivores ($End_i$) show a rapid decline during the transient phase, leading to complete extinction in the seasonal system far before equilibrium was reached.
 \begin{figure}[h!]
 \centering
 \includestandalone[width=\textwidth]{res/fig/ts_expno1}
@@ -46,10 +46,11 @@ Yet, as described above, no similar directional trends are apparent for the seas
 \begin{figure}
 \centering
 \includestandalone[width=\textwidth]{res/fig/BMD_Cell1-2_AHC}
-\caption[Comparison median biomass density (BMD) for aseasonal and seasonal ecosystems]{Median biomass densities (BMD) at equilibrium (final 10 years) between the seasonal and aseasonal systems for autotrophs (top), herbivores (middle) and carnivores (bottom). Error bars are 95~\% confidence intervals. BMD of all depicted trophic groups differ significantly (marked with asterisks) between systems for all experiments ($p << 0.05$, Mann-Whitney-U Test at $\alpha = 0.05$, cf. Table~\ref{tab:chap:res:comp}).% Autotroph BMD is considerably higher for \textit{exp. 1, 2, 3, and 5} in the aseasonal system, but lower for \textit{exp. 4, 6, 7 and 8}, while remaining at approx. constant values throughout all experiments for the seasonal system. Analogous, herbivore BMD are constant across experiments, with the aseasonal system mirroring values for autotrophic biomass density (i.e. low when high, and vice-versa). Except for \textit{exp. 6}, carnivore BMD is considerably higher throughout, showing varied responses in the aseasonal system, while remaining fairly constant in the seasonal system. However, experiments lead to a consistent pattern, where low (or zero) carnivore BMD for both systems coincide (e.g. \textit{exp 4, 6, 7, 8})
+\caption[Comparison median biomass density (BMD) for aseasonal and seasonal ecosystems]{Median biomass densities (BMD) at equilibrium (final 10 years) between the seasonal and aseasonal systems for autotrophs (A), herbivores B) and carnivores (C) across all experiments (1 to 8). Error bars are 95~\% confidence intervals. Labels under bars signify carnivore group richness and composition. BMD of all depicted trophic groups differ significantly (marked with asterisks) between systems for all experiments ($p << 0.05$, Mann-Whitney-U Test at $\alpha = 0.05$, cf. Table~\ref{tab:chap:res:comp}).% Autotroph BMD is considerably higher for \textit{exp. 1, 2, 3, and 5} in the aseasonal system, but lower for \textit{exp. 4, 6, 7 and 8}, while remaining at approx. constant values throughout all experiments for the seasonal system. Analogous, herbivore BMD are constant across experiments, with the aseasonal system mirroring values for autotrophic biomass density (i.e. low when high, and vice-versa). Except for \textit{exp. 6}, carnivore BMD is considerably higher throughout, showing varied responses in the aseasonal system, while remaining fairly constant in the seasonal system. However, experiments lead to a consistent pattern, where low (or zero) carnivore BMD for both systems coincide (e.g. \textit{exp 4, 6, 7, 8})
  A consistent emergent pattern of low (or zero) carnivore BMD coinciding with high herbivore and low autotroph BMD in \textit{exp. 4, 6, 7} is evident for the aseasonal system.
-  While carnivore BMD responds similar across experiments in the seasonal system (i.e. decrease compared to \textit{exp. 1}), there is no apparent cascading effect to lower trophic levels, as both herbivore and autotroph BMD remain approx. constant across experiments.
-  This hints at seasonality overriding the role of carnivore composition (and consequently any top-down control) in determining ecosystem functioning.}
+%  While carnivore BMD responds similar across experiments in the seasonal system (i.e. decrease compared to \textit{exp. 1}),
+   There is no apparent cascading effect from carnivores in the seasonal system  to lower trophic levels, as both herbivore and autotroph BMD remain approx. constant across experiments.
+  This hints at seasonality overriding the role of carnivore composition (and consequently any top-down control) in determining ecosystem functioning. }
 \label{fig:chap:res:dyn:comp}
 \end{figure}
 
@@ -59,11 +60,13 @@ Yet, as described above, no similar directional trends are apparent for the seas
 \section{Community and individual level response}
 \label{chap:res:popind}
 %
-\add{Discussion? Community level (abundance density) and individual (average body mass) properties govern the response of a trophic group on ecosystem level (biomass density), and thereby ecosystem functioning. That is, an ecosystem level response will only be effected when changes in average body mass coincide with an appropriate directional shift of overall abundance in the respective trophic group (e.g. heavier organisms at higher abundances mean higher body mass densities)}.
+\textbf{trophic pyramid for seasonal, only for some in aseasonalb}
+\add{Discussion? Community level (abundance density) and individual (average body mass) properties govern the response of a trophic group on ecosystem level (biomass density), and thereby ecosystem functioning. 
+That is, the ecosystem level property considered here will only be affected when changes in average body mass coincide with an appropriate directional shift of overall abundance in the respective trophic group (e.g. heavier organisms at higher abundances mean higher body mass densities)}.
 \subsection{Aseasonal system}
 \label{chap:res:popind:cell0}
 % all of the aforementioned experiments have the absence of ectothermic, iteroparous carnivores ($Ect_i$) in common. 
-Herbivore biomass densities were significantly different between experiments  (Kruskal-Wallis Test; $\chi^{2}_{(7)} = 929.94$, $p \ll 0$), with \textit{exp. 4, 6 and 7} as well as carnivore absence (\textit{exp. 8)} leading to higher herbivore biomass density. 
+Herbivore biomass densities were significantly different between experiments  (KW; $\chi^{2}_{(7)} = 929.94$, $p \ll 0$), with \textit{exp. 4, 6 and 7} as well as carnivore absence (\textit{exp. 8)} leading to higher herbivore biomass density. 
 This, in turn, cascaded further downward decreasing autotroph biomass density (cf. Figure~\ref{fig:chap:res:dyn:cell0}A).
 %Experiments (i.e. their mean ranks) differed significantly in biomass density response only for the aseasonal  system ($\chi^{2}(7) = 783.67$, $p \ll 0.05$). 
 %% seasonal  \add{adjusted p value?}($\chi^{2}(7) = 191.66$, $p \ll 0.05$) system.
@@ -72,9 +75,9 @@ This, in turn, cascaded further downward decreasing autotroph biomass density (c
 This pattern, i.e. high herbivore biomass densities for \textit{exp. 4, 6, 7} and \textit{8}, is the result of shifting community (abundance density) and individual (average body mass) properties in response to altered carnivore functional group composition (cf. Figures~\ref{fig:chap:res:dyn:cell0}B and \ref{fig:chap:res:dyn:cell0}C): when ectothermic, iteroparous carnivores ($Ect_i$) are present, i.e. \textit{exp. 1, 2, 3} and \textit{5}, average herbivore body mass remains below approx. 0.2~$kg\cdot n^{-1}$ \add{ADD TABLES OF AVBM, IDENS}. 
 Coinciding with intermediate abundances (cf. Figure~\ref{fig:chap:res:dyn:cell0}B), 
 this leads to herbivore biomass densities that maintain the overall ecosystem functioning at levels akin to \textit{exp. 1} (control with all carnivore groups present).\\\\
-Herbivore average body mass increases for the remaining experiments to at least 0.3~$kg\cdot n^{-1}$ (\textit{exp. 6}, $Ect_s$) and reaches a maximum of approx. 1.2~$kg\cdot n^{-1}$ for \textit{exp. 4, $Ect_s$ and $End_i$}. 
-When endothermic carnivores ($End_i$) are present (\textit{exp. 4} and \textit{7}, this increase is not accompanied by higher abundances. 
-In contrast, \textit{exp. 6} ($Ect_s$) leads to significantly higher abundances and therefore higher herbivore biomass density, only matched by \textit{exp. 8} (no carnivores present).
+Herbivore average body mass increases for the remaining experiments to at least 0.3~$kg\cdot n^{-1}$ (\textit{exp. 6}, $Ect_s$) and reaches a maximum of approx. 1.2~$kg\cdot n^{-1}$ for \textit{exp. 4}  ($Ect_s$ and $End_i$). 
+When endothermic carnivores ($End_i$) are present (\textit{exp. 4} and \textit{7}, this increase is not accompanied by higher abundances, but still results in higher biomass density (i.e. same abundance, but heavier organisms). 
+In contrast, \textit{exp. 6} ($Ect_s$) leads to significantly higher abundances of relatively low average body mass individuals and therefore to increased herbivore biomass density, only matched by \textit{exp. 8} (no carnivores present).
 
 
 For   system. 
@@ -84,7 +87,7 @@ For   system.
 \begin{figure}
 \centering
 \includestandalone[width=\textwidth]{res/fig/BMD_IND_AVBM_0}
-\caption[Average body mass (aseasonal system)]{abundance densities, significant differences between experiments were found for aseasonal (Kruskal-Wallis Test; $\chi^{2}_{(7)} = 834.34$, $p \ll 0.05$); average body mass (Kruskal-Wallis Test; $\chi^{2}_{(7)} = 875.89$, $p \ll 0.05$}
+\caption[Ecosystem, community and individual level response to altered carnivore group richness and composition in the aseasonal system]{Overview of ecosystem, community and individual level herbivore dynamics in response to altered carnivore group richness and composition in the aseasonal system. Error bars are 95~\% confidence intervals from boot-strapping. Labels under bars signify carnivore group richness and composition. (A) Biomass density (KW; $\chi^{2}_{(7)} = 929.94$, $p \ll 0$), (B) abundance densities (KW; $\chi^{2}_{(7)} = 834.34$, $p \ll 0.05$) and (C) average body mass (KW; $\chi^{2}_{(7)} = 875.89$, $p \ll 0.05$) were significantly different across experiments. Herbivore biomass density is governed by average body mass of individuals in concert with abundance density (community level property). Absence of ectothermic, iteroparous carnivores ($Ect_i$; \textit{exp. 4, 6, 7} and \textit{8}) markedly alters herbivore average body mass and abundance, resulting in lower ecosystem functioning (autotroph biomass density). Letters above bars signify significant differences between experiments from \textit{post-hoc} multiple comparisons. }
 \label{fig:chap:res:dyn:cell0}
 \end{figure}
 
@@ -96,12 +99,20 @@ For   system.
 
 \subsection{Seasonal System}
 \label{chap:res:popind:cell1}
- For the seasonal system no pronounced dynamics were found regarding changes of autotroph or herbivore biomass density (cf. Figure~\ref{fig:chap:res:dyn:cell1}).
+ For the seasonal system no pronounced dynamics were found regarding changes of autotroph or herbivore biomass density (cf. Figure~\ref{fig:chap:res:dyn:cell1}), even though there were significant differences for the latter (KW; $\chi^{2}_{(7)} = 48$, $p \ll 0.05$). It must be noted that this result should be taken with caution, as tested groups were inhomogeneous regarding their distributions; detected differences may be over-estimated, which is hinted at by highly similar median values and confidence intervals in Figure~\ref{fig:chap:res:dyn:cell1}A.
+\\\\
+While the overall ecosystem functioning (i.e. biomass density) in the seasonal system was not strongly affected, at community level abundance density was significantly higher at lower levels of carnivore functional group richness (KW; $\chi^{2}_{(3)} = 115.84$, $p \ll 0.05$ ) and differed  with carnivore group composition (KW; $\chi^{2}_{(7)} = 191.66$, $p \ll 0.05$).
+\\ 
+Consequently (as biomass densities remained fairly constant), individuals had significantly lower average body mass at lower levels of carnivore functional group richness (KW; $\chi^{2}_{(3)} = 129.86$, $p \ll 0.05$); carnivore group composition lead to significantly different average body masses within these levels (KW; $\chi^{2}_{(7)} = 221$ $p \ll 0.05$. \\
+As no carnivores were present when \textit{exp. 7} reached dynamic equilibrium, this experiment must be considered mechanistically identical to to \textit{exp. 8} (no carnivores present). Results  regarding functional group richness - and inferences thereby - should be therefore be taken with caution.\\\\
+For the seasonal system, the presence of ectothermic, semelparous carnivores, in any combination, is associated with a size structure (i.e. herbivore $>$ omnivore $>$ carnivore) similar to \textit{exp. 1} (control). Their absence therefore coincides with higher herbivore abundance density (cf. Figures~\ref{fig:chap:res:dyn:cell1}B and \ref{fig:chap:res:dyn:cell1}C).
+ 
+ 
 
 \begin{figure}
 \centering
 \includestandalone[width=\textwidth]{res/fig/BMD_IND_AVBM_1}
-\caption{Cell1, abundance densities: and seasonal ($\chi^{2}(7) = 191.66$, $p \ll 0.05$)}
+\caption[Ecosystem, community and individual level response to altered carnivore group richness and composition in the seasonal system]{Overview of ecosystem, community and individual level herbivore dynamics in response to altered carnivore group richness and composition in the seasonal system. Error bars are 95~\% confidence intervals from boot-strapping. Labels under bars signify carnivore group richness and composition. (A) Biomass density (KW; $\chi^{2}_{(7)} = 48$ $p \ll 0.05$), (B) abundance density ($\chi^{2}(7) = 191.66$, $p \ll 0.05$) and (C) average body mass (KW; $\chi^{2}_{(7)} = 221$, $p \ll 0.05$). Biomass density remains fairly - if not entirely (cf. text) - constant across experiments, while abundance density and average body mass increase and decrease, respectively, with functional group richness. The absence of ectothermic, iteroparous carnivores ($Ect_s$) results in higher herbivore abundances and an altered size structure in \textit{exp. 3} and \textit{6}. Total carnivore absence (\textit{exp. 7, 8}) leads to high herbivore abundances at lowest average body mass. Letters above bars signify significant differences between experiments from \textit{post-hoc} multiple comparisons.}
 \label{fig:chap:res:dyn:cell1}
 \end{figure}
 
@@ -120,13 +131,18 @@ For   system.
 %\caption[Effect of carnivore group composition on herbivore biomass and abundance density]{herbivore herbivore}
 %\label{fig:chap:res:dyn:compherb}
 %\end{figure}
-
-
+\section{Comparison to empirical observations}
+\add{to Discussion:
+Empirical estimates of heterotroph-autotroph ratios for the terrestrial realm are generally sparse. 
+Unsurprisingly, the locations for the obtained values do not match the simulated ecosystems.}\\\\
+Empirical estimates of heterotroph - autotroph ratios were taken from a compilation in the supplemental material in \cite{Harfoot2014}. Generally, all predicted estimates from the model are far greater than empirical values for ecosystems of comparable latitude (cf. Figure~\ref{fig:chap:res:dyn:ratios}). \\Herbivore - autotroph ratios in the control (\textit{exp. 1}) and experiments with similar outcomes (\textit{exp. 2, 3} and \textit{5}) in the aseasonal system have the highest resemble with the empirical estimate found for an ecosystem with the closest match in latitude (i.e. Serengeti, latitude $  \approx -2.33$), while the remainder are one to two orders of magnitude greater. \\\\
+The seasonal system shows herbivore - autotroph ratios that are approx. constant across all experiments, and lie several orders of magnitude above both higher and lower latitude  systems found in North America (approx. 20$^\circ$ difference). \\ 
+The only available carnivore - autotroph ratios are at least three orders of magnitude below the model prediction.
 \begin{figure}
 \centering
 \includestandalone[width=\textwidth]{res/fig/HetAut-Ratios}
 \caption[Comparison to empirical data]{comparison}
-\label{fig:chap:res:dyn:compherb}
+\label{fig:chap:res:dyn:ratios}
 \end{figure}
 
 
