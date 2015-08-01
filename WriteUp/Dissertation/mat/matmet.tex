@@ -12,14 +12,14 @@ Ecosystem dynamics are determined by local environmental conditions (cf. Section
 Rather than relying on a species specific definition of organisms, the model uses a trait-based approach, where an organism's role is determined by its membership within a functional group (cf. Section~\ref{chap:mat:madingley:structure}).
 \\\\
 Environmental conditions (for terrestrial ecosystems: precipitation
-\citetalias{FC2012}, air temperature \citetalias{FC2012}, frost days \citetalias{FC2012}, available soil water \citetalias{ISRIC2012}  and seasonality of NPP \citetalias{NASA2012}) are sourced for the grid cells corresponding to the simulated systems  from open-access databases.
+\citetalias{FC2012}, air temperature \citetalias{FC2012}, frost days \citetalias{FC2012}, available soil water \citetalias{ISRIC2012}  and seasonality of NPP \citetalias{NASA2012}) are sourced for the grid cells corresponding to the simulated systems  from open-access databases. As of now, the model does not simulate freshwater ecosystems within the terrestrial realm.
 \subsection{Functional groups, stocks and cohort dynamics}
 \label{chap:mat:madingley:func}
 %
 Organisms are characterized by fixed functional traits, which determine functional group membership. These are simple, categorical life history traits, such as feeding mode or reproductive strategy (cf. Table~\add{FG table}). In addition, there are continuous traits, such as body mass or assimilation efficiencies for food intake, which modulate the ecological processes encoded into the model (cf. Section~\ref{chap:mat:madingley:princip}).\\
-In total there are nine functional groups (three for each of the major heterotrophic groups - herbivore, omnivore, carnivore)
- Individuals were grouped into
-\add{mention time step, state variables (juvenile, adult), cohort merging}
+In total there are nine functional groups implemented in the model, three for each of the major heterotrophic groups - herbivore, omnivore, carnivore. Plants are represented as stocks for various reasons.\\\\
+ Individuals are grouped into cohorts, which act unanimously (i.e. as individuals).  A cohort is characterized by fixed traits, i.e. functional group membership, body mass at birth and at reproductive maturity, as well as three traits that are updated within each time step, and are affected by the ecological processes (cf. Section~\ref{chap:mat:madingley:princip}): individual abundance within a cohort, current (wet matter) body mass, and stored reproductive body mass. \\
+ The cohort approach was adopted to decrease computational costs. In this light, merging was also implemented, where cohorts of similar characteristics are combined, when a certain threshold number of cohorts is reached. This ensures computational tractability and has been shown to have little to no effect on outcomes of modelled ecosystems.
 \subsection{Encoded Ecological Principles}
 \label{chap:mat:madingley:princip}
 The model developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S1 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
@@ -44,16 +44,27 @@ Semelparous organisms use all of their stored reproductive biomass and part of t
 \textbf{Mortality} is governed by four processes: (i) a background mortality, implemented as a constant rate; (ii) starvation, when an organisms loses a certain proportion of its maximum body mass;  (iii) senescence, which increases exponentially once an organism has reached maturity (i.e. adult body mass); and (iv) predation. \\\\
 \textbf{Dispersal} is always experienced by the entire cohort (i.e. a cohort is never split). For this study, two mechanisms of dispersal (within grid cells) were modelled: (i) active, but random, diffusive dispersal after birth for juvenile cohorts in search of new territory; and (ii) active dispersal when a certain threshold of  food deprivation (i.e. low resource densities) has been experienced. As only single grid cells were simulated, there was no dispersal in or out of the regarded system.
  
-\subsection{Model structure, input and definitions}
-\label{chap:mat:madingley:structure}
+%\subsection{Model structure, input and definitions}
+%\label{chap:mat:madingley:structure}
+%
+%\subsection{Outputs}
+%\label{chap:mat:madingley:output}
 
-\subsection{Outputs}
-\label{chap:mat:madingley:output}
-
-\section{Experiment Design and Model Set-up}
+\section{Experiment Design}
 \label{chap:mat:exp}
+The model was used to simulate ecosystems of distinct climatic character, one highly productive, aseasonal in Southern Uganda and one temperate, seasonal system in Central England (cf. Table~\add{Table of Locations} in $1^\circ$ by $1^\circ$ cells. 
+These locations are in concert with those simulated in \citet{Harfoot2014} and were chosen to elucidate the effect of climate on ecosystem functioning
+\\ The role of carnivore functional group richness and composition was determined by simulating both systems under different levels of richness and composition: 
+the first experiment was done with all three carnivore groups present ($Ect_i, Ect_s, End_i$) as a control (\textit{exp. 1}), 6 subsequent experiments had either combinations of two groups (\textit{exp. 2 -- 4}), or only one group present (\textit{exp. 5 -- 7}. \add{Table of Experiment}.
+Additionally, a final experiment with no carnivores present was used to identify if a certain experiment resulted in dynamics akin to a system devoid of any carnivores (\textit{exp. 8})\\\\
+Ecosystem functioning was measured as biomass density of the basal trophic level (autotrophs), and related to ecosystem, community and individual level herbivore dynamics. This rationale is based on the assumption that altered carnivore functional diversity (i.e. richness or composition) would have result in cascading effects from herbivores, to autotrophs. \\\\
+Simulations were run for 100 years to allow for the development of a dynamic equilibrium; 
+the choice of this simulation time was based on prior experiences (oral communication with model developers) and previous results from \cite{Harfoot2014}. \\
+Initial cohort numbers were not adjusted to control levels (\textit{exp. 1}) across experiments with lower functional richness. This was done to emulate the effect of full extinction (i.e. instantaneous loss of entire carnivore groups) on an intact system.
 
 Terminology, Cohort seeding: Figure~\ref{fig:app:tsinit}
+%\section{Model Set-up}
+%
 
 \section{Data Preparation}
 \label{chap:mat:data}
