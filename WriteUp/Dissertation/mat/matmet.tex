@@ -16,10 +16,12 @@ Environmental conditions (for terrestrial ecosystems: precipitation
 \subsection{Functional groups, stocks and cohort dynamics}
 \label{chap:mat:madingley:func}
 %
-Organisms are characterized by fixed functional traits, which determine functional group membership. These are simple, categorical life history traits, such as feeding mode or reproductive strategy (cf. Table~\add{FG table}). In addition, there are continuous traits, such as body mass or assimilation efficiencies for food intake, which modulate the ecological processes encoded into the model (cf. Section~\ref{chap:mat:madingley:princip}).\\
-In total there are nine functional groups implemented in the model, three for each of the major heterotrophic groups - herbivore, omnivore, carnivore. Plants are represented as stocks for various reasons.\\\\
+Organisms are characterized by fixed functional traits, which determine functional group membership. These are simple, categorical life history traits, such as feeding mode or reproductive strategy (cf. Table~\ref{tab:mat:madingley:func}). In addition, there are continuous traits, such as body mass or assimilation efficiencies for food intake, which modulate the ecological processes encoded into the model (cf. Section~\ref{chap:mat:madingley:princip}), along with a user-defined body mass range (adopted from \citealp{Harfoot2014}).
+\input{mat/tables/fgdef}
+In total there are nine functional groups implemented in the model, three for each of the heterotrophic groups - herbivore, omnivore and carnivore. Plants are represented as, stocks with which herbivores and omnivores can interact.\\\\
  Individuals are grouped into cohorts, which act unanimously (i.e. as individuals).  A cohort is characterized by fixed traits, i.e. functional group membership, body mass at birth and at reproductive maturity, as well as three traits that are updated within each time step, and are affected by the ecological processes (cf. Section~\ref{chap:mat:madingley:princip}): individual abundance within a cohort, current (wet matter) body mass, and stored reproductive body mass. \\
- The cohort approach was adopted to decrease computational costs. In this light, merging was also implemented, where cohorts of similar characteristics are combined, when a certain threshold number of cohorts is reached. This ensures computational tractability and has been shown to have little to no effect on outcomes of modelled ecosystems.
+ The cohort approach was adopted to decrease computational costs. In this light, merging was also implemented, where cohorts of similar characteristics are combined, when a certain threshold number of cohorts is reached. This ensures computational tractability and has been shown to have little to no effect on outcomes of modelled ecosystems \citep[cf.][]{Harfoot2014}.
+ \clearpage
 \subsection{Encoded Ecological Principles}
 \label{chap:mat:madingley:princip}
 The model developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S1 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
@@ -28,7 +30,7 @@ Plants allocate a fixed proportion of their growth into structural maintenance, 
 \\\\
 \textbf{Heterotrophic growth} is determined by the difference of energy assimilated from food via herbivory (herbivores, omnivores) or predation (omnivores, carnivores) and metabolic loss, as well as energy allocated for reproduction.\\\\
 \textbf{Eating} is defined as herbivory for herbivores and omnivores, and as predation for omnivores and carnivores, where both plant stocks and heterotroph cohorts are well mixed within a grid cell. All organisms spend a fixed amount of time foraging; for omnivores this is equally distributed between herbivory and predation. 
-The efficiency with which food is assimilated is a fundamental parameter defined for each functional group (cf. Section~\ref{chap:mat:madingley:func} and \add{Table with FG Definitions}). \\
+The efficiency with which food is assimilated is a fundamental parameter defined for each functional group (cf. Section~\ref{chap:mat:madingley:func} and Table~\ref{tab:mat:madingley:func}). \\
 Herbivory and predation are implemented via a Holling's Type III response function, which assumes that food intake (plant or autotroph tissue) by an organism depends on prey (or plant) density \citep{Denno2012}. 
 This is further constrained by foraging processes, i.e. handling time and attack rates, which are allometrically scaled for herbivory, and are based on a size-structured model for predation by omnivores and carnivores (\citet{Williams2011}; cf. supplemental material for details). 
 That is, predation only occurs on cohorts of suitable size classes proportional to predator body mass.
@@ -52,28 +54,48 @@ Semelparous organisms use all of their stored reproductive biomass and part of t
 
 \section{Experiment Design}
 \label{chap:mat:exp}
-The model was used to simulate ecosystems of distinct climatic character, one highly productive, aseasonal in Southern Uganda and one temperate, seasonal system in Central England (cf. Table~\add{Table of Locations} in $1^\circ$ by $1^\circ$ cells. 
-These locations are in concert with those simulated in \citet{Harfoot2014} and were chosen to elucidate the effect of climate on ecosystem functioning
-\\ The role of carnivore functional group richness and composition was determined by simulating both systems under different levels of richness and composition: 
-the first experiment was done with all three carnivore groups present ($Ect_i, Ect_s, End_i$) as a control (\textit{exp. 1}), 6 subsequent experiments had either combinations of two groups (\textit{exp. 2 -- 4}), or only one group present (\textit{exp. 5 -- 7}. \add{Table of Experiment}.
-Additionally, a final experiment with no carnivores present was used to identify if a certain experiment resulted in dynamics akin to a system devoid of any carnivores (\textit{exp. 8})\\\\
-Ecosystem functioning was measured as biomass density of the basal trophic level (autotrophs), and related to ecosystem, community and individual level herbivore dynamics. This rationale is based on the assumption that altered carnivore functional diversity (i.e. richness or composition) would have result in cascading effects from herbivores, to autotrophs. \\\\
-Simulations were run for 100 years to allow for the development of a dynamic equilibrium; 
-the choice of this simulation time was based on prior experiences (oral communication with model developers) and previous results from \cite{Harfoot2014}. \\
-Initial cohort numbers were not adjusted to control levels (\textit{exp. 1}) across experiments with lower functional richness. This was done to emulate the effect of full extinction (i.e. instantaneous loss of entire carnivore groups) on an intact system.
+Two ecosystems with distinct climatic conditions, one highly productive, aseasonal in Southern Uganda and one temperate, seasonal system in Central England (cf. Table~\ref{tab:mat:exp:loc}) were simulated in $1^\circ$ by $1^\circ$ cells. 
+These locations are in concert with those used in \citet{Harfoot2014} and were chosen to elucidate the effect of climate on ecosystem functioning. \\
+Simulations were run for 100 years (monthly resolution) to allow for the development of a dynamic equilibrium; 
+this was based on prior experience (oral communication with model developers) and previous results from \cite{Harfoot2014}.
+\input{mat/tables/loc}
+\\\\
+The role of carnivore functional group richness and composition was determined by simulating both systems under different levels of richness and composition: 
+the first experiment was done with all three carnivore groups present ($Ect_i, Ect_s, End_i$) as a control (\textit{exp. 1}), 6 subsequent experiments had either combinations of two groups (\textit{exp. 2 -- 4}), or only one group present (\textit{exp. 5 -- 7}). 
+Finally, one set of simulations with no carnivores present was used to identify if a certain experiment resulted in dynamics akin to a system devoid of any carnivores (\textit{exp. 8}). Table~\ref{tab:mat:exp} gives an overview of these experiment details. \\
+Experiments were repeated 100 times to account for variability resulting from stochastic elements in the model (i.e. dispersal, predation).
+\input{mat/tables/exp}
+\\\\
+Ecosystem functioning was measured as biomass density ([$kg\cdot km^{-2}$]) of the basal trophic level (autotrophs), and related to ecosystem (biomass density), community (abundance density [$n\cdot km^{-2}$]) and individual level (average body mass [[$kg\cdot n^{-1}$]) properties of strict herbivores. This rationale is based on the assumption that altered carnivore functional diversity (i.e. richness or composition) would result in cascading effects from herbivores to autotrophs.
+%
+\subsection{Model set-up and initialisation}
+For the first time step, the user-specified body mass range is randomly sampled (uniform distribution) to produce parameters (e.g. body mass at birth) for the initial set of  cohorts (cf. Section~\ref{chap:mat:madingley:func}).
+The simulated ecosystems were seeded with 112 of these randomly produced cohorts (user specified, cf. \citealp{Harfoot2014}) per grid cell for each functional group present in an experiment.\\
+Initial cohort numbers were not adjusted to control levels (i.e. \textit{exp. 1}) across experiments with lower functional richness (cf. Figure~\ref{fig:app:tsinit}). This was done to emulate the effect of full extinction (i.e. instantaneous loss of entire carnivore groups) on an intact system.\\
+All parameters used in the simulations are found in the supplemental material. 
 
-Terminology, Cohort seeding: Figure~\ref{fig:app:tsinit}
+%Terminology, Cohort seeding: Figure~\ref{fig:app:tsinit}
 %\section{Model Set-up}
 %
 
-\section{Data Preparation}
-\label{chap:mat:data}
+\section{Analysis}
+\label{chap:mat:analysis}
+All analyses were done using the statistical programming language \textsc{R} v3.1.3 \citep{RCT2015}. All other necessary software packages can be found in the supplemental material and are mentioned if crucial for the analyses.
+\subsection{Data preparation and preliminary analyses}
+The simulations were run for 100 years at monthly resolution, resulting in 1201 (including initial time step $t = 0$) observations per functional group of biomass and abundance density for each experiment. Median values for each time step were then calculated from replicates ($n = 100$). 
+\\\\
+For the statistical analyses (cf. Section~\ref{chap:mat:analysis:stats}) a representative sample of median biomass and abundance density was drawn from the final years of the simulation, assuming that the systems (for each experiment) had reached dynamic equilibrium with respect to ecosystem functioning (i.e. biomass density). 
+Observations within these samples were considered independent, as dynamics at equilibrium are quasi-stable and remain within limits given by climatic and ecological constraints imposed by the experiments. \\
+The time frame from which to draw the samples was determined using a simple procedure: (1) discard the first half of the data from the transient ("burn-in") phase; (2) fit simple linear regression models (biomass density $\sim$ time) for a specified window (e.g. from year 51 to 100) for all functional groups  across all experiments and record the number of significant slopes (i.e. trends); (3) repeat step (2) incrementally decreasing the scanning window (e.g. 52 to 100 years) until a minimum window size of 5 years (ensuring adequate sample size) is reached; (4) choose the year with the lowest number of significant trends as the first year of the representative sample.\\
+Year 90 was  identified as the optimal lower end of the sampling window; applying this universally ensured equal sample sizes for each experiment ($n = 122$).\\\\
+Average body mass was calculated by dividing  biomass density by abundance density for each time step in the equilibrium sample.
 
-\section{Statistical Analyses}
-\label{chap:mat:stats}
-
-Group differences: kruskal-wallis H test, package \textsc{pgirmess}(v1.6.2), after \cite{Siegel1988}. assumptions: independent samples. Data (grouped for expno) failed tests for normality (shapiro wilk), homogeneity of variances (bartlett test)
-
+\subsection{Statistical Analyses}
+\label{chap:mat:analysis:stats}
+Samples were highly heterogeneous regarding their distributions (e.g. variance, skewness) within a trophic group when comparing experiments and systems. None of the tested transformations lead to compliance with assumptions for parametric tests. Hence, all analyses were done using either Mann-Whitney-U Tests \citep{Hollander2013} for assessing differences between systems for a given experiment and trophic group, or 
+Kruskal-Wallis H Tests with \textit{post-hoc} multiple comparison tests (R package \textsc{pgirmess}, v1.6.2; \citealp{Siegel1988}) for determining differences between experiments for a trophic group (i.e for functional richness and composition). 
 \section{Comparison with Empirical Data}
 \label{chap:mat:emp}
+Model predictions of heterotroph - autotroph biomass ratios were compared with values derived from \cite{Cebrian2009}, which are found in the supplemental material of \cite{Harfoot2014}.
+% The locations for the empirical estimates are given in Table~	 \add{Empirical locations table}
 
