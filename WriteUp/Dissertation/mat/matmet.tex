@@ -8,8 +8,8 @@ The following sections give a brief overview to the    structure and functioning
 The \textsc{Madingley Model} is the first general ecosystem model of its kind. 
 It is process-based  and mechanistic. (i.e. uses fundamental ecological principles; cf. Section~\ref{chap:mat:madingley:princip}) and achieves its generality by being applicable to both the terrestrial and marine realm, while including both autotroph and heterotroph dynamics across all trophic levels. \\
 Interactions as well as individual  dynamics for organisms of all sizes (i.e. spanning several orders of magnitude) can be simulated at high temporal and spatial resolutions. 
-Ecosystem dynamics are determined by local environmental conditions (cf. Section~\ref{chap:mat:madingley:structure}) and interactions with surrounding systems (i.e. grid cells). 
-Rather than relying on a species specific definition of organisms, the model uses a trait-based approach, where an organism's role is determined by its membership within a functional group (cf. Section~\ref{chap:mat:madingley:structure}).
+Ecosystem dynamics are determined by local environmental conditions and interactions with surrounding systems (i.e. grid cells). 
+Rather than relying on a species specific definition of organisms, the model uses a trait-based approach, where an organism's role is determined by its membership within a functional group (cf. Section~\ref{chap:mat:madingley:func}).
 \\\\
 Environmental conditions (for terrestrial ecosystems: precipitation
 \citetalias{FC2012}, air temperature \citetalias{FC2012}, frost days \citetalias{FC2012}, available soil water \citetalias{ISRIC2012}  and seasonality of NPP \citetalias{NASA2012}) are sourced for the grid cells corresponding to the simulated systems  from open-access databases. As of now, the model does not simulate freshwater ecosystems within the terrestrial realm.
@@ -24,7 +24,7 @@ In total there are nine functional groups implemented in the model, three for ea
  \clearpage
 \subsection{Encoded Ecological Principles}
 \label{chap:mat:madingley:princip}
-The model developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S1 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
+The developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S1 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
 \textbf{Primary production} (i.e. plant growth) is based on an explicit carbon stock model using remotely sensed estimates of net primary productivity developed by \cite{Smith2012}. 
 Plants allocate a fixed proportion of their growth into structural maintenance, while the remainder is invested in other tissue, such as leaves (deciduous, evergreen) and fruits, which are edible for herbivores and omnivores. 
 \\\\
@@ -32,7 +32,7 @@ Plants allocate a fixed proportion of their growth into structural maintenance, 
 \textbf{Eating} is defined as herbivory for herbivores and omnivores, and as predation for omnivores and carnivores, where both plant stocks and heterotroph cohorts are well mixed within a grid cell. All organisms spend a fixed amount of time foraging; for omnivores this is equally distributed between herbivory and predation. 
 The efficiency with which food is assimilated is a fundamental parameter defined for each functional group (cf. Section~\ref{chap:mat:madingley:func} and Table~\ref{tab:mat:madingley:func}). \\
 Herbivory and predation are implemented via a Holling's Type III response function, which assumes that food intake (plant or autotroph tissue) by an organism depends on prey (or plant) density \citep{Denno2012}. 
-This is further constrained by foraging processes, i.e. handling time and attack rates, which are allometrically scaled for herbivory, and are based on a size-structured model for predation by omnivores and carnivores (\citet{Williams2011}; cf. supplemental material for details). 
+This is further constrained by foraging processes, i.e. handling time and attack rates, which are allometrically scaled for herbivory, and are based on a size-structured model for predation by omnivores and carnivores \citep[after][; cf. supplemental material for details]{Williams2011}. 
 That is, predation only occurs on cohorts of suitable size classes proportional to predator body mass.
 \\
  Handling time for predation found in omnivores and carnivores increases linearly with prey body mass, but decreases as predators increase in body size (power law relationship). Herbivore handling times are only determined by their respective body mass. \\\\
@@ -54,11 +54,13 @@ Semelparous organisms use all of their stored reproductive biomass and part of t
 
 \section{Experiment Design}
 \label{chap:mat:exp}
-Two ecosystems with distinct climatic conditions, one highly productive, aseasonal in Southern Uganda and one temperate, seasonal system in Central England (cf. Table~\ref{tab:mat:exp:loc}) were simulated in $1^\circ$ by $1^\circ$ cells. Climate data and environmental conditions were taken from the sources mentioned in Section~\ref{chap:mat:madingley}, and implemented as long-term averages (i.e. repeated for each year).
-These locations are in concert with those used in \citet{Harfoot2014} and were chosen to elucidate the effect of climate on ecosystem functioning. \\
+Two ecosystems with distinct climatic conditions, one highly productive, aseasonal in Southern Uganda and one temperate, seasonal system in Central England (cf. Table~\ref{tab:mat:exp:loc}) were simulated in individual $1^\circ$ by $1^\circ$ cells (i.e. no dispersal in or out of the system was permitted). 
+Climate data and environmental conditions were taken from the sources mentioned in Section~\ref{chap:mat:madingley}, and implemented as long-term monnthly averages and repeated for each year.\\
+\input{mat/tables/loc}
+These locations are in concert with those used in \citet{Harfoot2014} and were chosen to elucidate the effect of climate on ecosystem functioning and to allow comparisons with previous results. 
+\\
 Simulations were run for 100 years (monthly resolution) to allow for the development of a dynamic equilibrium; 
 this was based on prior experience (oral communication with model developers) and previous results from \cite{Harfoot2014}.
-\input{mat/tables/loc}
 \\\\
 The role of carnivore functional group richness and composition was determined by simulating both systems under different levels of richness and composition: 
 the first experiment was done with all three carnivore groups present ($Ect_i, Ect_s, End_i$) as a control (\textit{exp. 1}), 6 subsequent experiments had either combinations of two groups (\textit{exp. 2 -- 4}), or only one group present (\textit{exp. 5 -- 7}). 
@@ -93,7 +95,8 @@ Average body mass was calculated by dividing  biomass density by abundance densi
 \subsection{Statistical Analyses}
 \label{chap:mat:analysis:stats}
 Samples were highly heterogeneous regarding their distributions (e.g. variance, skewness) within a trophic group when comparing experiments and systems. None of the tested transformations lead to compliance with assumptions for parametric tests. Hence, all analyses were done using either Mann-Whitney-U Tests \citep{Hollander2013} for assessing differences between systems for a given experiment and trophic group, or 
-Kruskal-Wallis H Tests with \textit{post-hoc} multiple comparison tests (R package \textsc{pgirmess}, v1.6.2; \citealp{Siegel1988}) for determining differences between experiments for a trophic group (i.e for functional richness and composition). 
+Kruskal-Wallis H Tests with \textit{post-hoc} multiple comparison tests (R package \textsc{pgirmess}, v1.6.2; \citealp{Siegel1988}) for determining differences between experiments for a trophic group (i.e for functional richness and composition). \\\\
+For each presented median value 95~\% confidence intervals were estimated using a simple percentile boot-strapping approach as presented in \cite{Carpenter2000}: the observations used for calculating the median were re-sampled (with replacement) 10000 times, and boot-strap medians calculated for each. The 0.0275 and 0.0975~\% percentiles of the boot-strapped median set were then set as the upper and lower limits of confidence interval, respectively. 
 \section{Comparison with Empirical Data}
 \label{chap:mat:emp}
 Model predictions of heterotroph - autotroph biomass ratios were compared with values derived from \cite{Cebrian2009}, which are found in the supplemental material of \cite{Harfoot2014}.
