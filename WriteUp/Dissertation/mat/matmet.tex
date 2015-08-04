@@ -64,7 +64,7 @@ this was based on prior experience (oral communication with model developers) an
 \\\\
 The role of carnivore functional group richness and composition was determined by simulating both systems under different levels of richness and composition: 
 the first experiment was done with all three carnivore groups present ($Ect_i, Ect_s, End_i$) as a control (\textit{exp. 1}), 6 subsequent experiments had either combinations of two groups (\textit{exp. 2 -- 4}), or only one group present (\textit{exp. 5 -- 7}). 
-Finally, one set of simulations with no carnivores present was used to identify if a certain experiment resulted in dynamics akin to a system devoid of any carnivores (\textit{exp. 8}). Table~\ref{tab:mat:exp} gives an overview of these experiment details. \\
+Finally, one set of simulations with no carnivores present was used to identify if a certain experiment resulted in dynamics akin to a system devoid of any carnivores (\textit{exp. 8}). Table~\ref{tab:mat:exp} gives an overview of the experimental design. \\
 Experiments were repeated 100 times to account for variability resulting from stochastic elements in the model (i.e. dispersal, predation).
 \input{mat/tables/exp}
 \\\\
@@ -96,7 +96,7 @@ Average body mass was calculated by dividing  biomass density by abundance densi
 \label{chap:mat:analysis:stats}
 Samples were highly heterogeneous regarding their distributions (e.g. variance, skewness) within a trophic group when comparing experiments and systems. None of the tested transformations lead to compliance with assumptions for parametric tests. Hence, all analyses were done using either Mann-Whitney-U Tests \citep{Hollander2013} for assessing differences between systems for a given experiment and trophic group, or 
 Kruskal-Wallis H Tests with \textit{post-hoc} multiple comparison tests (R package \textsc{pgirmess}, v1.6.2; \citealp{Siegel1988}) for determining differences between experiments for a trophic group (i.e for functional richness and composition). \\\\
-For each presented median value 95~\% confidence intervals were estimated using a simple percentile boot-strapping approach as presented in \cite{Carpenter2000}: the observations used for calculating the median were re-sampled (with replacement) 10000 times, and boot-strap medians calculated for each. The 0.0275 and 0.0975~\% percentiles of the boot-strapped median set were then set as the upper and lower limits of confidence interval, respectively. 
+For each presented median value 95~\% confidence intervals were estimated using a simple percentile boot-strapping approach as presented in \cite{Carpenter2000}: the observations used for calculating the median were re-sampled (with replacement) 10000 times, and boot-strap medians calculated for each. The 2.75 and 97.5~\% percentiles of the boot-strapped median set were then set as the upper and lower limits of confidence interval, respectively. 
 \section{Comparison with Empirical Data}
 \label{chap:mat:emp}
 Model predictions of heterotroph - autotroph biomass ratios were compared with values derived from \cite{Cebrian2009}, which are found in the supplemental material of \cite{Harfoot2014}.
