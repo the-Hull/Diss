@@ -1,4 +1,5 @@
 require(dplyr)
+require(tikzDevice)
 load("./output/HARatios_medianCI.Rda")
 load("./output/OARatios_medianCI.Rda")
 load("./output/CARatios_medianCI.Rda")
@@ -22,7 +23,7 @@ barrow <- median(emp$LHerA[emp$Name=="Barrow, Alaska"])
 cedar <- median(emp$LHerA[emp$Name=="Cedar Creek Natural History Area, Minnesota"])
 
 devon <- median(emp$LHerA[emp$Name=="Devon Island, Nunavut"])
-#
+
 #
 # HA.summary$FGroup <- "Herb-Auto"
 # HerbA_bootMedian <- boot_resamp(HA.summary, 1080, 10^4)
@@ -41,7 +42,10 @@ devon <- median(emp$LHerA[emp$Name=="Devon Island, Nunavut"])
 # bootMedian_ratios$CA <- CarA_bootMedian
 # bootMedian_ratios$OA <- OmnA_bootMedian
 # save(bootMedian_ratios, file="output/bootMedian_RatiosBMD.Rda")
-
+load("./output/bootMedian_RatiosBMD.Rda")
+HerbA_bootMedian <-  bootMedian_ratios$HA
+CarA_bootMedian <- bootMedian_ratios$CA
+OmnA_bootMedian <- bootMedian_ratios$OA
 ##### PLOT ---------------
 # Def:
 
@@ -164,9 +168,6 @@ arrows(x0 = 1.66:7.66,y0 = log10(OmnA_bootMedian$median[,1]),
 
 ### Empirical
 
-
-text(x = 1.3, y = serengeti, label = "Serengeti,\nTanzania", pos = 4)
-
 arrows(x0 = 1, y0 = serengeti,
        y1 = ser.max,
        angle = 90, length = a.length)
@@ -176,14 +177,26 @@ arrows(x0 = 1, y0 = serengeti,
        y1 = ser.min,
        angle = 90, length = a.length)
 
+text(x = 1, y = serengeti, label = "Serengeti,\nTanzania", pos = 4)
+
 points(1,
-       cedar,
+       serengeti,
        pch = 21,
        col = "black",
        bg = "#44CA9F",
        cex = ptcex,
        lwd = 2
 )
+
+
+# points(1,
+#        cedar,
+#        pch = 21,
+#        col = "black",
+#        bg = "#44CA9F",
+#        cex = ptcex,
+#        lwd = 2
+# )
 
 
 legend("topleft",
@@ -313,7 +326,7 @@ points(1,
        lwd = 2
 )
 
-text(x = 1.1, y = barrow, label = "Alaska,\nUSA", pos = 1)
+text(x = 1.1, y = barrow-0.2, label = "Alaska,\nUSA", pos = 1)
 
 
 
@@ -340,7 +353,7 @@ points(3,
        lwd = 2
 )
 
-text(x = 3, y = cedar*1.2, label = "Minnesota,\nUSA", pos = 4, offset = c(1,1))
+text(x = 3.5, y = cedar*1.2, label = "Minnesota,\nUSA", pos = 1)
 
 
 

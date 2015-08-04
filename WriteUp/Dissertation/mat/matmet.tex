@@ -22,7 +22,7 @@ In total there are nine functional groups implemented in the model, three for ea
  Individuals are grouped into cohorts, which act unanimously (i.e. as individuals).  A cohort is characterized by fixed traits, i.e. functional group membership, body mass at birth and at reproductive maturity, as well as three traits that are updated within each time step, and are affected by the ecological processes (cf. Section~\ref{chap:mat:madingley:princip}): individual abundance within a cohort, current (wet matter) body mass, and stored reproductive body mass. \\
  The cohort approach was adopted to decrease computational costs. In this light, merging was also implemented, where cohorts of similar characteristics are combined, when a certain threshold number of cohorts is reached. This ensures computational tractability and has been shown to have little to no effect on outcomes of modelled ecosystems \citep[cf.][]{Harfoot2014}.
  \clearpage
-\subsection{Encoded Ecological Principles}
+\subsection{Encoded eccological principles}
 \label{chap:mat:madingley:princip}
 The developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S1 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
 \textbf{Primary production} (i.e. plant growth) is based on an explicit carbon stock model using remotely sensed estimates of net primary productivity developed by \cite{Smith2012}. 
@@ -52,7 +52,7 @@ Semelparous organisms use all of their stored reproductive biomass and part of t
 %\subsection{Outputs}
 %\label{chap:mat:madingley:output}
 
-\section{Experiment Design}
+\section{Experiment design}
 \label{chap:mat:exp}
 Two ecosystems with distinct climatic conditions, one highly productive, aseasonal in Southern Uganda and one temperate, seasonal system in Central England (cf. Table~\ref{tab:mat:exp:loc}) were simulated in individual $1^\circ$ by $1^\circ$ cells (i.e. no dispersal in or out of the system was permitted). 
 Climate data and environmental conditions were taken from the sources mentioned in Section~\ref{chap:mat:madingley}, and implemented as long-term monnthly averages and repeated for each year.\\
@@ -92,12 +92,12 @@ The time frame from which to draw the samples was determined using a simple proc
 Year 90 was  identified as the optimal lower end of the sampling window; applying this universally ensured equal sample sizes for each experiment ($n = 122$).\\\\
 Average body mass was calculated by dividing  biomass density by abundance density for each time step in the equilibrium sample.
 
-\subsection{Statistical Analyses}
+\subsection{Statistical analyses}
 \label{chap:mat:analysis:stats}
 Samples were highly heterogeneous regarding their distributions (e.g. variance, skewness) within a trophic group when comparing experiments and systems. None of the tested transformations lead to compliance with assumptions for parametric tests. Hence, all analyses were done using either Mann-Whitney-U Tests \citep{Hollander2013} for assessing differences between systems for a given experiment and trophic group, or 
-Kruskal-Wallis H Tests with \textit{post-hoc} multiple comparison tests (R package \textsc{pgirmess}, v1.6.2; \citealp{Siegel1988}) for determining differences between experiments for a trophic group (i.e for functional richness and composition). \\\\
-For each presented median value 95~\% confidence intervals were estimated using a simple percentile boot-strapping approach as presented in \cite{Carpenter2000}: the observations used for calculating the median were re-sampled (with replacement) 10000 times, and boot-strap medians calculated for each. The 2.75 and 97.5~\% percentiles of the boot-strapped median set were then set as the upper and lower limits of confidence interval, respectively. 
-\section{Comparison with Empirical Data}
+Kruskal-Wallis H Tests with \textit{post-hoc} multiple comparisons (R package \textsc{pgirmess}, v1.6.2; \citealp{Siegel1988}) for determining differences between experiments for a trophic group (i.e for functional richness and composition). \\\\
+For each presented median value 95~\% confidence intervals were estimated using a simple percentile boot-strapping approach as presented in \cite{Carpenter2000}: the observations used for calculating the median were re-sampled (with replacement) 10000 times, and boot-strap medians calculated for each. The 2.75 and 97.5~\% percentiles of the boot-strapped median set were then used as the upper and lower confidence interval limits, respectively. 
+\section{Comparison with empirical data}
 \label{chap:mat:emp}
 Model predictions of heterotroph - autotroph biomass ratios were compared with values derived from \cite{Cebrian2009}, which are found in the supplemental material of \cite{Harfoot2014}.
 % The locations for the empirical estimates are given in Table~	 \add{Empirical locations table}
