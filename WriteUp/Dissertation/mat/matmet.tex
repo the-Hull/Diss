@@ -1,7 +1,7 @@
 \chapter{Materials and Methods}
 \label{chap:mat}
 The following sections give a brief overview to the    structure and functioning of the \textsc{Madingley Model}, as well as the experimental design (i.e. simulated experiments), data preparation and subsequent analyses used in this study. Model details and explanations are taken from the main text and supplemental material of \cite{Harfoot2014} unless other sources are specified, and generally refer to processes in terrestrial ecosystems only.\\\\
- All data and computer code to reproduce the results presented in the Section~\ref{chap:res} can be found in the attached data medium and at \textit{www.github.com/the-Hull} (as of July, 2015). The model, along with supplemental material detailing technical specifications and underlying equations are also found on the storage.
+ All data and computer code to reproduce the results presented in the Section~\ref{chap:res} can be found in the attached data medium. The model, along with supplemental material detailing technical specifications and underlying equations are also found on the storage.
 \section{The Madingley Model}
 \label{chap:mat:madingley}
 %
@@ -12,7 +12,7 @@ Ecosystem dynamics are determined by local environmental conditions and interact
 Rather than relying on a species specific definition of organisms, the model uses a trait-based approach, where an organism's role is determined by its membership within a functional group (cf. Section~\ref{chap:mat:madingley:func}).
 \\\\
 Environmental conditions (for terrestrial ecosystems: precipitation
-\citetalias{FC2012}, air temperature \citetalias{FC2012}, frost days \citetalias{FC2012}, available soil water \citetalias{ISRIC2012}  and seasonality of NPP \citetalias{NASA2012}) are sourced for the grid cells corresponding to the simulated systems  from open-access databases. As of now, the model does not simulate freshwater ecosystems within the terrestrial realm.
+\citetalias{FC2012}, air temperature \citetalias{FC2012}, frost days \citetalias{FC2012}, available soil water \citetalias{ISRIC2012}  and seasonality of NPP \citetalias{NASA2012}) are sourced for the grid cells corresponding to the simulated systems  from open-access databases (see S1 \textsc{Climate Data}). As of now, the model does not simulate freshwater ecosystems within the terrestrial realm.
 \subsection{Functional groups, stocks and cohort dynamics}
 \label{chap:mat:madingley:func}
 %
@@ -24,7 +24,7 @@ In total there are nine functional groups implemented in the model, three for ea
  \clearpage
 \subsection{Encoded eccological principles}
 \label{chap:mat:madingley:princip}
-The developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S1 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
+The developers encoded into the model a set of ecological and biological processes they deemed appropriate for simulating ecosystem structure and functioning. These include: primary production (autotrophs), metabolism, eating, growth, reproduction, dispersal and mortality (heterotrophs). For detailed equations, see supplemental material (S2 \textsc{Model Equations}). All processes occur in random order each time step, and determine the total abundance and biomass within a cohort and grid cell in the next time step. \\\\
 \textbf{Primary production} (i.e. plant growth) is based on an explicit carbon stock model using remotely sensed estimates of net primary productivity developed by \cite{Smith2012}. 
 Plants allocate a fixed proportion of their growth into structural maintenance, while the remainder is invested in other tissue, such as leaves (deciduous, evergreen) and fruits, which are edible for herbivores and omnivores. 
 \\\\
@@ -32,7 +32,7 @@ Plants allocate a fixed proportion of their growth into structural maintenance, 
 \textbf{Eating} is defined as herbivory for herbivores and omnivores, and as predation for omnivores and carnivores, where both plant stocks and heterotroph cohorts are well mixed within a grid cell. All organisms spend a fixed amount of time foraging; for omnivores this is equally distributed between herbivory and predation. 
 The efficiency with which food is assimilated is a fundamental parameter defined for each functional group (cf. Section~\ref{chap:mat:madingley:func} and Table~\ref{tab:mat:madingley:func}). \\
 Herbivory and predation are implemented via a Holling's Type III response function, which assumes that food intake (plant or autotroph tissue) by an organism depends on prey (or plant) density \citep{Denno2012}. 
-This is further constrained by foraging processes, i.e. handling time and attack rates, which are allometrically scaled for herbivory, and are based on a size-structured model for predation by omnivores and carnivores \citep[after][; cf. supplemental material for details]{Williams2011}. 
+This is further constrained by foraging processes, i.e. handling time and attack rates, which are allometrically scaled for herbivory, and are based on a size-structured model for predation by omnivores and carnivores \citep[after][cf. S2 \textsc{Model Equations}]{Williams2011}. 
 That is, predation only occurs on cohorts of suitable size classes proportional to predator body mass.
 \\
  Handling time for predation found in omnivores and carnivores increases linearly with prey body mass, but decreases as predators increase in body size (power law relationship). Herbivore handling times are only determined by their respective body mass. \\\\
@@ -74,7 +74,7 @@ Ecosystem functioning was measured as biomass density ([$kg\cdot km^{-2}$]) of t
 For the first time step, the user-specified body mass range is randomly sampled (uniform distribution) to produce parameters (e.g. body mass at birth) for the initial set of  cohorts (cf. Section~\ref{chap:mat:madingley:func}).
 The simulated ecosystems were seeded with 112 of these randomly produced cohorts (user specified, cf. \citealp{Harfoot2014}) per grid cell for each functional group present in an experiment.\\
 Initial cohort numbers were not adjusted to control levels (i.e. \textit{exp. 1}) across experiments with lower functional richness (cf. Figure~\ref{fig:app:tsinit}).
-All parameters used in the simulations are found in the supplemental material. 
+All parameters used in the simulations are found in the supplemental material S3 \textsc{Model Parameters}. 
 
 %Terminology, Cohort seeding: Figure~\ref{fig:app:tsinit}
 %\section{Model Set-up}
