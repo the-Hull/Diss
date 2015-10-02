@@ -25,13 +25,15 @@ This comes from the way Git manages version control:
 
 > After you're happy with changes you made to one, or multiple files, you **commit** these changes to your online repository, and this is how you keep track of what you (or others) have been doing.
 
+**Note:* Have a look at git's [*features*][5] and how the [*online file storage*][6] may look like.
+
 Commits
 -------------
-Let's go back to <i class="icon-folder-open"></i> [Diss/][2] and check out some of the latest commits. Above the list of files and folders, click on [*Commits*][3] - there should be 56 of them. 
+Let's go back to <i class="icon-folder-open"></i> [Diss/][2] and check out some of the latest commits. Above the list of files and folders, click on [*Commits*][3] - there should be 58 of them. 
 
 Here you can see an overview of all the changes that I committed. Each commit comes with a title, a comment, the author's name and a date. Other options (e.g. browsing a snapshot of a repository from the past) are available on the right hand side.
 
-Scroll down to the bottom of the list, and click on the commit called "[*colors, trend*][4]" from the 1st of July, 2015. You'll see which files I modified, and how - added lines are shown in green, and changed, or deleted ones in red. 
+Scroll down to the bottom of the list, and click on the commit called "[*TS Graphs, initial BMD table *][4]" from the 23rd of July, 2015. You'll see which files I modified, and how - added lines are shown in green, and changed, or deleted ones in red. 
 
 The version control system is what makes git so powerful:
 > Even after overwriting a file with a new save, you can always go back to a previous commit and restore what was lost.
@@ -41,3 +43,5 @@ The version control system is what makes git so powerful:
   [2]: https://github.com/the-Hull/Diss/
   [3]: https://github.com/the-Hull/Diss/commits/master
   [4]: https://github.com/the-Hull/Diss/commit/2688c07591fc8e8099ca7db71d3a0f5955674477
+  [5]: https://github.com/features
+  [6]: https://www.youtube.com/watch?v=uLR1RNqJ1Mw
