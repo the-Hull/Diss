@@ -1,13 +1,7 @@
 Welcome to myDiss!
 ===================
-You can create footnotes like this.
 
-
-
-
-This is repository contains code[^footnote] to:
-
-  [^footnote]: This project was for my MSc dissertation.
+This is repository contains code to:
 
  - **process** raw data 
  - subequently **analyse** it 
@@ -40,7 +34,7 @@ Here you can see an overview of all the changes that I committed. Each commit co
 Scroll down to the bottom of the list, and click on the commit called "[*colors, trend*][4]" from the 1st of July, 2015. You'll see which files I modified, and how - added lines are shown in green, and changed, or deleted ones in red. 
 
 The version control system is what makes git so powerful:
-> Even after overwriting a file with a new save, you can always go back to a previous commit and restore the file.
+> Even after overwriting a file with a new save, you can always go back to a previous commit and restore what was lost.
 
 
   [1]: https://github.com/the-Hull/Diss/tree/master/Analysis/source
