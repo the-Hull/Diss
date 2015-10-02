@@ -29,11 +29,11 @@ This comes from the way Git manages version control:
 
 Commits
 -------------
-Let's go back to <i class="icon-folder-open"></i> [Diss/][2] and check out some of the latest commits. Above the list of files and folders, click on [*Commits*][3] - there should be 58 of them. 
+Let's go back to <i class="icon-folder-open"></i> [Diss/][2] and check out some of the latest commits. Above the list of files and folders, click on [*Commits*][3] - there should be 59 of them. 
 
 Here you can see an overview of all the changes that I committed. Each commit comes with a title, a comment, the author's name and a date. Other options (e.g. browsing a snapshot of a repository from the past) are available on the right hand side.
 
-Scroll down to the bottom of the list, and click on the commit called "[*TS Graphs, initial BMD table *][4]" from the 23rd of July, 2015. You'll see which files I modified, and how - added lines are shown in green, and changed, or deleted ones in red. 
+Scroll down a bit, and click on the commit called "[*TS Graphs, initial BMD table *][4]" from the 23rd of July, 2015. You'll see which files I modified, and how - added lines are shown in green, and changed, or deleted ones in red. 
 
 The version control system is what makes git so powerful:
 > Even after overwriting a file with a new save, you can always go back to a previous commit and restore what was lost.
