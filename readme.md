@@ -10,7 +10,7 @@ This is repository contains code to:
 
 Structure
 -------------
- The folder structure in the repositiory follows a typical approach I use for organizing a project. Raw data, and and all steps and resources necessary for processeing (i.e. scripts / functions / packages) are kept seperately.
+ The folder structure in the repositiory follows a typical approach I use for organizing a project. Raw data,and all steps and resources necessary for processeing (i.e. scripts / functions / packages) are kept seperately.
 
 Explore Git
 -------------
@@ -29,7 +29,7 @@ This comes from the way Git manages version control:
 
 Commits
 -------------
-Let's go back to <i class="icon-folder-open"></i> [Diss/][2] and check out some of the latest commits. Above the list of files and folders, click on [*Commits*][3] - there should be 59 of them. 
+Let's go back to <i class="icon-folder-open"></i> [Diss/][2] and check out some of the latest commits. Above the list of files and folders, click on [*Commits*][3] - there should be 60 of them. 
 
 Here you can see an overview of all the changes that I committed. Each commit comes with a title, a comment, the author's name and a date. Other options (e.g. browsing a snapshot of a repository from the past) are available on the right hand side.
 
@@ -42,6 +42,6 @@ The version control system is what makes git so powerful:
   [1]: https://github.com/the-Hull/Diss/tree/master/Analysis/source
   [2]: https://github.com/the-Hull/Diss/
   [3]: https://github.com/the-Hull/Diss/commits/master
-  [4]: https://github.com/the-Hull/Diss/commit/2688c07591fc8e8099ca7db71d3a0f5955674477
+  [4]: https://github.com/the-Hull/Diss/commit/740576dea6e0b984185b5e4249f8559cdfbdbe81
   [5]: https://github.com/features
   [6]: https://www.youtube.com/watch?v=uLR1RNqJ1Mw
